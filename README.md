@@ -9,4 +9,4 @@ To complete this task we need two things (1) The help of volunteers (2) Roughly 
 If you would like to help us in this challenge, please go to our GoFundMe site and make a small contribution. 
 We have over 3,000 followers on Twitter [https://x.com/Marinelivesorg}. If each follower made a £5 or £10 contribution we could achieve our target.
 
-Check out our 12,00 page wiki here [http://www.marinelives.org/wiki/MarineLives]
+Check out our 12,000 page wiki here [http://www.marinelives.org/wiki/MarineLives]
