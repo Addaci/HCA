@@ -1,0 +1,429 @@
+
+Trabalhando com Aurelius-HTR no Transkribus para Corrigir HTR Bruto  
+SEÇÃO UM - Versão 1.3 (10/09/2024)
+
+===============================================================================
+1. Introdução ao Reconhecimento de Texto Manuscrito (HTR) e o Modelo HCA Secretary Hand 4.404 PyLaia
+===============================================================================
+
+-------------------------------------------------------------------------------
+1.1 Visão Geral da Tecnologia de HTR
+-------------------------------------------------------------------------------
+
+O Reconhecimento de Texto Manuscrito (HTR) é uma tecnologia projetada para transcrever documentos manuscritos em texto legível por máquina. Ao contrário do Reconhecimento Óptico de Caracteres (OCR), que é eficaz para textos impressos, o HTR se concentra na tarefa mais complexa de decifrar a escrita manual. Isso é particularmente valioso para documentos históricos, manuscritos, registros legais e arquivos que, de outra forma, levariam muito tempo para serem transcritos manualmente.
+
+Os modelos de HTR dependem de redes neurais e técnicas de aprendizado de máquina, treinados em grandes conjuntos de textos manuscritos pareados com suas transcrições corretas (conhecidas como Ground Truth). Ao identificar padrões na caligrafia, esses modelos podem automatizar grande parte do processo de transcrição. No entanto, o processo não é totalmente automático, e mesmo modelos bem treinados requerem correção manual para garantir precisão. A saída do HTR é especialmente suscetível a erros quando lida com documentos históricos, onde a caligrafia varia amplamente em estilo, e as convenções ortográficas ou gramaticais diferem do uso moderno.
+
+-------------------------------------------------------------------------------
+1.2 Entendendo o Transkribus e Seu Papel no HTR
+-------------------------------------------------------------------------------
+
+O Transkribus é uma plataforma projetada para a transcrição e digitalização de documentos históricos. Ele oferece aos usuários a capacidade de carregar imagens de documentos manuscritos, executar modelos HTR nessas imagens e, em seguida, revisar e corrigir a saída. A plataforma suporta uma ampla variedade de idiomas e estilos de caligrafia, sendo útil para pesquisadores, arquivistas e historiadores.
+
+O Transkribus oferece ferramentas para análise de layout, que ajudam a identificar diferentes seções de um documento, como cabeçalhos, notas de rodapé e notas marginais. Depois que o documento é processado, o usuário pode aplicar modelos HTR, como o modelo HCA Secretary Hand 4.404 PyLaia, para gerar uma transcrição. Embora a plataforma reduza significativamente a carga de trabalho, é essencial revisar cuidadosamente a transcrição para detectar qualquer erro que o modelo HTR possa ter perdido ou interpretado incorretamente.
+
+-------------------------------------------------------------------------------
+1.3 O Modelo HCA Secretary Hand 4.404 PyLaia
+-------------------------------------------------------------------------------
+
+1.3.1 Visão Geral das Deposições do HCA e a Natureza dos Documentos
+
+O modelo HCA Secretary Hand 4.404 PyLaia foi desenvolvido especificamente para a transcrição de depoimentos legais do Tribunal Superior de Almirantado (HCA) durante o século XVII. Esses depoimentos são declarações feitas por indivíduos — em sua maioria homens, mas com algumas mulheres — que foram chamados como testemunhas pelos demandantes e réus em disputas legais marítimas. Essas disputas abrangem uma ampla gama de tópicos, incluindo disputas contratuais entre proprietários de navios e seus afretadores, disputas salariais entre marinheiros e mestres de navios, disputas entre mestres de navios e afretadores relacionadas a danos em mercadorias, e disputas entre estaleiros e proprietários de navios sobre reparos feitos nos navios.
+
+Os depoimentos foram dados oralmente em resposta a perguntas escritas, conhecidas como alegações, libelos e interrogatórios. Os notários empregados pelo Tribunal Superior de Almirantado eram responsáveis por escrever o testemunho oral das testemunhas, seguindo a estrutura das perguntas feitas a elas.
+
+-------------------------------------------------------------------------------
+1.3.2 A Caligrafia e os Desafios das Deposições do HCA
+-------------------------------------------------------------------------------
+
+A caligrafia usada nesses documentos é principalmente a Secretary Hand, que era comum em contextos legais e administrativos na Inglaterra durante este período. Este estilo de caligrafia apresenta um desafio único para os modelos HTR devido às formas de letras distintas, abreviações e variações na escrita entre diferentes notários. Embora as mãos notariais fossem geralmente formais, variações individuais no estilo podem introduzir complexidade adicional para sistemas de transcrição automatizados como o HTR.
+
+Dada a natureza legal dos depoimentos, há também uma presença significativa de termos legais especializados, frases em latim e terminologia marítima, todos os quais exigem atenção especial ao corrigir a saída do HTR.
+
+-------------------------------------------------------------------------------
+1.4 Importância do Pós-Processamento da Saída do HTR em Documentos Legais do Século XVII
+-------------------------------------------------------------------------------
+
+Embora o modelo HCA Secretary Hand 4.404 PyLaia forneça uma base sólida para a transcrição de documentos do século XVII, o pós-processamento é necessário para alcançar um alto nível de precisão. Textos históricos, especialmente registros legais, contêm muitas nuances que um modelo HTR sozinho pode não capturar totalmente. Os voluntários que revisam a saída do HTR precisarão corrigir problemas comuns, particularmente nas seguintes áreas:
+
+1. **Dados Preliminares dos Depoimentos**:  
+   O início de um depoimento legal normalmente inclui informações estruturadas, como a data, a forma abreviada do nome do caso e os detalhes sobre o depoente (seu nome, residência, ocupação e idade). Esses elementos geralmente são escritos de forma formal e padronizada, mas os modelos HTR podem ter dificuldade em reconhecê-los devido a diferentes estilos de caligrafia. Deve-se prestar atenção especial a esses campos, pois a precisão aqui é fundamental para fins de pesquisa.
+
+2. **Assinatura no Fim de um Depoimento**:  
+   O fim de um depoimento pode incluir uma assinatura, iniciais ou o sinal do depoente. Isso geralmente é escrito com a mão do próprio depoente, que é diferente da mão notarial usada no corpo do texto. Como essa caligrafia é menos regular, pode ser difícil para o modelo HTR reconhecê-la com precisão. Os voluntários devem revisar cuidadosamente e, se necessário, inserir ou corrigir manualmente a assinatura do depoente.
+
+3. **Termos Geográficos**:  
+   Nomes de lugares, especialmente aqueles em contextos marítimos e legais, são frequentemente mal interpretados pelos modelos HTR. Esses termos podem estar em latim e em inglês, e sua ortografia pode diferir das convenções modernas. Por exemplo, variações históricas nos nomes de lugares ou o uso de formas latinizadas de cidades podem confundir o modelo.
+
+4. **Nomes de Pessoas**:  
+   Os nomes das pessoas mencionadas nos depoimentos podem variar amplamente em ortografia. A mesma pessoa pode ser referida com diferentes grafias no mesmo documento, e nomes em latim ou dialetos regionais complicam ainda mais o processo de transcrição. A verificação manual dos nomes é essencial para garantir que sejam transcritos corretamente, pois os modelos HTR muitas vezes têm dificuldade com nomes incomuns ou menos comuns.
+
+Ao focar nessas áreas específicas — dados preliminares, assinaturas, termos geográficos e nomes — os voluntários podem trabalhar efetivamente ao lado do modelo HTR para produzir transcrições precisas e confiáveis. A combinação de texto gerado por máquina e revisão humana é essencial para manter altos padrões de transcrição, especialmente com documentos legais históricos que exigem precisão.
+
+===============================================================================
+Fim da SEÇÃO UM
+===============================================================================
+
+
+Trabalhando com Aurelius-HTR no Transkribus para Corrigir HTR Bruto  
+SEÇÃO DOIS - Versão 1.3 (10/09/2024)
+
+===============================================================================
+2. Configurando Seu Fluxo de Trabalho no Transkribus
+===============================================================================
+
+-------------------------------------------------------------------------------
+2.1 Acessando o Transkribus: Primeiros Passos
+-------------------------------------------------------------------------------
+
+Para começar, você precisará abrir o aplicativo Transkribus. Siga os passos abaixo para começar:
+
+1. **Criar uma Conta**:
+   Visite o site do Transkribus e crie uma conta gratuita. Você precisará dessa conta para acessar a plataforma e utilizar suas funcionalidades. Certifique-se de confirmar sua conta verificando seu endereço de e-mail.
+
+2. **Abrir o Aplicativo Transkribus**:
+   Após a instalação, abra o aplicativo Transkribus em [https://app.transkribus.org/](https://app.transkribus.org/). Isso o levará à interface principal, onde você poderá visualizar todos os volumes de depoimentos do Tribunal Superior de Almirantado que os voluntários estão trabalhando.
+
+-------------------------------------------------------------------------------
+2.2 Acessando Documentos Pré-Carregados para Revisão e Correção
+-------------------------------------------------------------------------------
+
+Como voluntário, você trabalhará em volumes pré-carregados de depoimentos do Tribunal Superior de Almirantado (HCA). Cada documento representa um volume, composto por depoimentos que cobrem de um a três anos de atividade judicial. Esses volumes já foram carregados na coleção MarineLives pelo diretor do projeto, Colin Greenstreet.
+
+Sua responsabilidade é verificar e melhorar a saída do HTR bruto, utilizando sua experiência e o Aurelius-HTR como uma ferramenta colaborativa. O reconhecimento de layout e o processamento inicial do HTR já foram concluídos, então seu foco será revisar, corrigir e aprimorar a qualidade da transcrição. Para fazer isso de forma eficaz, siga os seguintes passos:
+
+1. **Acessar a Coleção MarineLives**:
+   Após fazer login no Transkribus, navegue até a aba "Coleções". Selecione a coleção MarineLives, onde todos os volumes do HCA estão armazenados. Você será designado para um volume específico, que aparecerá dentro dessa coleção.
+
+2. **Localizar Seu Volume e Faixa de Páginas Designadas**:
+   Uma vez dentro da coleção, localize o volume que foi atribuído a você. Cada volume contém uma série de páginas que representam depoimentos individuais feitos no tribunal. Você também receberá uma faixa de páginas específica dentro do volume para trabalhar. Use as ferramentas de navegação de páginas no Transkribus para ir diretamente para a seção designada a você.
+
+3. **Colaborar com Aurelius-HTR para Sugestões de Melhoria**:
+   Enquanto revisa o texto gerado pelo HTR, você trabalhará em colaboração com o Aurelius-HTR. O Aurelius foi projetado para ser um especialista útil e de apoio na correção de saídas de HTR bruto. À medida que você encontrar possíveis erros na transcrição, o Aurelius-HTR fornecerá sugestões de melhoria com base em padrões, erros comuns e conhecimentos especializados sobre a caligrafia e a terminologia legal do século XVII.
+
+4. **Usando Seu Julgamento e Expertise**:
+   Embora o Aurelius-HTR seja uma ferramenta valiosa para fornecer sugestões e assistência, ele não é perfeito. Como voluntário, você tem o controle final. Seu próprio conhecimento especializado e julgamento são cruciais para decidir quais sugestões aceitar e como corrigir melhor a transcrição. Não confie inteiramente na ferramenta — sempre consulte as imagens originais do manuscrito junto com as recomendações do Aurelius-HTR para tomar decisões informadas.
+
+5. **Revisando as Páginas do Manuscrito Original**:
+   À medida que você trabalha nas correções, é essencial consultar regularmente as imagens digitalizadas das páginas originais do manuscrito. Use a visualização dividida no Transkribus para comparar a saída do HTR com o texto original. Isso o ajudará a fazer correções precisas, especialmente em casos em que o modelo HTR pode ter dificuldade com ortografias não padronizadas, nomes ou abreviações.
+
+6. **Corrigindo Erros na Transcrição**:
+   É provável que você encontre uma série de erros típicos da caligrafia do século XVII, incluindo variações ortográficas, interpretações incorretas de abreviações e termos legais mal transcritos. Use o editor de texto no Transkribus para corrigir esses erros. Quaisquer mudanças feitas serão salvas automaticamente e sincronizadas na coleção, permitindo que a equipe do projeto revise o progresso.
+
+7. **Acompanhando Seu Progresso**:
+   Enquanto trabalha na faixa de páginas designada, acompanhe as páginas que você já concluiu. Comunique-se com a equipe do projeto se encontrar desafios ou ambiguidades no texto. Verifique regularmente seu progresso para garantir que você permaneça dentro da carga de trabalho designada.
+
+-------------------------------------------------------------------------------
+2.3 Executando HTR Usando o Modelo HCA Secretary Hand 4.404 PyLaia
+-------------------------------------------------------------------------------
+
+Como os documentos já foram processados usando o modelo HCA Secretary Hand 4.404 PyLaia, sua tarefa se concentrará na revisão da saída. No entanto, é útil entender o fluxo de trabalho básico envolvido na execução do modelo:
+
+1. **Selecionar o Modelo**:
+   No Transkribus, o modelo HCA Secretary Hand 4.404 PyLaia foi selecionado para processar esses documentos. Este modelo é especificamente treinado para lidar com documentos legais do século XVII do Tribunal Superior de Almirantado.
+
+2. **Revisar as Configurações do Modelo**:
+   O modelo foi configurado para funcionar nesses documentos históricos com configurações padrão que devem capturar o texto de maneira razoável. Você não precisa alterar essas configurações, mas entendê-las pode ajudar ao revisar a saída.
+
+3. **Executar o Modelo**:
+   O modelo foi executado em cada página dos volumes designados, e o processo de reconhecimento de texto foi concluído. Agora, você pode prosseguir para revisar as transcrições e fazer as correções necessárias com base na saída do HTR.
+
+-------------------------------------------------------------------------------
+2.4 Revisando e Navegando pela Saída Bruta do HTR no Transkribus
+-------------------------------------------------------------------------------
+
+Depois de executar o modelo HCA Secretary Hand 4.404 PyLaia, a transcrição é exibida automaticamente ao lado da imagem original do documento. Você pode navegar pelas páginas e linhas usando os seguintes recursos:
+
+1. **Visualização Dividida**:
+   O Transkribus oferece uma visualização em tela dividida, onde o documento digitalizado é exibido ao lado da transcrição. Isso facilita a comparação da saída bruta do HTR com o texto original e a identificação de áreas que precisam de correção.
+
+2. **Destacando Erros**:
+   Ao navegar pelo texto, preste atenção às seções onde o modelo HTR pode ter tido dificuldades. Isso geralmente inclui assinaturas, abreviações não padronizadas e nomes de pessoas ou lugares. Você pode corrigir esses erros manualmente, editando o texto diretamente no painel de transcrição.
+
+3. **Anotando o Texto**:
+   Se você encontrar seções do texto que precisam de revisão ou esclarecimento adicional, pode adicionar anotações diretamente no Transkribus. Isso é particularmente útil para marcar locais onde o documento pode estar danificado, incompleto ou onde uma palavra é incerta.
+
+-------------------------------------------------------------------------------
+2.5 Fluxo de Trabalho Colaborativo: Trabalhando com Equipes de Voluntários
+-------------------------------------------------------------------------------
+
+Se você estiver trabalhando como parte de uma equipe maior, o Transkribus oferece vários recursos que facilitam a colaboração em um projeto:
+
+1. **Coleções Compartilhadas**:
+   No Transkribus, você pode compartilhar coleções com outros usuários. Isso permite que várias pessoas trabalhem no mesmo conjunto de documentos, com alterações e correções automaticamente atualizadas para todos os membros da equipe.
+
+2. **Atribuindo Páginas**:
+   Líderes de equipe podem atribuir páginas ou documentos específicos a diferentes voluntários. Isso garante que ninguém trabalhe no mesmo documento ao mesmo tempo e ajuda a dividir a carga de trabalho de maneira equitativa.
+
+3. **Acompanhando Alterações**:
+   O Transkribus possui controle de versão, o que significa que mantém um histórico de todas as alterações feitas na transcrição. Você pode acompanhar quem fez quais alterações e reverter para uma versão anterior, se necessário.
+
+4. **Comunicação e Notas**:
+   Os voluntários podem usar as ferramentas de notas e anotações integradas para se comunicar diretamente dentro do documento. Isso facilita marcar áreas que precisam de revisão adicional ou discutir desafios específicos de transcrição com o restante da equipe.
+
+===============================================================================
+Fim da SEÇÃO DOIS
+===============================================================================
+
+
+Trabalhando com Aurelius-HTR no Transkribus para Corrigir HTR Bruto  
+SEÇÃO TRÊS - Versão 1.3 (10/09/2024)
+
+===============================================================================
+3. Revisão e Correção da Saída do HTR: Processo e Melhores Práticas
+===============================================================================
+
+-------------------------------------------------------------------------------
+3.1 Compreendendo o Papel do Voluntário na Correção do HTR
+-------------------------------------------------------------------------------
+
+Como voluntário trabalhando na saída do HTR, sua principal responsabilidade é garantir que a transcrição dos documentos legais do século XVII seja o mais precisa possível. Isso envolve revisar a saída bruta gerada pelo modelo HCA Secretary Hand 4.404 PyLaia e fazer as correções necessárias. Embora o Aurelius-HTR ofereça uma assistência valiosa na detecção de erros, você, como voluntário, tem a palavra final na implementação das melhorias necessárias.
+
+Esta seção o guiará através do processo passo a passo de revisão e correção de transcrições, incluindo o reconhecimento de erros comuns de HTR, a aplicação de julgamento especializado e as melhores práticas para garantir o mais alto nível de precisão.
+
+-------------------------------------------------------------------------------
+3.2 Tipos de Erros Comuns no HTR
+-------------------------------------------------------------------------------
+
+Ao revisar a saída do HTR, é importante estar ciente dos tipos de erros que são mais prováveis de ocorrer em documentos legais do século XVII. Compreender esses erros comuns o ajudará a trabalhar de forma mais eficaz e eficiente. Alguns erros típicos incluem:
+
+1. **Termos Jurídicos e Marítimos Mal Transcritos**:
+   Termos relacionados ao direito marítimo, contratos de navegação e nomes de navios são frequentemente mal reconhecidos devido à ortografia e formulação únicas em contextos históricos.
+
+2. **Nomes de Pessoas e Lugares**:
+   Os nomes geralmente aparecem em ortografias não padronizadas ou em formas latinizadas. Fique atento a erros no reconhecimento de nomes de pessoas e lugares, especialmente aqueles envolvendo indivíduos mencionados várias vezes dentro de um documento.
+
+3. **Abreviações e Contrações**:
+   Documentos históricos muitas vezes contêm abreviações que não estão mais em uso ou contrações que são difíceis de serem reconhecidas pelo modelo HTR. Por exemplo, "yt" (that), "sd" (said), ou "exte" (examinate) são abreviações comuns que podem ser perdidas ou mal transcritas.
+
+4. **Frases em Latim**:
+   Frases em latim são frequentemente usadas em documentos legais do século XVII. Como o latim é uma língua morta com formulações jurídicas específicas, os modelos HTR podem ter dificuldades em reconhecê-las. O Aurelius-HTR foi treinado em uma ampla gama de textos em latim e está especificamente preparado para reconhecer abreviações e contrações comuns em latim, tornando-o um recurso valioso na identificação e correção desses termos. No entanto, sempre verifique a precisão dessas frases comparando com o manuscrito original ou consultando outros recursos.
+
+5. **Ortografias Não Padronizadas**:
+   As convenções ortográficas no século XVII eram muito menos padronizadas do que são hoje. Esteja atento às ortografias arcaicas e certifique-se de que elas sejam capturadas com precisão, mesmo quando diferem das convenções modernas.
+
+
+-------------------------------------------------------------------------------
+3.3 Tipos Específicos de Erros de HTR: Erros em Nível de Caractere
+-------------------------------------------------------------------------------
+
+Ao trabalhar com o modelo HCA Secretary Hand 4.404 PyLaia, certos tipos de erros em nível de caractere são particularmente comuns. Esses erros podem envolver pequenos equívocos, como letras individuais sendo lidas incorretamente, mas podem se acumular e afetar a qualidade geral da transcrição. Reconhecer esses padrões o ajudará a concentrar suas correções:
+
+1. **Erros de Letra Única**:
+   São comuns quando o modelo confunde um caractere com outro, muitas vezes devido a caligrafias semelhantes. Exemplos incluem:
+   - baye em vez de boye
+   - frunte em vez de fruite
+   - vinge em vez de ringe
+
+2. **Erros de Dupla Letra**:
+   Erros envolvendo letras duplas são frequentes em documentos históricos, particularmente no inglês mais antigo, onde consoantes duplas eram mais comuns:
+   - doublell em vez de doublett
+   - plaggons em vez de flaggons
+
+3. **Inserções e Omissões de Letra Única**:
+   O modelo HTR pode acidentalmente adicionar ou omitir letras únicas, o que pode alterar significativamente o significado da palavra:
+   - mrchange em vez de merchante
+   - ginde em vez de guide
+
+4. **Omissões de Letras Únicas**:
+   Letras ausentes geralmente resultam em palavras parciais ou incompletas:
+   - accident happene em vez de accident happened
+   - of couse em vez de of course
+
+5. **Omissões de Letras Duplas**:
+   As omissões de letras duplas também são uma ocorrência comum:
+   - enye em vez de enjoye
+   - marter parte em vez de quarter parte
+
+6. **Combinação de Duas Palavras**:
+   O modelo HTR pode, por engano, mesclar duas palavras em uma só:
+   - Englishmasters em vez de English masters
+
+7. **Palavras Redundantes**:
+   Ocasionalmente, o modelo HTR não consegue excluir palavras redundantes, levando a redundâncias na transcrição. Os voluntários devem prestar muita atenção a essas redundâncias, especialmente quando o contexto indica que uma palavra não deveria ser incluída.
+
+   - this exmt rendente em vez de this respondente  
+     No caso de this exmt rendente, a palavra exmt é redundante. O voluntário, ao observar o contexto mais amplo da deposição, pode ver que a testemunha já utilizou a linguagem de ser um respondente anteriormente. Nesse caso, a testemunha é um rendente, que deve ser expandido para respondente (a forma em latim de "respondente"), já que ela está respondendo às perguntas.
+
+
+Trabalhando com Aurelius-HTR no Transkribus para Corrigir HTR Bruto
+SEÇÃO QUATRO - Versão 1.3 (10/09/2024)
+
+===============================================================================
+4. Preparando-se para o Trabalho de Correção
+===============================================================================
+
+Antes de mergulhar no processo de correção, é importante estabelecer diretrizes claras e usar as ferramentas adequadas para garantir consistência e precisão nas correções de HTR. Esta seção o guiará na definição de diretrizes editoriais, no tratamento de abreviações comuns, na confirmação de terminologia histórica e na utilização de recursos online para auxiliar em seu trabalho.
+
+-------------------------------------------------------------------------------
+4.1 Definindo Suas Diretrizes Editoriais
+-------------------------------------------------------------------------------
+
+Diretrizes editoriais claras são essenciais para manter a consistência, especialmente quando se trabalha com uma equipe de voluntários. Essas diretrizes ajudarão a padronizar a abordagem ao trabalho de transcrição e correção.
+
+O projeto MarineLives estabeleceu diretrizes editoriais especificamente para a transcrição de depoimentos do Tribunal Superior de Almirantado. Essas diretrizes podem ser acessadas online ou pedindo ao Aurelius-HTR para fornecer as diretrizes completas ou detalhes específicos relacionados a essas diretrizes.
+
+-------------------------------------------------------------------------------
+4.1.1 Padrões de Inglês do Século XVII e Ortografia
+-------------------------------------------------------------------------------
+
+A língua inglesa no século XVII estava longe de ser padronizada, com variações consideráveis regionais e individuais na ortografia. Essa falta de uniformidade significa que, ao corrigir transcrições, os voluntários não devem modernizar a ortografia, mas sim preservá-la o mais fielmente possível, mesmo quando parece incorreta pelos padrões modernos.
+
+- Exemplo de ortografia original do século XVII:
+  - "fraight" em vez de "freight"
+  - "sayles" em vez de "sails"
+
+Os voluntários devem ter como objetivo:
+- Preservar a ortografia original: Manter as ortografias arcaicas e variantes, especialmente quando refletem o uso histórico.
+- Corrigir apenas quando necessário: Se um erro de HTR interpretar erroneamente ou representar incorretamente uma palavra, corrija para corresponder ao texto original, mas não imponha convenções ortográficas modernas.
+
+-------------------------------------------------------------------------------
+4.1.2 Regras para Expansão de Latim
+-------------------------------------------------------------------------------
+
+Muitos documentos do Tribunal Superior de Almirantado contêm latim jurídico, muitas vezes abreviado ou contraído. Ao encontrar frases em latim, é importante garantir que sejam expandidas corretamente. O projeto MarineLives estabeleceu diretrizes para a expansão de palavras e frases em latim. Elas podem ser acessadas online ou pedindo ao Aurelius-HTR para fornecer as diretrizes completas de expansão de latim ou detalhes específicos dessas diretrizes.
+
+- Abreviações comuns:
+  - extur (examinatur), caa (causa) devem ser expandidas conforme apropriado para refletir os termos latinos completos, significando 'é examinado' e 'causa'.
+
+Diretrizes para Expansão de Latim:
+- Expandir abreviações latinas: Use expansões latinas padrão sempre que possível, considerando o contexto do documento.
+- Consulte as sugestões do Aurelius-HTR: O Aurelius-HTR foi treinado para reconhecer muitas abreviações e contrações latinas, mas sempre revise e expanda com base no contexto.
+
+-------------------------------------------------------------------------------
+4.1.3 Padronizando Abreviações
+-------------------------------------------------------------------------------
+
+Embora o inglês do século XVII contenha inúmeras abreviações, é crucial manter a consistência em como essas abreviações são expandidas em todo o projeto de transcrição. Por exemplo, abreviações para palavras comuns (como "Mr" para "Master") devem ser padronizadas, e abreviações repetidas de locais ou termos jurídicos devem ser tratadas de maneira uniforme em todo o documento.
+
+Algumas expansões de abreviações em inglês dependem do contexto. Por exemplo, a abreviação *mr* só deve ser expandida para "master" em contextos específicos, como quando se refere a um título profissional ou de um navio. Em outros casos, como com títulos honoríficos, deve ser mantido como "Mr.".
+
+Melhores Práticas para Padronização de Abreviações:
+- Expanda todas as abreviações de forma consistente: Para termos comumente abreviados como "Mr", certifique-se de que seja sempre expandido ou preservado da mesma maneira, com base no contexto.
+- Use consistência editorial entre os documentos: Se um local for abreviado, como "St" para "Saint", certifique-se de que seja sempre expandido da mesma maneira dentro e entre os volumes.
+
+- **Dicionários de Latim**:  
+  Whitaker’s Words: http://archives.nd.edu/words.html  
+  Uma ferramenta online para expandir frases em latim, útil para confirmar os significados corretos e expansões de palavras latinas.
+
+- **Glossário Marítimo**:  
+  http://www.marinelives.org/wiki/Tools:_Marine_glossary  
+  Um glossário de termos marítimos, ajudando a esclarecer a terminologia usada no contexto de navegação e naval.
+
+- **Mapas Antigos Online**:  
+  https://www.oldmapsonline.org/  
+  Uma ferramenta para verificar localizações geográficas que podem ter mudado de nome desde o século XVII.
+
+- **Oxford English Dictionary (OED)**:  
+  https://www.oed.com/  
+  Fornece definições de termos arcaicos, ajudando a confirmar ortografias e significados.
+
+- **Glossário de Têxteis, Vestuário e Corantes**:  
+  http://www.marinelives.org/wiki/Tools:_Textiles,_garments_%26_dyestuffs_glossary_sub-group  
+  Um glossário que esclarece a terminologia específica relacionada a têxteis, vestuário e corantes mencionados nos depoimentos.
+
+- **Glossário de Pesos e Medidas**:  
+  http://www.marinelives.org/wiki/Weights_and_Measures  
+  Um glossário detalhando pesos e medidas históricos comumente usados em registros marítimos e jurídicos.
+
+Melhores Práticas:
+- Consulte regularmente recursos autoritários: Torne um hábito verificar termos desconhecidos em dicionários históricos ou glossários.
+- Documente suas descobertas: Quando confirmar um termo ou nome histórico, registre sua pesquisa nas notas da transcrição para que outros possam se beneficiar da informação.
+- Aproveite o Aurelius-HTR: O Aurelius-HTR pode auxiliar na confirmação do uso de termos geográficos e relacionados a mercadorias, utilizando os recursos internos que ele possui.
+
+===============================================================================
+Fim da SEÇÃO QUATRO
+===============================================================================
+
+
+Trabalhando com Aurelius-HTR no Transkribus para Corrigir HTR Bruto
+SEÇÃO CINCO - Versão 1.0 (10/09/2024)
+
+===============================================================================
+5. Editando a Saída de HTR no Seu Desktop ou Laptop
+===============================================================================
+
+Depois de ter sido atribuído um bloco de páginas para trabalhar, você usará seu desktop ou laptop para editar a saída bruta de HTR. O processo de edição envolve cruzar várias fontes: o arquivo .txt original contendo a saída bruta de HTR, as imagens originais do manuscrito disponíveis via Transkribus e as sugestões e ferramentas disponíveis através do Aurelius-HTR. Esta seção o guiará pelas etapas de gerenciamento do processo de edição e integração das correções em um volume editado final.
+
+-------------------------------------------------------------------------------
+5.1 Visão Geral do Processo de Edição
+-------------------------------------------------------------------------------
+
+Como voluntário, sua tarefa é garantir a precisão e legibilidade da transcrição corrigindo a saída bruta de HTR. O fluxo de trabalho geralmente envolve três componentes principais:
+1. Texto HTR bruto (.txt): Você receberá um arquivo de texto contendo a saída bruta de HTR para o bloco de páginas atribuído a você (100 páginas por voluntário).
+2. Transkribus: Você acessará as imagens originais do manuscrito no Transkribus para o volume atribuído. Isso permite que você verifique o texto bruto em comparação com o documento de origem.
+3. Aurelius-HTR: Como uma ferramenta especializada, o Aurelius-HTR está disponível para ajudar a detectar erros comuns de HTR, expandir abreviações e garantir que a ortografia e a terminologia histórica estejam corretas.
+
+Cada voluntário será responsável por editar um bloco de 100 páginas de um determinado volume HCA 13/. Uma vez editado, todas as correções serão consolidadas para formar um volume completo e editado para esse documento HCA.
+
+-------------------------------------------------------------------------------
+5.2 Preparando-se para Trabalhar nas Páginas Atribuídas
+-------------------------------------------------------------------------------
+
+Depois de receber o arquivo .txt bruto contendo suas páginas atribuídas, siga estas etapas para começar:
+
+1. Baixe o arquivo .txt bruto de HTR: Este arquivo conterá a transcrição do bloco de 100 páginas atribuído a você.
+2. Acesse o Transkribus: Abra o volume HCA 13/ relevante no Transkribus usando o aplicativo ou interface web do Transkribus (link do aplicativo Transkribus: https://app.transkribus.org/). Certifique-se de ter acesso às imagens originais do manuscrito.
+3. Abra o Aurelius-HTR: Você usará o Aurelius-HTR para ajudar nas correções. Use-o para correções baseadas em regex, para confirmar a terminologia ou para expandir frases em latim.
+
+Certifique-se de que todas essas ferramentas estejam facilmente acessíveis enquanto você trabalha em suas páginas. Ter esses recursos disponíveis simplificará seu processo de revisão, correção e finalização da transcrição.
+
+-------------------------------------------------------------------------------
+5.3 Editando a Saída Bruta de HTR
+-------------------------------------------------------------------------------
+
+Veja como abordar a edição da saída bruta de HTR usando o arquivo .txt no seu desktop:
+
+1. Etapa 1: Verificação Cruzada do Texto HTR com a Imagem do Manuscrito
+   - Para cada bloco de texto no arquivo .txt, cruze-o com a página correspondente do manuscrito no Transkribus.
+   - Identifique discrepâncias, como transcrições incorretas de nomes, locais ou termos comuns.
+   - Use a imagem do manuscrito para confirmar leituras confusas ou incorretas na saída de HTR.
+
+2. Etapa 2: Corrigindo Erros Comuns
+   - Abreviações: Expanda abreviações como *Mr* ou *Wm* com base no contexto (ex.: "Master" ou "Mr.").
+   - Ortografia: Mantenha a ortografia original do século XVII, a menos que haja um erro claro de HTR (ex.: “sayles” deve permanecer “sayles” em vez de ser alterado para “sails”).
+   - Expansões Latinas: Use o Aurelius-HTR para expandir termos latinos quando necessário (ex.: *exmt* para "examinate" ou *caa* para "causa").
+   - Termos Geográficos: Verifique novamente os nomes dos locais usando o manuscrito original e quaisquer glossários online acessíveis através do Aurelius-HTR ou outros recursos.
+
+   - Padrões Regex: Use as ferramentas regex fornecidas pelo Aurelius-HTR para lidar com padrões comuns, como *sd* (said) ou *pte* (parte), o que pode automatizar partes do processo de edição.
+
+3. Etapa 3: Usando o Aurelius-HTR para Sugestões
+   - Durante todo o processo de edição, peça ao Aurelius-HTR sugestões ou correções. O Aurelius-HTR pode identificar padrões no texto, oferecer soluções baseadas em regex e ajudar a expandir abreviações latinas.
+   - O Aurelius-HTR também pode fornecer recomendações sobre como resolver termos ambíguos e ajudar a lidar com erros comuns de HTR.
+
+4. Etapa 4: Revisão e Finalização das Alterações
+   - Depois de fazer as alterações com base no manuscrito e nas sugestões do Aurelius-HTR, revise cada página para garantir consistência e precisão.
+   - Certifique-se de que as diretrizes editoriais, como a preservação da ortografia original ou a expansão de abreviações, sejam seguidas consistentemente nas páginas atribuídas.
+
+-------------------------------------------------------------------------------
+5.4 Enviando Seu Bloco Editado
+-------------------------------------------------------------------------------
+
+Após concluir a edição das 100 páginas atribuídas a você:
+
+1. Salve o Arquivo .txt Atualizado: Após fazer todas as correções necessárias, salve o arquivo .txt editado com um nome claro indicando seu progresso (ex.: *HCA13_58_VolunteerBlock1_Completed.txt*).
+   
+2. Envie Seu Bloco Editado: Envie seu arquivo .txt editado ao diretor ou coordenador do projeto. As edições de cada voluntário serão integradas em um arquivo mestre, que combinará todos os blocos corrigidos em um volume editado completo.
+
+3. Forneça Feedback: Se você encontrou algum problema ou tem sugestões para melhorar o processo de edição, comunique isso à equipe do projeto. Seu feedback é valioso para melhorar o fluxo de trabalho para futuros voluntários.
+
+-------------------------------------------------------------------------------
+5.5 Melhores Práticas para Edição Eficiente
+-------------------------------------------------------------------------------
+
+Para garantir que seu trabalho de edição prossiga de maneira tranquila e eficaz, siga estas melhores práticas:
+
+- Faça Pausas: Editar documentos históricos pode ser um trabalho detalhado e intensivo. Certifique-se de fazer pausas para manter a precisão.
+- Verifique Frequentemente: Cruze regularmente as imagens do manuscrito para garantir a precisão na sua transcrição.
+- Utilize o Aurelius-HTR: Aproveite todo o potencial das capacidades do Aurelius-HTR, incluindo sugestões regex e verificação de termos históricos.
+- Mantenha a Consistência: A consistência é fundamental. Certifique-se de que os termos, a ortografia e as abreviações sejam tratados de forma uniforme nas suas 100 páginas.
+- Peça Assistência: Se encontrar termos particularmente difíceis ou ambíguos, peça ajuda ao Aurelius-HTR ou à equipe do projeto ou a outros voluntários.
+
+===============================================================================
+Fim da SEÇÃO CINCO
+===============================================================================
+
+
+
+
+
