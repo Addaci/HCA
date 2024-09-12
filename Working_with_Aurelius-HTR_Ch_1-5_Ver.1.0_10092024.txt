@@ -44,6 +44,21 @@ TABLE OF CONTENTS
 5.4 Submitting Your Edited Block
 5.5 Best Practices for Efficient Editing
 
+[SECTONS 6 TO 9 ARE BEING WRITTEN]
+
+10. Collaboration Process for Analyzing HCA 13/ Deposition Books with Aurelius-HTR
+
+10.1 Analyzing One Page at a Time
+10.2 Categories of Changes Considered
+10.3 Displaying Proposed Changes
+10.4 Assisting the Volunteer in Reviewing Changes
+10.5 Volunteer Decision-Making Process
+10.6 Implementing Agreed Changes
+10.7 Recording Changes in a Change Log
+10.8 Blank Line Insertion Rules
+
+### Appendix: Example of a Change Log
+
 ===============================================================================
 ===============================================================================
 Working with Aurelius-HTR in Transkribus to Correct Raw HTR
@@ -400,7 +415,7 @@ Guidelines for Latin Expansion:
 
 While 17th-century English contains numerous abbreviations, it is crucial to maintain consistency in how these abbreviations are expanded across the transcription project. For instance, abbreviations for common words (such as "Mr" for "Master") should be standardized, and repeated abbreviations for locations or legal terms should be treated uniformly throughout the document.
 
-Some expansions of English abbreviations depend on the context. For example, the abbreviation *mr* should only be expanded to "master" in specific contexts, such as when referring to a professional or ship's title. In other cases, such as with honorifics, it should remain as "Mr."
+Some expansions of English abbreviations depend on the context. For example, the abbreviation "mr" should only be expanded to "master" in specific contexts, such as when referring to a professional or ship's title. In other cases, such as with honorifics, it should remain as "Mr."
 
 Best Practices for Abbreviation Standardization:
 - Expand all abbreviations consistently: For commonly abbreviated terms like "Mr," ensure it is always expanded or preserved in the same way based on context.
@@ -417,7 +432,7 @@ Aurelius-HTR has the ability to conduct Regex pattern analysis to assist in iden
 For example, regex patterns can be used to identify instances of *sd* or *mr* and replace them with the expanded versions as needed. Volunteers can refer to the appendix for a complete listing of regex patterns stored in Aurelius-HTR’s internal knowledge.
 
 Example Regex Patterns:
-- Identifying *sd* as an abbreviation for *said*:  
+- Identifying "sd" as an abbreviation for "said":  
   r'sd': 'said'
 - Expanding *pte* to *parte*:  
   r'pte': 'parte'
@@ -585,6 +600,292 @@ To ensure that your editing work proceeds smoothly and effectively, follow these
 
 ===============================================================================
 End of SECTION FIVE
+===============================================================================
+
+===============================================================================
+SECTIONS SIX TO NINE ARE BEING WRITTEN
+===============================================================================
+
+Working with Aurelius-HTR in Transkribus to Correct Raw HTR
+SECTION TEN - Version 1.0 (12/09/2024)
+
+===============================================================================
+10. Collaboration Process for Analyzing HCA 13/ Deposition Books with Aurelius-HTR
+===============================================================================
+
+Aurelius-HTR works collaboratively with volunteers to analyze handwritten text recognition (HTR) outputs from HCA 13/ deposition books. The review process is performed one page at a time, ensuring thorough attention to detail and minimizing errors. Below is the structured process that Aurelius-HTR and the volunteer follow to ensure accurate transcription and editing of historical documents.
+
+-------------------------------------------------------------------------------
+10.1 Analyzing One Page at a Time
+-------------------------------------------------------------------------------
+
+Aurelius-HTR analyzes one page of HCA 13/ deposition books at a time. This approach ensures that each page receives individual focus and thorough review before moving on to the next. By focusing on each page separately, both Aurelius-HTR and the volunteer can address all necessary corrections and consider the context of each page, particularly with older documents where transcription errors are common.
+
+For example, on page f.375v, Aurelius might flag terms like "Camasters" or "surpp" as needing possible correction to "Canisters" and "syrup" respectively, and seek volunteer input for approval or revision.
+
+-------------------------------------------------------------------------------
+10.2 Categories of Changes Considered
+-------------------------------------------------------------------------------
+
+When reviewing a page, Aurelius-HTR classifies changes into four categories:
+
+1. Personal Names: Identifying potential errors in first names and surnames. For example, "Richard atton" might be flagged for consistency review, ensuring the name hasn’t been misrecognized by HTR software.
+
+2. Geographical Names: Place names are reviewed for possible corrections, especially where historical variations or errors may occur. For instance, "Thammage" might be flagged for possible expansion or clarification.
+
+3. Latin and English Abbreviations and Contractions: Aurelius-HTR expands or corrects abbreviations commonly used in historical documents, like "Ad Interria" being expanded to "Ad Interrogatoria" or "prdepoits" corrected to "praedepositis".
+
+4. Other Changes: Other logical or contextual corrections, such as "wth" corrected to "with", or possible misinterpretations like "surpp" changed to "syrup".
+
+For each proposed change, Aurelius assigns a level of certainty:
+
+- Definite (def): High certainty the change is correct.
+- Probable (prob): The change is likely correct but needs confirmation.
+- Possible (poss): A plausible suggestion but requires volunteer input.
+- None: No change is needed.
+
+Volunteer approval is required for all levels of certainty, but the certainty level acts as a helpful guide for the volunteer, supported by the reasoning Aurelius-HTR provides for its recommendations.
+
+For example, "Woodes → Woode; prob" indicates a probable correction, while "Camasters → Canisters; poss" suggests a possiblecorrection based on context.
+
+-------------------------------------------------------------------------------
+10.3 Displaying Proposed Changes
+-------------------------------------------------------------------------------
+
+Once Aurelius-HTR has identified changes, the page of text is presented to the volunteer with all proposed changes inserted directly into the text. These proposed changes are placed in square brackets with the probability level clearly displayed.
+
+For example:
+[Camaster → Canister; poss]
+[Woodes → Woode; prob]
+[wth → with; def]
+
+-------------------------------------------------------------------------------
+10.4 Assisting the Volunteer in Reviewing Changes
+-------------------------------------------------------------------------------
+
+To help the volunteer review the page, Aurelius-HTR provides a list of proposed changes, accompanied by brief reasoning. This list serves as a guide, explaining why each change is suggested and the logic behind the recommendation.
+
+For example:
+- "Camasters → Canisters": Probable change, as "Canisters" fits the context of sugar storage, while "Camasters" seems likely to be a misreading.
+- "Woodes → Woode": Probable change, as the name "Woode" was used consistently on previous pages.
+
+This list enables the volunteer to make informed decisions during the review process.
+
+-------------------------------------------------------------------------------
+10.5 Volunteer Decision-Making Process
+-------------------------------------------------------------------------------
+
+Once Aurelius-HTR has presented the text and the list of proposed changes, the volunteer must review the suggestions and provide feedback. The volunteer is required to approve or reject all flagged categories of proposed changes. This includes personal names, geographical names, abbreviations, and other potential corrections.
+
+The volunteer can:
+
+- Approve all proposed changes within a specific category (e.g., personal names).
+- Reject specific changes while approving others within the same category.
+- Request additional clarification on certain suggestions.
+
+In all cases, the volunteer must provide brief reasoning for rejecting or approving specific changes. For example, the volunteer may approve the change from "Woodes" to "Woode", based on previous consistency, but reject the suggestion to change "unlade" to "unload", choosing to preserve the original historical spelling.
+
+-------------------------------------------------------------------------------
+10.6 Implementing Agreed Changes
+-------------------------------------------------------------------------------
+
+After receiving feedback, Aurelius-HTR implements the agreed changes. Any rejected changes remain unchanged, with a note explaining the volunteer's decision. This ensures that the final version of the page reflects both the HTR output and the volunteer’s informed review.
+
+For example:
+"unlade → unload" (Not Approved: Volunteer prefers historical spelling)
+
+-------------------------------------------------------------------------------
+10.7 Recording Changes in a Change Log
+-------------------------------------------------------------------------------
+
+Aurelius-HTR maintains a change log for each page analyzed. This log records:
+
+- All proposed changes (personal names, geographical names, abbreviations, and other changes).
+- The status of each proposed change: whether it was agreed, not agreed, or pending.
+- The volunteer’s reasoning for rejecting or approving specific changes.
+
+For example:
+"Camasters → Canisters; prob" (Agreed)
+"unlade → unload" (Not Approved: Volunteer prefers historical spelling)
+
+This log provides a detailed record of each page and allows future reviewers to see the rationale behind every change.
+
+-------------------------------------------------------------------------------
+10.8 Blank Line Insertion Rules
+-------------------------------------------------------------------------------
+
+In addition to reviewing text, Aurelius-HTR also checks for the appropriate placement of blank lines, ensuring that key sections of the text are clearly separated. Blank lines should be inserted:
+
+1. Before dates.
+2. After the short form of a legal case name.
+3. After front matter (name, age, residence, occupation of deponents).
+4. Between articles of allegation.
+5. Between numbered interrogatories.
+6. Before the signoff.
+
+New Rule: If blank lines already exist in the expected places, no additional recommendations are needed.
+
+===============================================================================
+### Appendix: Example of a Change Log
+===============================================================================
+
+HCA_1358_Change_Log_Ver.1.0_12092024
+
+This change log records all changes made to the HCA 13/58 folios from Raw-HTR. The changes are organized by ascending order of folios, starting from f.1r and ending at f.747v.
+
+--------------------------------------------------------------------------------
+[START EXCERPT]
+
+HCA 13/58 f.375r Annotate
+
+1. Personal Names:
+- smallwood → smallwood
+  No change: Keep it as is, based on your preference.
+
+- ffarbancke → ffarbancke
+  No change: Consistent and correct.
+
+- Halls → Hall
+  Definite change: Singular, referring to one person named Hall. (Approved)
+
+- Mr Smallwoodes → Mr Smallwoodes
+  No change: No apostrophe, as per instructions.
+
+- Captaine Royden → Captaine Royden
+  No change: Keep original with final "e."
+
+- Richard atton → Richard atton
+  No change: Keep the original lowercase name.
+
+- Andrewe → Andrewe
+  No change: Retain "Andrewe" with final "e."
+
+- Edwardus Huntington → Edwardus Huntington
+  No change: Retain the Latin form "Edwardus."
+
+- Mr Woode → Mr Woode
+  No change: Keep "Woode" with final "e."
+
+- Alsopp → Alsopp
+  No change: Keep original spelling.
+
+2. Geographical Names:
+- St Mary Matsellon alr Mitchappell → Saint Mary Matsellon alias Mitchappell
+  Definite change: Expand "St" to "Saint" and "alr" to "alias." (Approved)
+
+- Thammage → Thammage
+  No change: Retain "Thammage" since we are unsure whether it is a proper noun or abbreviation.
+
+- River of Thames → River of Thames
+  No change: Keep the phrase intact.
+
+3. Expansions of Latin and English Abbreviations and Contractions:
+- Ad Interria → Ad Interrogatoria
+  Definite change: Expand the abbreviation. (Approved)
+
+- Ad primu → Ad primum
+  Definite change: Correct the Latin ending. (Approved)
+
+- fitt at et fasidem testis → fitt at et falsidem testis
+  Definite change: Correct "fasidem" to "falsidem" for "false witness." (Approved)
+
+- Ad 2 et 3uj → Ad secundum et tertium
+  Definite change: Expand the Latin abbreviation. (Approved)
+
+- ptibus litigan → partibus litigantibus
+  Definite change: Expand the Latin abbreviation. (Approved)
+
+- p pte sua → pro parte sua
+  Definite change: Expand Latin abbreviation. (Approved)
+
+- prdepoitis → praedepositis
+  Definite change: Correct Latin grammar. (Approved)
+
+- circir → circiter
+  Definite change: Correct abbreviation of "circiter." (Approved)
+
+- det mission → datus missione
+  Definite change: Correct Latin grammar. (Approved)
+
+4. Other Changes:
+- beinge → beinge
+  No change: Retain the final "e" as per your instructions.
+
+- speakeinge → speakeinge
+  No change: Retain the final "e."
+
+- als → alias
+  Definite change: Expand "als" to "alias." (Approved)
+
+Blank Line Insertions:
+- Insert blank lines between:  
+  - Date: Above 30º Januarij 1642. (Approved)  
+  - Short form of legal case name: After Smallwood contra ffarbancke. (Approved)  
+  - Front matter: After Richardus Harton det mission...circiter. (Approved)  
+  - Articles of allegation: Between each article (e.g., Ad primum). (Approved)  
+  - Numbered interrogatories: Between each interrogatory. (Approved)  
+  - Signoff: Before Richard atton. (Approved)
+
+--------------------------------------------------------------------------------
+HCA 13/58 f.375v Annotate
+
+1. Personal Names:
+- Woodes → Woode
+  Probable change: Likely correct based on context and consistency with previous occurrences. (Approved)
+  
+- Gunnington → Gunnington
+  No change: Original is correct, no further alterations needed. (Approved)
+
+- Edward → Edward
+  No change: Original name is correct. (Approved)
+
+2. Geographical Names:
+- North Witchmen → ?Northwichmen
+  Possible change: Left in square brackets for further review, uncertain if this refers to people from Northwich. (Pending)
+
+3. Expansions of Latin and English Abbreviations and Contractions:
+- Ad 2u salvis prdepoits ad qua se rescit nescit → Ad secundum salvis praedepositis ad qua se refert nescit
+  Definite change: Standard Latin expansion, as per conventions. (Approved)
+  
+- Ad primu rendet negative et alr nescit → Ad primum respondet negative et aliter nescit
+  Definite change: Expand and correct Latin grammar. (Approved)
+  
+- et alr nescit → et aliter nescit
+  Definite change: Consistent correction of Latin abbreviation. (Approved)
+  
+- p pte sua salvis prdepoitis → pro parte sua salvis praedepositis
+  Definite change: Expanded abbreviation in Latin phrase. (Approved)
+
+- Ad Interria → Ad Interrogatoria
+  Definite change: Standard expansion of Latin interrogative term. (Approved)
+
+4. Other Changes:
+- wth → with
+  Definite change: Standardization of English spelling. (Approved)
+
+- unlade → unload (Not approved)
+  Recommended change to modernize spelling for consistency, but it was decided to retain the original form.
+
+- bine → been (Not approved)
+  Recommended change to correct common HTR error, but it was decided to retain the original form.
+
+- Camasters → Canisters
+  Probable change: Likely refers to "Canisters" of sugar based on context. (Approved)
+
+- Catts → Casks
+  Probable change: Fits the context of sugar storage. (Approved)
+
+- but → boat
+  Probable change: Refers to a boat in the context of lighter transport. (Approved)
+
+5. Blank Line Insertions:
+- Existing blank lines are correct.
+- No new blank lines required.
+
+[END EXCERPT]
+
+===============================================================================
+End of SECTION TEN
 ===============================================================================
 
 
