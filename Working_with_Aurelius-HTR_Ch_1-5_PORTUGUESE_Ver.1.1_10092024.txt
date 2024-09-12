@@ -42,6 +42,21 @@
 5.4 Enviando Seu Bloco Editado
 5.5 Melhores Práticas para Edição Eficiente
 
+[SEÇÕES 6 A 9 ESTÃO SENDO REDIGIDAS]
+
+10: Processo de Colaboração para Análise dos Livros de Deposição HCA 13/ com Aurelius-HTR
+
+10.1 Analisando Uma Página por Vez
+10.2 Categorias de Alterações Consideradas
+10.3 Exibição de Alterações Propostas
+10.4 Ajudando o Voluntário a Revisar Alterações
+10.5 Processo de Tomada de Decisão do Voluntário
+10.6 Implementando Alterações Aprovadas
+10.7 Registro de Alterações em um Log de Alterações
+10.8 Regras de Inserção de Linhas em Branco
+
+### Apêndice: Exemplo de um Log de Alterações
+
 ===============================================================================
 ===============================================================================
 1. Introdução ao Reconhecimento de Texto Manuscrito (HTR) e o Modelo HCA Secretary Hand 4.404 PyLaia
@@ -606,6 +621,222 @@ Para garantir que seu trabalho de edição prossiga de maneira tranquila e efica
 ===============================================================================
 Fim da SEÇÃO CINCO
 ===============================================================================
+
+===============================================================================
+SEÇÕES 6 A 9 ESTÃO SENDO REDIGIDAS
+===============================================================================
+
+===============================================================================
+Seção 10: Processo de Colaboração para Análise dos Livros de Deposição HCA 13/ com Aurelius-HTR
+===============================================================================
+
+Aurelius-HTR trabalha em colaboração com voluntários para analisar as saídas de reconhecimento de texto manuscrito (HTR) dos livros de deposição HCA 13/. O processo de revisão é realizado uma página de cada vez, garantindo atenção meticulosa aos detalhes e minimizando erros. Abaixo está o processo estruturado que Aurelius-HTR e o voluntário seguem para garantir a transcrição e edição precisas de documentos históricos.
+
+-------------------------------------------------------------------------------
+10.1 Analisando Uma Página por Vez
+-------------------------------------------------------------------------------
+
+Aurelius-HTR analisa uma página dos livros de deposição HCA 13/ de cada vez. Essa abordagem garante que cada página receba foco individual e revisão minuciosa antes de seguir para a próxima. Ao focar em cada página separadamente, tanto Aurelius-HTR quanto o voluntário podem abordar todas as correções necessárias e considerar o contexto de cada página, particularmente em documentos mais antigos, onde os erros de transcrição são comuns.
+
+Por exemplo, na página f.375v, Aurelius pode marcar termos como "Camasters" ou "surpp" como possíveis correções para "Canisters" e "syrup" respectivamente, e buscar a aprovação ou revisão do voluntário.
+
+-------------------------------------------------------------------------------
+10.2 Categorias de Alterações Consideradas
+-------------------------------------------------------------------------------
+
+Ao revisar uma página, Aurelius-HTR classifica as alterações em quatro categorias:
+1. Nomes Pessoais: Identificando erros potenciais em nomes e sobrenomes. Por exemplo, "Richard atton" pode ser marcado para revisão de consistência, garantindo que o nome não tenha sido erroneamente reconhecido pelo software HTR.
+2. Nomes Geográficos: Os nomes de lugares são revisados para possíveis correções, especialmente onde podem ocorrer variações históricas ou erros. Por exemplo, "Thammage" pode ser marcado para expansão ou esclarecimento.
+3. Abreviações e Contrações em Latim e Inglês: Aurelius-HTR expande ou corrige abreviações comumente usadas em documentos históricos, como "Ad Interria" sendo expandido para "Ad Interrogatoria" ou "prdepoits" corrigido para "praedepositis".
+4. Outras Alterações: Outras correções lógicas ou contextuais, como "wth" corrigido para "with", ou possíveis interpretações erradas, como "surpp" alterado para "syrup".
+
+Para cada alteração proposta, Aurelius atribui um nível de certeza:
+- Definido (def): Alta certeza de que a alteração está correta.
+- Provável (prob): A alteração é provavelmente correta, mas precisa de confirmação.
+- Possível (poss): Uma sugestão plausível, mas que requer entrada do voluntário.
+- Nenhuma: Nenhuma alteração é necessária.
+
+A aprovação do voluntário é necessária para todos os níveis de certeza, mas o nível de certeza serve como um guia útil para o voluntário, apoiado pelo raciocínio que Aurelius-HTR fornece para suas recomendações.
+
+Por exemplo, "Woodes → Woode; prob" indica uma correção provável, enquanto "Camasters → Canisters; prob" sugere uma correção provável com base no contexto.
+
+-------------------------------------------------------------------------------
+10.3 Exibição de Alterações Propostas
+-------------------------------------------------------------------------------
+
+Assim que Aurelius-HTR identificar alterações, a página do texto é apresentada ao voluntário com todas as alterações propostas inseridas diretamente no texto. Essas alterações são colocadas entre colchetes com o nível de probabilidade claramente exibido.
+
+Por exemplo:
+[Camaster → Canister; prob]
+[Woodes → Woode; prob]
+[wth → with; def]
+
+-------------------------------------------------------------------------------
+10.4 Ajudando o Voluntário a Revisar Alterações
+-------------------------------------------------------------------------------
+
+Para ajudar o voluntário a revisar a página, Aurelius-HTR fornece uma lista de alterações propostas, acompanhada de um breve raciocínio. Esta lista serve como um guia, explicando por que cada alteração é sugerida e a lógica por trás da recomendação.
+
+Por exemplo:
+- "Camasters → Canisters": Alteração provável, pois "Canisters" se encaixa no contexto de armazenamento de açúcar, enquanto "Camasters" parece ser uma leitura incorreta.
+- "Woodes → Woode": Alteração provável, pois o nome "Woode" foi usado de forma consistente em páginas anteriores.
+
+Esta lista permite que o voluntário tome decisões informadas durante o processo de revisão.
+
+-------------------------------------------------------------------------------
+10.5 Processo de Tomada de Decisão do Voluntário
+-------------------------------------------------------------------------------
+
+Depois que Aurelius-HTR apresenta o texto e a lista de alterações propostas, o voluntário deve revisar as sugestões e fornecer feedback. O voluntário é obrigado a aprovar ou rejeitar todas as categorias de alterações propostas. Isso inclui nomes pessoais, nomes geográficos, abreviações e outras correções potenciais.
+
+O voluntário pode:
+- Aprovar todas as alterações propostas dentro de uma categoria específica (por exemplo, nomes pessoais).
+- Rejeitar alterações específicas enquanto aprova outras na mesma categoria.
+- Solicitar esclarecimentos adicionais sobre determinadas sugestões.
+
+Em todos os casos, o voluntário deve fornecer um breve raciocínio ao rejeitar ou aprovar alterações específicas. Por exemplo, o voluntário pode aprovar a alteração de "Woodes" para "Woode", com base na consistência anterior, mas rejeitar a sugestão de alterar "unlade" para "unload", optando por preservar a grafia histórica original.
+
+-------------------------------------------------------------------------------
+10.6 Implementando Alterações Aprovadas
+-------------------------------------------------------------------------------
+
+Após receber o feedback, Aurelius-HTR implementa as alterações aprovadas. Quaisquer alterações rejeitadas permanecem inalteradas, com uma nota explicando a decisão do voluntário. Isso garante que a versão final da página reflita tanto a saída do HTR quanto a revisão informada do voluntário.
+
+Por exemplo:
+"unlade → unload" (Não Aprovado: Voluntário prefere a grafia histórica)
+
+-------------------------------------------------------------------------------
+10.7 Registro de Alterações em um Log de Alterações
+-------------------------------------------------------------------------------
+
+Aurelius-HTR mantém um log de alterações para cada página analisada. Este log registra:
+
+- Todas as alterações propostas (nomes pessoais, nomes geográficos, abreviações e outras alterações).
+- O status de cada alteração proposta: se foi acordada, não acordada ou pendente.
+- O raciocínio do voluntário para rejeitar ou aprovar alterações específicas.
+
+Por exemplo:
+"Camasters → Canisters; prob" (Aprovado)
+"unlade → unload" (Não Aprovado: Voluntário prefere a grafia histórica)
+
+Este log fornece um registro detalhado de cada página e permite que futuros revisores vejam o raciocínio por trás de cada alteração.
+
+-------------------------------------------------------------------------------
+10.8 Regras de Inserção de Linhas em Branco
+-------------------------------------------------------------------------------
+
+Além de revisar o texto, Aurelius-HTR também verifica o posicionamento adequado de linhas em branco, garantindo que as seções principais do texto estejam claramente separadas. Linhas em branco devem ser inseridas:
+
+1. Antes de datas.
+2. Após a forma curta de um nome de caso legal.
+3. Após as informações introdutórias (nome, idade, residência, ocupação dos depoentes).
+4. Entre os artigos de alegação.
+5. Entre interrogatórios numerados.
+6. Antes da assinatura.
+
+Nova Regra: Se as linhas em branco já existirem nos locais esperados, não são necessárias recomendações adicionais.
+
+===============================================================================
+### Apêndice: Exemplo de um Log de Alterações
+===============================================================================
+
+HCA_1358_Change_Log_Ver.1.0_12092024
+
+Este log de alterações registra todas as alterações feitas nos fólios HCA 13/58 a partir do HTR bruto. As alterações são organizadas por ordem crescente de fólios, começando de f.1r e terminando em f.747v.
+
+--------------------------------------------------------------------------------
+
+HCA 13/58 f.375r Annotate
+
+1. Nomes Pessoais:
+- smallwood → smallwood
+  Sem alteração: Mantenha como está, com base na sua preferência.
+
+- ffarbancke → ffarbancke
+  Sem alteração: Consistente e correto.
+
+- Halls → Hall
+  Alteração definida: Singular, referindo-se a uma pessoa chamada Hall. (Aprovado)
+
+- Mr Smallwoodes → Mr Smallwoodes
+  Sem alteração: Sem apóstrofo, conforme instruções.
+
+- Captaine Royden → Captaine Royden
+  Sem alteração: Mantenha o original com "e" final.
+
+- Richard atton → Richard atton
+  Sem alteração: Mantenha o nome original em minúsculas.
+
+- Andrewe → Andrewe
+  Sem alteração: Mantenha "Andrewe" com "e" final.
+
+- Edwardus Huntington → Edwardus Huntington
+  Sem alteração: Mantenha a forma latina "Edwardus".
+
+- Mr Woode → Mr Woode
+  Sem alteração: Mantenha "Woode" com "e" final.
+
+- Alsopp → Alsopp
+  Sem alteração: Mantenha a grafia original.
+
+2. Nomes Geográficos:
+- St Mary Matsellon alr Mitchappell → Saint Mary Matsellon alias Mitchappell
+  Alteração definida: Expanda "St" para "Saint" e "alr" para "alias". (Aprovado)
+
+- Thammage → Thammage
+  Sem alteração: Mantenha "Thammage", pois não temos certeza se é um substantivo próprio ou uma abreviação.
+
+- River of Thames → River of Thames
+  Sem alteração: Mantenha a frase intacta.
+
+3. Expansões de Abreviações e Contrações em Latim e Inglês:
+- Ad Interria → Ad Interrogatoria
+  Alteração definida: Expanda a abreviação. (Aprovado)
+
+- Ad primu → Ad primum
+  Alteração definida: Corrija a terminação latina. (Aprovado)
+
+- fitt at et fasidem testis → fitt at et falsidem testis
+  Alteração definida: Corrija "fasidem" para "falsidem" para "falso testemunho". (Aprovado)
+
+- Ad 2 et 3uj → Ad secundum et tertium
+  Alteração definida: Expanda a abreviação em latim. (Aprovado)
+
+- ptibus litigan → partibus litigantibus
+  Alteração definida: Expanda a abreviação em latim. (Aprovado)
+
+- p pte sua → pro parte sua
+  Alteração definida: Expanda a abreviação em latim. (Aprovado)
+
+- prdepoitis → praedepositis
+  Alteração definida: Corrija a gramática latina. (Aprovado)
+
+- circir → circiter
+  Alteração definida: Corrija a abreviação de "circiter". (Aprovado)
+
+- det mission → datus missione
+  Alteração definida: Corrija a gramática latina. (Aprovado)
+
+4. Outras Alterações:
+- beinge → beinge
+  Sem alteração: Mantenha o "e" final conforme suas instruções.
+
+- speakeinge → speakeinge
+  Sem alteração: Mantenha o "e" final.
+
+- als → alias
+  Alteração definida: Expanda "als" para "alias". (Aprovado)
+
+Inserção de Linhas em Branco:
+- Insira linhas em branco entre:  
+  - Data: Acima de 30º Januarij 1642. (Aprovado)  
+  - Forma curta do nome do caso legal: Após Smallwood contra ffarbancke. (Aprovado)  
+  - Informações introdutórias: Após Richardus Harton det mission...circiter. (Aprovado)  
+  - Artigos de alegação: Entre cada artigo (por exemplo, Ad primum). (Aprovado)  
+  - Interrogatórios numerados: Entre cada interrogatório. (Aprovado)  
+  - Assinatura: Antes de Richard atton. (Aprovado)
+
+--------------------------------------------------------------------------------
 
 
 
