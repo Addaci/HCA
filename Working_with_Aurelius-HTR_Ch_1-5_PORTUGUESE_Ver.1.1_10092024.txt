@@ -1,4 +1,3 @@
-
 ===============================================================================
 ÍNDICE
 
@@ -12,6 +11,7 @@
 1.4 Importância do Pós-Processamento da Saída do HTR em Documentos Legais do Século XVII
 
 2. Configurando Seu Fluxo de Trabalho no Transkribus
+
 2.1 Acessando o Transkribus: Primeiros Passos
 2.3 Executando HTR Usando o Modelo HCA Secretary Hand 4.404 PyLaia
 2.4 Revisando e Navegando pela Saída Bruta do HTR no Transkribus
@@ -21,6 +21,9 @@
 3.1 Compreendendo o Papel do Voluntário na Correção do HTR
 3.2 Tipos de Erros Comuns no HTR
 3.3 Tipos Específicos de Erros de HTR: Erros em Nível de Caractere
+3.4 Melhores Práticas para Revisão e Correção do Resultado de HTR
+3.5 Etapas-Chave no Processo de Correção
+3.6 Colaborando com a Equipe do Projeto para Seções Desafiadoras
 
 4. Preparando-se para o Trabalho de Correção
 
@@ -28,6 +31,8 @@
 4.1.1 Padrões de Inglês do Século XVII e Ortografia
 4.1.2 Regras para Expansão de Latim
 4.1.3 Padronizando Abreviações
+4.3 Confirmando Terminologia Histórica (ex.: Velame, Localidades)
+4.4 Aproveitando Recursos e Ferramentas Online para Pesquisar Termos Históricos
 
 5. Editando a Saída de HTR no Seu Desktop ou Laptop
 
@@ -38,9 +43,6 @@
 5.5 Melhores Práticas para Edição Eficiente
 
 ===============================================================================
-Trabalhando com Aurelius-HTR no Transkribus para Corrigir HTR Bruto  
-SEÇÃO UM - Versão 1.3 (10/09/2024)
-
 ===============================================================================
 1. Introdução ao Reconhecimento de Texto Manuscrito (HTR) e o Modelo HCA Secretary Hand 4.404 PyLaia
 ===============================================================================
@@ -284,9 +286,66 @@ Ao trabalhar com o modelo HCA Secretary Hand 4.404 PyLaia, certos tipos de erros
    - this exmt rendente em vez de this respondente  
      No caso de this exmt rendente, a palavra exmt é redundante. O voluntário, ao observar o contexto mais amplo da deposição, pode ver que a testemunha já utilizou a linguagem de ser um respondente anteriormente. Nesse caso, a testemunha é um rendente, que deve ser expandido para respondente (a forma em latim de "respondente"), já que ela está respondendo às perguntas.
 
+-------------------------------------------------------------------------------
+3.4 Melhores Práticas para Revisão e Correção do Resultado de HTR
+-------------------------------------------------------------------------------
 
-Trabalhando com Aurelius-HTR no Transkribus para Corrigir HTR Bruto
-SEÇÃO QUATRO - Versão 1.3 (10/09/2024)
+À medida que você revisa a transcrição, há algumas melhores práticas a seguir para garantir o mais alto nível de precisão:
+
+1. Trabalhe Colaborativamente com o Aurelius-HTR:  
+   Utilize o Aurelius-HTR como uma ferramenta de suporte para identificar erros e propor correções. O Aurelius-HTR sugerirá mudanças com base em padrões que ele detectou em documentos semelhantes. Revise as sugestões cuidadosamente, mas lembre-se de que você é a autoridade final e deve aplicar seu próprio julgamento, especialmente em casos em que o contexto ou o manuscrito original indique uma leitura diferente.
+
+2. Compare Regularmente com o Manuscrito Original:  
+   Tenha sempre a imagem digitalizada do manuscrito original aberta ao lado da transcrição. O Transkribus oferece uma visualização dividida que permite comparar os dois lado a lado. Utilize isso para garantir que a transcrição represente fielmente a caligrafia no documento original.
+
+3. Corrigindo Ortografia vs. Preservando a Integridade Histórica:  
+   Ao corrigir o texto, tenha cuidado para manter a integridade histórica. O objetivo não é modernizar a ortografia ou a gramática, mas garantir que a transcrição reflita com precisão o manuscrito original. Mantenha as grafias arcaicas como estão, mesmo quando diferem do uso moderno, a menos que tenham sido transcritas incorretamente pelo modelo de HTR.
+
+4. Preste Atenção Especial à Terminologia Legal:  
+   Termos legais e marítimos em documentos do século XVII podem ser complexos e desconhecidos. Verifique termos desconhecidos com um glossário de terminologia jurídica histórica para garantir uma transcrição precisa. O Aurelius-HTR também pode ajudar a reconhecer frases jurídicas comumente usadas e oferecer correções com base no contexto histórico.
+
+5. Foco em Assinaturas e Marginalia:  
+   Assinaturas, iniciais e notas marginais muitas vezes representam os maiores desafios para os modelos de HTR, pois variam amplamente da caligrafia mais formal no corpo do texto. Verifique cuidadosamente quaisquer assinaturas ou anotações e corrija-as conforme necessário.
+
+-------------------------------------------------------------------------------
+3.5 Etapas-Chave no Processo de Correção
+-------------------------------------------------------------------------------
+
+Siga estas etapas-chave para revisar e corrigir sistematicamente o resultado de HTR:
+
+1. Abra o Documento em Modo de Visualização Dividida:  
+   Abra o volume ou intervalo de páginas específico atribuído a você no Transkribus. Ative a visualização dividida, para que você possa ver a transcrição ao lado da imagem original do manuscrito.
+
+2. Identifique e Destaque os Erros:  
+   Ao revisar o texto, identifique quaisquer erros que apareçam. Estes podem incluir grafias incorretas, abreviações ou palavras ausentes. O Aurelius-HTR frequentemente sinalizará questões potenciais e sugerirá correções, que você pode aceitar ou rejeitar com base em sua experiência.
+
+3. Corrija Palavras Mal Transcritas:  
+   Para cada palavra mal transcrita, use o editor de texto para inserir manualmente a grafia ou frase correta. Certifique-se de comparar a transcrição com o manuscrito original para verificar a precisão da correção.
+
+4. Consulte Frequentemente a Imagem do Manuscrito:  
+   Garanta que todas as alterações feitas estejam baseadas em evidências na imagem do manuscrito. Se algo parecer obscuro, você pode ampliar a imagem para examinar mais de perto. Se necessário, consulte outros recursos ou membros do projeto para seções difíceis de ler.
+
+5. Salve Seu Progresso Regularmente:  
+   O Transkribus salva automaticamente seu trabalho, mas é sempre uma boa prática salvar seu progresso periodicamente. Isso garante que suas correções sejam atualizadas e refletidas na coleção compartilhada.
+
+-------------------------------------------------------------------------------
+3.6 Colaborando com a Equipe do Projeto para Seções Desafiadoras
+-------------------------------------------------------------------------------
+
+Como parte de uma equipe colaborativa, é importante se comunicar com outros voluntários e com o líder do projeto se você encontrar seções particularmente desafiadoras. Se você estiver em dúvida sobre uma correção ou precisar de mais esclarecimentos sobre uma palavra ou frase, você pode:
+
+1. Usar Anotações para Revisões Futuras:  
+   Adicione uma anotação ou nota ao documento para marcar áreas que possam precisar de revisão futura. Isso é especialmente útil para seções que estão pouco claras ou contêm caligrafia difícil.
+
+2. Consultar Colin Greenstreet ou Outros Membros da Equipe:  
+   Se você encontrar desafios recorrentes ou transcrições incertas, entre em contato com Colin Greenstreet ou outros voluntários experientes para obter sugestões. Colaborar com a equipe garante que a transcrição seja o mais precisa possível.
+
+3. Enviar Suas Correções Finais para Revisão:  
+   Depois de concluir uma seção, envie suas correções para revisão. O diretor do projeto ou outros membros experientes da equipe podem realizar uma verificação final para garantir consistência e precisão em toda a coleção.
+
+===============================================================================
+Fim da SEÇÃO TRÊS
+===============================================================================
 
 ===============================================================================
 4. Preparando-se para o Trabalho de Correção
@@ -335,7 +394,7 @@ Diretrizes para Expansão de Latim:
 
 Embora o inglês do século XVII contenha inúmeras abreviações, é crucial manter a consistência em como essas abreviações são expandidas em todo o projeto de transcrição. Por exemplo, abreviações para palavras comuns (como "Mr" para "Master") devem ser padronizadas, e abreviações repetidas de locais ou termos jurídicos devem ser tratadas de maneira uniforme em todo o documento.
 
-Algumas expansões de abreviações em inglês dependem do contexto. Por exemplo, a abreviação *mr* só deve ser expandida para "master" em contextos específicos, como quando se refere a um título profissional ou de um navio. Em outros casos, como com títulos honoríficos, deve ser mantido como "Mr.".
+Algumas expansões de abreviações em inglês dependem do contexto. Por exemplo, a abreviação "mr" só deve ser expandida para "master" em contextos específicos, como quando se refere a um título profissional ou de um navio. Em outros casos, como com títulos honoríficos, deve ser mantido como "Mr.".
 
 Melhores Práticas para Padronização de Abreviações:
 - Expanda todas as abreviações de forma consistente: Para termos comumente abreviados como "Mr", certifique-se de que seja sempre expandido ou preservado da mesma maneira, com base no contexto.
@@ -370,13 +429,99 @@ Melhores Práticas:
 - Documente suas descobertas: Quando confirmar um termo ou nome histórico, registre sua pesquisa nas notas da transcrição para que outros possam se beneficiar da informação.
 - Aproveite o Aurelius-HTR: O Aurelius-HTR pode auxiliar na confirmação do uso de termos geográficos e relacionados a mercadorias, utilizando os recursos internos que ele possui.
 
+-------------------------------------------------------------------------------
+4.2 Identificando e Expandindo Abreviações Comuns (usando Padrões Regex)
+-------------------------------------------------------------------------------
+
+O Transkribus não realiza correção automática da saída bruta de HTR. Toda a revisão e correção é feita por voluntários que trabalham com Aurelius-HTR, que fornece orientação especializada e sugestões para melhorar a transcrição.
+
+Aurelius-HTR tem a capacidade de realizar análises de padrões Regex para ajudar na identificação e expansão de abreviações ou na resolução de outros erros comuns. Além disso, Aurelius-HTR pode escrever código Python para permitir que os voluntários realizem análises Regex diretamente em seus desktops ou laptops, se necessário.
+
+Por exemplo, os padrões regex podem ser usados para identificar instâncias de *sd* ou *mr* e substituí-las pelas versões expandidas conforme necessário. Os voluntários podem consultar o apêndice para uma listagem completa dos padrões regex armazenados no conhecimento interno do Aurelius-HTR.
+
+Exemplos de Padrões Regex:
+- Identificando *sd* como uma abreviação para *said*:  
+  r'sd': 'said'
+- Expandindo *pte* para *parte*:  
+  r'pte': 'parte'
+- Tratando abreviações como *St* para *Saint*:  
+  r'St': 'Saint'
+
+Como Usar Regex com Aurelius-HTR:
+- Os voluntários podem solicitar ao Aurelius-HTR ajuda na aplicação de padrões regex para abreviações comuns, garantindo consistência em todo o processo de transcrição.
+  
+Melhores Práticas:
+- Crie uma lista de padrões regex para termos comuns: Compile uma lista de abreviações frequentes e seus padrões regex para agilizar o processo de correção.
+- Teste os padrões em seções menores: Ao aplicar padrões regex, comece com seções menores para verificar a precisão antes de expandir para porções maiores do documento.
+
+-------------------------------------------------------------------------------
+4.3 Confirmando Terminologia Histórica (ex.: Velame, Localidades)
+-------------------------------------------------------------------------------
+
+Documentos históricos muitas vezes referenciam terminologia específica que pode não estar mais em uso comum. Isso inclui termos técnicos relacionados ao direito marítimo, construção naval e materiais, como diferentes tipos de velame ou nomes de localidades que podem ter mudado ao longo do tempo.
+
+Considerações-Chave para Terminologia Histórica:
+- Velame e Termos Marítimos:  
+  O velame, aparelhamento e outros termos marítimos podem ser difíceis de interpretar se o modelo interpretar incorretamente a palavra. Tipos comuns de velame, como "witney" ou "vitrey", devem ser verificados no contexto.
+
+- Nomes Geográficos:  
+  Muitos lugares mencionados nas deposições do Tribunal do Almirantado podem ter nomes antigos ou alternativos. Por exemplo, portos e centros comerciais podem ter sido conhecidos por diferentes nomes no século XVII. Os voluntários devem pesquisar e confirmar essas localidades conforme necessário.
+
+Melhores Práticas:
+- Consulte glossários históricos: Sempre consulte glossários históricos para termos marítimos e legais.
+- Verifique com mapas contemporâneos: Use mapas históricos para confirmar os antigos nomes de locais, garantindo precisão na transcrição.
+
+-------------------------------------------------------------------------------
+4.4 Aproveitando Recursos e Ferramentas Online para Pesquisar Termos Históricos
+-------------------------------------------------------------------------------
+
+Os voluntários podem encontrar termos, localidades ou nomes desconhecidos ao trabalhar nas transcrições. Aproveitar ferramentas e recursos online pode fornecer assistência valiosa na pesquisa desses termos e garantir seu uso correto. Além disso, Aurelius-HTR tem acesso a uma vasta gama de conhecimento interno, incluindo dicionários e glossários de termos geográficos e de commodities, que podem auxiliar na confirmação da terminologia.
+
+Recursos Online Recomendados (listados alfabeticamente):
+- Glossário Jurídico do Tribunal do Almirantado:  
+  http://www.marinelives.org/wiki/Tools:_Admiralty_court_legal_glossary  
+  Um glossário jurídico voltado para termos frequentemente encontrados em registros do Tribunal do Almirantado.
+
+- Glossário de Commodities:  
+  http://www.marinelives.org/wiki/Tools:_Commodities_glossary  
+  Um glossário de commodities frequentemente mencionadas nas deposições do Tribunal do Almirantado.
+
+- Glossário Geográfico:  
+  http://www.marinelives.org/wiki/Tools:_Geographical_glossary  
+  Um glossário de localidades geográficas referenciadas em documentos marítimos e legais do século XVII.
+
+- Dicionários de Latim:  
+  Whitaker’s Words: http://archives.nd.edu/words.html  
+  Uma ferramenta online para expandir frases latinas, útil para confirmar os significados e expansões corretas de palavras em latim.
+
+- Glossário Marítimo:  
+  http://www.marinelives.org/wiki/Tools:_Marine_glossary  
+  Um glossário de termos marítimos, ajudando a esclarecer a terminologia usada em contextos de navegação e navais.
+
+- Old Maps Online:  
+  https://www.oldmapsonline.org/  
+  Uma ferramenta para verificar localidades geográficas que podem ter mudado de nome desde o século XVII.
+
+- Dicionário Oxford de Inglês (OED):  
+  https://www.oed.com/  
+  Fornece definições de termos arcaicos, ajudando a confirmar ortografias e significados.
+
+- Glossário de Têxteis, Roupas e Corantes:  
+  http://www.marinelives.org/wiki/Tools:_Textiles,_garments_%26_dyestuffs_glossary_sub-group  
+  Um glossário que esclarece a terminologia específica relacionada a têxteis, roupas e corantes mencionados nas deposições.
+
+- Glossário de Pesos e Medidas:  
+  http://www.marinelives.org/wiki/Weights_and_Measures  
+  Um glossário detalhando pesos e medidas históricos comumente usados em registros marítimos e legais.
+
+Melhores Práticas:
+- Consulte regularmente recursos autoritativos: Torne-se um hábito verificar termos desconhecidos em dicionários ou glossários históricos.
+- Documente suas descobertas: Quando confirmar um termo ou nome histórico, documente sua pesquisa nas notas de transcrição para que outros possam se beneficiar da informação.
+- Aproveite o Aurelius-HTR: O Aurelius-HTR pode ajudar a confirmar o uso de termos geográficos e de commodities, utilizando os recursos internos aos quais tem acesso.
+
 ===============================================================================
 Fim da SEÇÃO QUATRO
 ===============================================================================
-
-
-Trabalhando com Aurelius-HTR no Transkribus para Corrigir HTR Bruto
-SEÇÃO CINCO - Versão 1.0 (10/09/2024)
 
 ===============================================================================
 5. Editando a Saída de HTR no Seu Desktop ou Laptop
@@ -461,8 +606,6 @@ Para garantir que seu trabalho de edição prossiga de maneira tranquila e efica
 ===============================================================================
 Fim da SEÇÃO CINCO
 ===============================================================================
-
-
 
 
 
