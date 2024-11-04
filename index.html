@@ -1,0 +1,514 @@
+<!-- MODULE 1: HTML STRUCTURE AND CSS - START -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High Court of Admiralty - Weather Events Knowledge Graph</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .links line {
+            stroke: #999;
+            stroke-opacity: 0.8;
+            stroke-width: 2px;
+            marker-end: url(#arrowhead);
+        }
+
+        .nodes circle {
+            stroke: #fff;
+            stroke-width: 2px;
+            cursor: pointer;
+        }
+
+        .nodes circle:hover {
+            stroke: #000;
+            stroke-width: 3px;
+        }
+
+        .node-label {
+            font-family: Arial;
+            font-size: 12px;
+            pointer-events: none;
+            font-weight: bold;
+            text-shadow: 
+                1px 1px 0 #fff,
+                -1px 1px 0 #fff,
+                1px -1px 0 #fff,
+                -1px -1px 0 #fff;
+        }
+
+        .link-label {
+            font-family: Arial;
+            font-size: 10px;
+            fill: #666;
+            pointer-events: none;
+            text-shadow: 
+                1px 1px 0 #fff,
+                -1px 1px 0 #fff,
+                1px -1px 0 #fff,
+                -1px -1px 0 #fff;
+        }
+
+        #graph-container {
+            width: 70%;
+            height: 800px;
+            border: 1px solid #ccc;
+            float: left;
+            background-color: #f8f8f8;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #info-panel {
+            width: 25%;
+            height: 800px;
+            float: right;
+            padding: 20px;
+            background: #f9f9f9;
+            border: 1px solid #ccc;
+            overflow-y: auto;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+        }
+
+        #control-panel {
+            width: 70%;
+            padding: 20px;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            clear: left;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .slider-container {
+            margin: 15px 0;
+            padding: 10px;
+            background: #fff;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .slider-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .slider-container input[type="range"] {
+            width: 300px;
+            margin-right: 15px;
+            vertical-align: middle;
+        }
+
+        .slider-value {
+            display: inline-block;
+            min-width: 100px;
+            padding: 5px 10px;
+            background: #eee;
+            border-radius: 3px;
+            text-align: center;
+            font-family: monospace;
+            color: #666;
+        }
+
+        #tooltip {
+            position: absolute;
+            background: white;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            max-width: 300px;
+        }
+
+        .legend {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .legend-item {
+            margin: 8px 0;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .legend-color {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            margin-right: 8px;
+            border-radius: 50%;
+            border: 1px solid #fff;
+        }
+
+        h2, h3, h4 {
+            color: #333;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            margin-top: 5px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="control-panel">
+        <h3>Force Simulation Controls</h3>
+        <div class="slider-container">
+            <label for="link-distance">Link Distance (Range: 50-200 units):</label>
+            <input type="range" id="link-distance" min="50" max="200" value="120" step="1">
+            <span class="slider-value" id="link-distance-value">Current: 120 units</span>
+        </div>
+        <div class="slider-container">
+            <label for="node-repulsion">Node Repulsion (Range: -1000-0 strength):</label>
+            <input type="range" id="node-repulsion" min="-1000" max="0" value="-400" step="10">
+            <span class="slider-value" id="node-repulsion-value">Current: -400 strength</span>
+        </div>
+        <div class="slider-container">
+            <label for="collision-radius">Collision Radius (Range: 20-60 units):</label>
+            <input type="range" id="collision-radius" min="20" max="60" value="35" step="1">
+            <span class="slider-value" id="collision-radius-value">Current: 35 units</span>
+        </div>
+    </div>
+
+    <div id="graph-container"></div>
+    <div id="info-panel">
+        <!-- Info panel content remains the same -->
+        <h2>Voyage Information</h2>
+        <h3>Time Period: December 1654 - February 1655</h3>
+        
+        <h3>Ships and Their Voyages:</h3>
+        <h4>Mary and Anne</h4>
+        <ul>
+            <li>Route: Malaga → Cadiz → English Channel</li>
+            <li>Weather Events: 3 major storms</li>
+            <li>Master: Captain Greene</li>
+        </ul>
+
+        <h4>Thomas Bonadventure</h4>
+        <ul>
+            <li>Route: Zant → Cephalonia → Porto Longone</li>
+            <li>Weather Events: Unfavorable winds, 20-day delay</li>
+            <li>Captain: George Hughes</li>
+            <li>Armament: 24 guns</li>
+        </ul>
+
+        <h3>Major Weather Events:</h3>
+        <ul>
+            <li>December 22, 1654: Violent storm (24+ hours)</li>
+            <li>December 29, 1654: Violent storm (8+ hours)</li>
+            <li>February 6, 1655: Violent storm (8+ hours)</li>
+            <li>Winter 1654/55: Extended unfavorable winds at Zant/Cephalonia</li>
+        </ul>
+
+        <h3>Key Locations:</h3>
+        <ul>
+            <li>Departure Ports: Malaga, Zant</li>
+            <li>Emergency Stops: Cadiz</li>
+            <li>Other Key Locations: English Channel, Southward Cape, Cephalonia, Porto Longone</li>
+        </ul>
+    </div>
+    <div id="tooltip"></div>
+
+<!-- MODULE 1: HTML STRUCTURE AND CSS - END -->
+<!-- MODULE 2: DATA AND CONFIGURATION - START -->
+<script>
+// Graph data structure
+const graphData = {
+    nodes: [
+        // Weather Events
+        { id: "weather_storm1_dec22_1654", label: "Storm Dec 22 1654", group: "Weather", 
+          details: "Violent storm\nDuration: 24+ hours\nLocation: 30 leagues from Southward Cape\nImpact: Could bear no sail" },
+        { id: "weather_storm2_dec29_1654", label: "Storm Dec 29 1654", group: "Weather", 
+          details: "Violent storm\nDuration: 8+ hours\nLocation: Near Cadiz\nImpact: Breaking main night and causing leak" },
+        { id: "weather_storm3_feb6_1655", label: "Storm Feb 6 1655", group: "Weather", 
+          details: "Violent storm\nDuration: 8+ hours\nLocation: English Channel\nImpact: Waves running over decks" },
+        { id: "weather_unfavorable_winds", label: "Unfavorable Winds", group: "Weather", 
+          details: "Location: Zant/Cephalonia\nImpact: 20-day delay\nPeriod: Winter 1654/55" },
+        
+        // Ships
+        { id: "ship_mary_and_anne", label: "Mary and Anne", group: "Ship", 
+          details: "Master: Captain Greene\nType: Merchant vessel\nRoute: Malaga → Cadiz → English Channel" },
+        { id: "ship_thomas_bonadventure", label: "Thomas Bonadventure", group: "Ship", 
+          details: "Captain: George Hughes\nGuns: 24\nRoute: Zant → Cephalonia → Porto Longone" },
+        
+        // Locations
+        { id: "place_malaga", label: "Malaga", group: "Place", details: "Departure port for Mary and Anne" },
+        { id: "place_cadiz", label: "Cadiz", group: "Place", details: "Emergency port for repairs" },
+        { id: "place_english_channel", label: "English Channel", group: "Place", details: "Location of severe storm, February 1655" },
+        { id: "place_southward_cape", label: "Southward Cape", group: "Place", details: "Location of first storm, December 1654" },
+        { id: "place_zant", label: "Zant", group: "Place", details: "Departure port for Thomas Bonadventure" },
+        { id: "place_cephalonia", label: "Cephalonia", group: "Place", details: "Location of wind delay" },
+        { id: "place_porto_longone", label: "Porto Longone", group: "Place", details: "Final recorded location of Thomas Bonadventure" }
+    ],
+    links: [
+        // Mary and Anne encounters with storms
+        { source: "ship_mary_and_anne", target: "weather_storm1_dec22_1654", label: "encountered" },
+        { source: "ship_mary_and_anne", target: "weather_storm2_dec29_1654", label: "encountered" },
+        { source: "ship_mary_and_anne", target: "weather_storm3_feb6_1655", label: "encountered" },
+        { source: "ship_mary_and_anne", target: "place_malaga", label: "departed from" },
+        { source: "ship_mary_and_anne", target: "place_cadiz", label: "sought refuge" },
+        { source: "ship_mary_and_anne", target: "place_english_channel", label: "sailed to" },
+        
+        // Thomas Bonadventure weather encounters
+        { source: "ship_thomas_bonadventure", target: "weather_unfavorable_winds", label: "delayed by" },
+        { source: "ship_thomas_bonadventure", target: "place_zant", label: "departed from" },
+        { source: "ship_thomas_bonadventure", target: "place_cephalonia", label: "sailed to" },
+        { source: "ship_thomas_bonadventure", target: "place_porto_longone", label: "arrived at" },
+        
+        // Location relationships to weather events
+        { source: "weather_storm1_dec22_1654", target: "place_southward_cape", label: "occurred near" },
+        { source: "weather_storm2_dec29_1654", target: "place_cadiz", label: "occurred near" },
+        { source: "weather_storm3_feb6_1655", target: "place_english_channel", label: "occurred in" },
+        { source: "weather_unfavorable_winds", target: "place_zant", label: "affected" },
+        { source: "weather_unfavorable_winds", target: "place_cephalonia", label: "affected" }
+    ]
+};
+
+// Color scale for different node groups
+const color = d3.scaleOrdinal()
+    .domain(["Weather", "Ship", "Place"])
+    .range(["#e41a1c", "#377eb8", "#4daf4a"]);
+
+// Set up the SVG with improved viewport handling
+const width = document.getElementById('graph-container').offsetWidth;
+const height = document.getElementById('graph-container').offsetHeight;
+const padding = 50; // Padding to keep nodes from edges
+
+const svg = d3.select("#graph-container")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMidYMid meet");
+
+// Add arrow markers with adjusted size
+svg.append("defs").append("marker")
+    .attr("id", "arrowhead")
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 28)
+    .attr("refY", 0)
+    .attr("markerWidth", 8)
+    .attr("markerHeight", 8)
+    .attr("orient", "auto")
+    .append("path")
+    .attr("d", "M0,-5L10,0L0,5")
+    .attr("fill", "#999");
+
+// Add legend with improved positioning
+const legend = d3.select("#graph-container")
+    .append("div")
+    .attr("class", "legend");
+
+["Weather", "Ship", "Place"].forEach((group, i) => {
+    const item = legend.append("div")
+        .attr("class", "legend-item");
+    
+    item.append("span")
+        .attr("class", "legend-color")
+        .style("background-color", color(group));
+    
+    item.append("span")
+        .text(group);
+});
+
+// Initialize boundaries for node positioning
+const xScale = d3.scaleLinear()
+    .domain([0, 1])
+    .range([padding, width - padding]);
+
+const yScale = d3.scaleLinear()
+    .domain([0, 1])
+    .range([padding, height - padding]);
+</script>
+<!-- MODULE 2: DATA AND CONFIGURATION - END -->
+<!-- MODULE 3: VISUALIZATION AND INTERACTION - START -->
+<script>
+// Create force simulation with updated parameters
+let simulation = d3.forceSimulation(graphData.nodes)
+    .force("link", d3.forceLink(graphData.links)
+        .id(d => d.id)
+        .distance(120))
+    .force("charge", d3.forceManyBody()
+        .strength(-400))
+    .force("center", d3.forceCenter(width / 2, height / 2)
+        .strength(0.8))
+    .force("collision", d3.forceCollide()
+        .radius(35))
+    .force("x", d3.forceX(width / 2).strength(0.1))
+    .force("y", d3.forceY(height / 2).strength(0.1));
+
+// Draw links with improved positioning
+const link = svg.append("g")
+    .selectAll("line")
+    .data(graphData.links)
+    .join("line")
+    .attr("class", "links");
+
+// Draw link labels with better placement
+const linkLabel = svg.append("g")
+    .selectAll("text")
+    .data(graphData.links)
+    .join("text")
+    .attr("class", "link-label")
+    .text(d => d.label)
+    .attr("text-anchor", "middle");
+
+// Draw nodes with size based on type
+const node = svg.append("g")
+    .selectAll("circle")
+    .data(graphData.nodes)
+    .join("circle")
+    .attr("class", "nodes")
+    .attr("r", d => {
+        switch(d.group) {
+            case "Weather": return 25;
+            case "Ship": return 20;
+            case "Place": return 15;
+            default: return 10;
+        }
+    })
+    .attr("fill", d => color(d.group))
+    .call(drag(simulation));
+
+// Draw node labels with improved positioning
+const nodeLabel = svg.append("g")
+    .selectAll("text")
+    .data(graphData.nodes)
+    .join("text")
+    .attr("class", "node-label")
+    .text(d => d.label)
+    .attr("dx", 15)
+    .attr("dy", 4);
+
+// Enhanced tooltip functionality
+node.on("mouseover", function(event, d) {
+    d3.select("#tooltip")
+        .style("display", "block")
+        .style("left", (event.pageX + 10) + "px")
+        .style("top", (event.pageY - 10) + "px")
+        .html(`<strong>${d.label}</strong><br>${d.details.replace(/\n/g, '<br>')}`)
+        .style("opacity", 0)
+        .transition()
+        .duration(200)
+        .style("opacity", 1);
+})
+.on("mouseout", function() {
+    d3.select("#tooltip")
+        .transition()
+        .duration(200)
+        .style("opacity", 0)
+        .on("end", function() {
+            d3.select(this).style("display", "none");
+        });
+});
+
+// Improved tick function with boundary constraints
+simulation.on("tick", () => {
+    // Update link positions
+    link
+        .attr("x1", d => Math.max(padding, Math.min(width - padding, d.source.x)))
+        .attr("y1", d => Math.max(padding, Math.min(height - padding, d.source.y)))
+        .attr("x2", d => Math.max(padding, Math.min(width - padding, d.target.x)))
+        .attr("y2", d => Math.max(padding, Math.min(height - padding, d.target.y)));
+
+    // Update link label positions
+    linkLabel
+        .attr("x", d => (Math.max(padding, Math.min(width - padding, d.source.x)) + 
+                        Math.max(padding, Math.min(width - padding, d.target.x))) / 2)
+        .attr("y", d => (Math.max(padding, Math.min(height - padding, d.source.y)) + 
+                        Math.max(padding, Math.min(height - padding, d.target.y))) / 2);
+
+    // Update node positions
+    node
+        .attr("cx", d => Math.max(padding, Math.min(width - padding, d.x)))
+        .attr("cy", d => Math.max(padding, Math.min(height - padding, d.y)));
+
+    // Update node label positions
+    nodeLabel
+        .attr("x", d => Math.max(padding, Math.min(width - padding, d.x)))
+        .attr("y", d => Math.max(padding, Math.min(height - padding, d.y)));
+});
+
+// Enhanced drag functionality
+function drag(simulation) {
+    function dragstarted(event) {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        event.subject.fx = event.subject.x;
+        event.subject.fy = event.subject.y;
+    }
+    
+    function dragged(event) {
+        event.subject.fx = Math.max(padding, Math.min(width - padding, event.x));
+        event.subject.fy = Math.max(padding, Math.min(height - padding, event.y));
+    }
+    
+    function dragended(event) {
+        if (!event.active) simulation.alphaTarget(0);
+        event.subject.fx = null;
+        event.subject.fy = null;
+    }
+    
+    return d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended);
+}
+
+// Enhanced slider event listeners with smooth transitions
+d3.select("#link-distance").on("input", function() {
+    const value = +this.value;
+    d3.select("#link-distance-value").text(`Current: ${value} units`);
+    simulation.force("link").distance(value);
+    simulation.alpha(0.3).restart();
+});
+
+d3.select("#node-repulsion").on("input", function() {
+    const value = +this.value;
+    d3.select("#node-repulsion-value").text(`Current: ${value} strength`);
+    simulation.force("charge").strength(value);
+    simulation.alpha(0.3).restart();
+});
+
+d3.select("#collision-radius").on("input", function() {
+    const value = +this.value;
+    d3.select("#collision-radius-value").text(`Current: ${value} units`);
+    simulation.force("collision").radius(value);
+    simulation.alpha(0.3).restart();
+});
+</script>
+</body>
+</html>
+<!-- MODULE 3: VISUALIZATION AND INTERACTION - END -->
+
+
+
+
+
+
+
+
