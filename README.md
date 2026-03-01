@@ -5,9 +5,6 @@ We aim to have a high quality machine transcription of all volumes covering the 
 All transcriptions will be made available to the public on an open source basis.
 That's roughly 30 million words. We have 5 million words completed to date.
 
-To complete this task we need two things (1) The help of volunteers (2) Roughly £20,000 of funding for Transkribus computer time.
-If you would like to help us in this challenge, please go to our GoFundMe site and make a small contribution. 
-
 You can follow us on BlueSky, where we have a small but elite and rapidly growing following! [https://bsky.app/profile/marinelivesorg.bsky.social]
 
 Check out our 12,000 page wiki here [http://www.marinelives.org/wiki/MarineLives].
