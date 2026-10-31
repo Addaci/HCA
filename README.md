@@ -1,10 +1,27 @@
 # HCA
-English High Court of Admiralty deposition volumes [HCA 13/20 to HCA 13/79, covering the years 1570 to 1685].
-These transcriptions are the work product of the MarineLives project, a volunteer led collaboration launched in 2012 and going strong twelve years later.
-We aim to have a high quality machine transcription of all volumes covering the period 1570 to 1685 complete by end 2025.
-All transcriptions will be made available to the public on an open source basis.
-That's roughly 30 million words. We have 5 million words completed to date.
 
-You can follow us on BlueSky, where we have a small but elite and rapidly growing following! [https://bsky.app/profile/marinelivesorg.bsky.social]
+English High Court of Admiralty records from The National Archives, Kew, transcribed by the MarineLives project: the examination books HCA 13/20 to HCA 13/79 (depositions, 1570 to 1685), and from 31 October 2026 a first machine transcription of the personal-answer book HCA 13/125 (1652 to 1654).
 
-Check out our 12,000 page wiki here [http://www.marinelives.org/wiki/MarineLives].
+MarineLives is a volunteer collaboration launched in 2012. Its transcriptions are made available to the public on an open basis. The wiki holds about 12,000 pages: [www.marinelives.org/wiki/MarineLives](http://www.marinelives.org/wiki/MarineLives). We are on BlueSky at [marinelivesorg.bsky.social](https://bsky.app/profile/marinelivesorg.bsky.social).
+
+## What is here
+
+**Edited deposition volumes, HCA 13/31 to HCA 13/79.** Twenty-seven files named `HCA_13_nn_Full_Volume_Processed_Text_EDITED_Ver.x.y_DDMMYYYY.txt`, one per volume, produced in 2024 from machine transcription with human editing. Each page is headed `HCA 13/nn f.nnr Annotate` or `f.nnv`, matching the wiki page names, so a hit here can be read against the page image on the wiki. Volumes 31, 35, 39, 40, 42, 44, 48 to 53, 55 to 59, 61, 63, 64, 68, 70 to 73, 76 and 79 are present; the rest of the series is to follow.
+
+**Raw machine transcription, HCA 13/125.** `HCA_13_125_Full_Volume_Machine_Transcription_RAW_Ver.1.3_31102026.txt` is different in kind: an unedited reading of all 416 photographed pages by Claude Opus 5.5 on 31 October 2026, with no human check of any page. It is published to be searched, not quoted. Its front matter gives the provenance of the photographs, the method, the system prompt and the script, and a short note on what a personal answer is and how it differs from a deposition. The volume is unfoliated, so pages are headed by image number, `HCA 13/125 IMG_115_05_nnnn`. The photographs are not on the wiki and are available on request.
+
+**Other files.** `ML_FINDING_AID_Materials_Handling_16092021_Ver71.7.pdf`, a finding aid to the HCA material; `Index_Ver.2.0_04112024.html` and `index.html`, an index to the volumes; `TNA_AI_Week_New_Skills_for_Historians_FINAL_WITH_EMAIL_19072024.pdf`, a talk given at The National Archives in July 2024; and three `Working_with_Aurelius-HTR_...txt` files, chapters on working with the Aurelius HTR model, in English and in Portuguese.
+
+## Reading the text
+
+Spelling, capitalisation and abbreviation are the scribes' own, not errors to be corrected: in HCA 13/71, for example, about seven words in ten are in a spelling that is not the modern one. In the edited volumes some common abbreviations have been expanded ("videlicet", "the"); in the raw HCA 13/125 file they stand as written ("vizt", "ye"), with `[?]` after a doubtful word and `[illegible]` for an unread stretch.
+
+## Citing
+
+Cite the volume, the folio and side (or, for HCA 13/125, the image number), the file name with its version, and this repository. For HCA 13/125 add that the reading is a machine transcription of 31 October 2026, unverified.
+
+## Contact
+
+Questions, corrections and requests for page images: on application to Colin Greenstreet through his LinkedIn account, https://www.linkedin.com/in/colin-greenstreet-7434b9/.
+
+*README version 2.0, 31 October 2026. Drafted by Claude Fable 5.1 (medium), in Claude Code, for Colin Greenstreet; the previous README (2024) said that a machine transcription of all volumes 1570 to 1685 would be complete by the end of 2025, and gave a word count; Colin to update those two statements.*
