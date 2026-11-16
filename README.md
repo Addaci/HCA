@@ -12,6 +12,8 @@ MarineLives is a volunteer collaboration launched in 2012. Its transcriptions ar
 
 **Other files.** `ML_FINDING_AID_Materials_Handling_16092021_Ver71.7.pdf`, a finding aid to the HCA material; `Index_Ver.2.0_04112024.html` and `index.html`, an index to the volumes; `TNA_AI_Week_New_Skills_for_Historians_FINAL_WITH_EMAIL_19072024.pdf`, a talk given at The National Archives in July 2024; and three `Working_with_Aurelius-HTR_...txt` files, chapters on working with the Aurelius HTR model, in English and in Portuguese.
 
+**Tools.** `tools/htr_eval/` holds `htr_eval.py` and its README, added on 16 November 2026. The script measures machine transcription against ground truth that the model was not trained on. It reports characters and words wrong per hundred, which letters are misread as which, and every wrong word. For each person, ship, place, date and quantity it says whether exact or fuzzy search would still find it. It needs Python 3 and nothing else. It was written for a pilot on HCA 13/65 ahead of the CRASH hackathon in Graz (30 November to 1 December 2026). Its output follows the format of the Hugging Face dataset [MarineLives/HCA-1358-HTR-Errors-In-Phrases](https://huggingface.co/datasets/MarineLives/HCA-1358-HTR-Errors-In-Phrases) (2024), so the two can be compared.
+
 ## Reading the text
 
 Spelling, capitalisation and abbreviation are the scribes' own, not errors to be corrected: in HCA 13/71, for example, about seven words in ten are in a spelling that is not the modern one. In the edited volumes some common abbreviations have been expanded ("videlicet", "the"); in the raw HCA 13/125 file they stand as written ("vizt", "ye"), with `[?]` after a doubtful word and `[illegible]` for an unread stretch.
@@ -25,3 +27,5 @@ Cite the volume, the folio and side (or, for HCA 13/125, the image number), the 
 Questions, corrections and requests for page images: on application to Colin Greenstreet through his LinkedIn account, https://www.linkedin.com/in/colin-greenstreet-7434b9/.
 
 *README version 2.0, 31 October 2026. Drafted by Claude Fable 5.1 (medium), in Claude Code, for Colin Greenstreet; the previous README (2024) said that a machine transcription of all volumes 1570 to 1685 would be complete by the end of 2025, and gave a word count; Colin to update those two statements.*
+
+*README version 2.1, 16 November 2026: adds the Tools paragraph. Drafted by Claude in Claude Code for Colin Greenstreet.*
