@@ -64,6 +64,7 @@ To check other sites, give SURT prefixes (the host reversed): for example `--pre
 - `marinelives_by_crawl.csv`: per crawl, captures, HTTP status counts and content pages.
 - `marinelives_pages.csv`: every content page captured, with first and last crawl and the number of crawls.
 - `marinelives_by_volume.csv`: HCA 13 pages captured up to the end of 2025, by volume.
+- `marinelives_hca_pages_by_volume.csv`: every captured HCA page (HCA 13, and smaller numbers from HCA 3, 15, 23, 24 and 30), in volume and folio order. Columns: volume, folio, page type (folio transcription, other folio page or volume page), title, wiki address, first and last crawl, number of crawls, and whether it was captured by the end of 2025. Filter on volume and page type to see exactly which folios of a volume a model may have read.
 - `github_captures.csv`: captures of this repository (none).
 - `amsterdam_CC-MAIN-2025-47.csv`: Stadsarchief and Transkribus captures in that crawl.
 - `captures.csv.gz`: all 143,027 captures found (crawl, timestamp, status, type, address).

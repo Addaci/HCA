@@ -13,6 +13,7 @@ Writes to OUTDIR:
   marinelives_by_crawl.csv     per crawl: captures, HTTP status counts, content pages
   marinelives_pages.csv        per content page: first and last crawl, number of crawls
   marinelives_by_volume.csv    HCA 13 pages per volume, up to --upto
+  marinelives_hca_pages_by_volume.csv  every captured HCA page, by volume and folio
   github_captures.csv          every capture under a non-MarineLives prefix
   captures.csv.gz              the compact capture list (crawl, timestamp, status, mime, url)
 and prints the headline figures. Needs Python 3 and nothing else.
@@ -102,6 +103,35 @@ def main():
         w.writerow(["volume", f"pages_captured_up_to_{a.upto}"])
         for v in sorted(vol):
             w.writerow([f"HCA 13/{v}", vol[v]])
+
+    # Every captured HCA page, by series, volume and folio, in reading order.
+    hca = []
+    for t, cs in pages.items():
+        m = re.match(r"HCA_(\d+)/(\d+)(.*)$", t)
+        if not m:
+            continue
+        rest = m.group(3)
+        fm = re.match(r"_?f\.?\s?(\d+)([rv]?)_?(.*)$", rest)
+        folio, side, kind = (int(fm.group(1)), fm.group(2), fm.group(3)) if fm else (None, "", rest.strip("_:"))
+        if fm and kind == "Annotate":
+            ptype = "folio transcription"
+        elif fm:
+            ptype = "folio, other (" + kind + ")" if kind else "folio"
+        else:
+            ptype = "volume page" + (" (" + kind + ")" if kind else "")
+        cs = sorted(cs)
+        hca.append((int(m.group(1)), int(m.group(2)), folio if folio is not None else -1, side, t,
+                    f"HCA {m.group(1)}/{m.group(2)}", "" if folio is None else f"f.{folio}{side}", ptype,
+                    cs[0], cs[-1], len(cs), "yes" if cs[0] <= a.upto else "no"))
+    hca.sort()
+    with open(os.path.join(a.outdir, "marinelives_hca_pages_by_volume.csv"), "w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["volume", "folio", "page_type", "title", "url", "first_crawl", "last_crawl",
+                    "crawls", f"captured_by_{a.upto}"])
+        for row in hca:
+            w.writerow([row[5], row[6], row[7], row[4].replace("_", " "),
+                        "https://www.marinelives.org/wiki/" + urllib.parse.quote(row[4]),
+                        row[8], row[9], row[10], row[11]])
 
     with open(os.path.join(a.outdir, "github_captures.csv"), "w", newline="") as f:
         w = csv.writer(f)
