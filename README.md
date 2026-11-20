@@ -18,9 +18,31 @@ MarineLives is a volunteer collaboration launched in 2012. Its transcriptions ar
 
 Spelling, capitalisation and abbreviation are the scribes' own, not errors to be corrected: in HCA 13/71, for example, about seven words in ten are in a spelling that is not the modern one. In the edited volumes some common abbreviations have been expanded ("videlicet", "the"); in the raw HCA 13/125 file they stand as written ("vizt", "ye"), with `[?]` after a doubtful word and `[illegible]` for an unread stretch.
 
+## Licence
+
+Except where a file says otherwise, the transcriptions, index and documentation in this repository are released under the [Creative Commons Attribution 4.0 International licence (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/). The full text is in `LICENSE`. You may copy, adapt and reuse them for any purpose, provided you credit MarineLives and cite as below.
+
+The code in `tools/` is released under the [MIT licence](https://opensource.org/license/mit), the usual licence for open software; the text is in each tool's folder, for example `tools/htr_eval/LICENSE`.
+
+The licence covers the work of MarineLives and its volunteers: the transcriptions, their editing and the files here. The original records are held by The National Archives, Kew, under the reference HCA.
+
 ## Citing
 
-Cite the volume, the folio and side (or, for HCA 13/125, the image number), the file name with its version, and this repository. For HCA 13/125 add that the reading is a machine transcription of 31 October 2026, unverified.
+**A page.** Cite the volume, the folio and side (or, for HCA 13/125, the image number), MarineLives as transcriber, the file name with its version, and this repository, with the date you used it. For example:
+
+> HCA 13/71 f.45r, transcribed by MarineLives, `HCA_13_71_Full_Volume_Processed_Text_EDITED_Ver.1.3_16062024.txt`, MarineLives HCA repository, https://github.com/Addaci/HCA (accessed 20 November 2026). CC BY 4.0.
+
+For HCA 13/125, add that the reading is a machine transcription of 31 October 2026, unverified:
+
+> HCA 13/125 IMG_115_05_8500, MarineLives raw machine transcription of 31 October 2026, unverified, `HCA_13_125_Full_Volume_Machine_Transcription_RAW_Ver.1.3_31102026.txt`, MarineLives HCA repository, https://github.com/Addaci/HCA (accessed 20 November 2026). CC BY 4.0.
+
+**MarineLives as a whole.** Cite the project and its wiki:
+
+> MarineLives (2012 to date), a volunteer collaboration transcribing the records of the English High Court of Admiralty, https://www.marinelives.org/wiki/MarineLives (accessed 20 November 2026).
+
+**This repository.** GitHub's "Cite this repository" button, at the top right of the repository page, gives the same reference in APA and BibTeX form, from the file `CITATION.cff`.
+
+Replace the access date with your own. Credit to MarineLives satisfies the attribution condition of the CC BY 4.0 licence.
 
 ## Contact
 
@@ -29,3 +51,5 @@ Questions, corrections and requests for page images: on application to Colin Gre
 *README version 2.0, 31 October 2026. Drafted by Claude Fable 5.1 (medium), in Claude Code, for Colin Greenstreet; the previous README (2024) said that a machine transcription of all volumes 1570 to 1685 would be complete by the end of 2025, and gave a word count; Colin to update those two statements.*
 
 *README version 2.1, 16 November 2026: adds the Tools paragraph. Drafted by Claude in Claude Code for Colin Greenstreet.*
+
+*README version 2.2, 20 November 2026: adds the Licence section and the `LICENSE` file (CC BY 4.0; MIT for the code in `tools/`), how to cite MarineLives, and `CITATION.cff`, at Colin Greenstreet's instruction. Drafted by Claude in Claude Code.*
