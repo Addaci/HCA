@@ -18,6 +18,12 @@ MarineLives is a volunteer collaboration launched in 2012. Its transcriptions ar
 
 Spelling, capitalisation and abbreviation are the scribes' own, not errors to be corrected: in HCA 13/71, for example, about seven words in ten are in a spelling that is not the modern one. In the edited volumes some common abbreviations have been expanded ("videlicet", "the"); in the raw HCA 13/125 file they stand as written ("vizt", "ye"), with `[?]` after a doubtful word and `[illegible]` for an unread stretch.
 
+## Licence
+
+Except where a file says otherwise, the transcriptions, index, documentation and tools in this repository are released under the [Creative Commons Attribution 4.0 International licence (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/). The full text is in `LICENSE`. You may copy, adapt and reuse them for any purpose, provided you credit MarineLives and cite as below.
+
+The licence covers the work of MarineLives and its volunteers: the transcriptions, their editing and the files here. The original records are held by The National Archives, Kew, under the reference HCA.
+
 ## Citing
 
 Cite the volume, the folio and side (or, for HCA 13/125, the image number), the file name with its version, and this repository. For HCA 13/125 add that the reading is a machine transcription of 31 October 2026, unverified.
@@ -29,3 +35,5 @@ Questions, corrections and requests for page images: on application to Colin Gre
 *README version 2.0, 31 October 2026. Drafted by Claude Fable 5.1 (medium), in Claude Code, for Colin Greenstreet; the previous README (2024) said that a machine transcription of all volumes 1570 to 1685 would be complete by the end of 2025, and gave a word count; Colin to update those two statements.*
 
 *README version 2.1, 16 November 2026: adds the Tools paragraph. Drafted by Claude in Claude Code for Colin Greenstreet.*
+
+*README version 2.2, 20 November 2026: adds the Licence section and the `LICENSE` file (CC BY 4.0), at Colin Greenstreet's instruction. Drafted by Claude in Claude Code.*
