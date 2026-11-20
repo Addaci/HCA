@@ -20,7 +20,9 @@ Spelling, capitalisation and abbreviation are the scribes' own, not errors to be
 
 ## Licence
 
-Except where a file says otherwise, the transcriptions, index, documentation and tools in this repository are released under the [Creative Commons Attribution 4.0 International licence (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/). The full text is in `LICENSE`. You may copy, adapt and reuse them for any purpose, provided you credit MarineLives and cite as below.
+Except where a file says otherwise, the transcriptions, index and documentation in this repository are released under the [Creative Commons Attribution 4.0 International licence (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/). The full text is in `LICENSE`. You may copy, adapt and reuse them for any purpose, provided you credit MarineLives and cite as below.
+
+The code in `tools/` is released under the [MIT licence](https://opensource.org/license/mit), the usual licence for open software; the text is in each tool's folder, for example `tools/htr_eval/LICENSE`.
 
 The licence covers the work of MarineLives and its volunteers: the transcriptions, their editing and the files here. The original records are held by The National Archives, Kew, under the reference HCA.
 
@@ -50,4 +52,4 @@ Questions, corrections and requests for page images: on application to Colin Gre
 
 *README version 2.1, 16 November 2026: adds the Tools paragraph. Drafted by Claude in Claude Code for Colin Greenstreet.*
 
-*README version 2.2, 20 November 2026: adds the Licence section and the `LICENSE` file (CC BY 4.0), how to cite MarineLives, and `CITATION.cff`, at Colin Greenstreet's instruction. Drafted by Claude in Claude Code.*
+*README version 2.2, 20 November 2026: adds the Licence section and the `LICENSE` file (CC BY 4.0; MIT for the code in `tools/`), how to cite MarineLives, and `CITATION.cff`, at Colin Greenstreet's instruction. Drafted by Claude in Claude Code.*
