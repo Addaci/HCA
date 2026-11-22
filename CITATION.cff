@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use these transcriptions, please cite MarineLives and this repository, giving the volume, folio and file version you used."
+title: "HCA: English High Court of Admiralty records transcribed by MarineLives"
+type: dataset
+authors:
+  - name: "MarineLives"
+    website: "https://www.marinelives.org/wiki/MarineLives"
+contact:
+  - family-names: "Greenstreet"
+    given-names: "Colin"
+    website: "https://www.linkedin.com/in/colin-greenstreet-7434b9/"
+repository-code: "https://github.com/Addaci/HCA"
+url: "https://www.marinelives.org/wiki/MarineLives"
+license: CC-BY-4.0
+abstract: "Transcriptions of the examination books HCA 13/20 to HCA 13/79 (depositions, 1570 to 1685) and a raw machine transcription of the personal-answer book HCA 13/125 (1652 to 1654), from records held by The National Archives, Kew. MarineLives is a volunteer collaboration launched in 2012."
+keywords:
+  - "High Court of Admiralty"
+  - "HCA 13"
+  - "depositions"
+  - "maritime history"
+  - "early modern"
