@@ -1,0 +1,556 @@
+{
+  "description": "Controlled vocabulary of pre-1666 London parishes from MarineLives Semantic MediaWiki, with geo-coordinates from Wikipedia. 112 parishes total. Used to normalise parish names extracted from HCA deposition front matter and for future geospatial mapping.",
+  "source": "https://www.marinelives.org/wiki/Category:Semantic_parish",
+  "last_updated": "2026-04-26",
+  "version": "1.1",
+  "version_history": [
+    {"version": "1.0", "date": "2026-04-22", "context": "Initial creation from MarineLives data, but file in skill folder and Customize was truncated at 19,679 bytes mid-Saint Thomas the Apostle entry."},
+    {"version": "1.1", "date": "2026-04-26", "context": "Reconstructed from authoritative MarineLives source (https://www.marinelives.org/wiki/Category:Semantic_parish, 112 pages). Completed Saint Thomas the Apostle entry (with coordinates). Added Saint Vedast Foster Lane and Stepney that were missing from v1.0. Closed JSON properly."}
+  ],
+  "usage": "Match the raw place extracted from front matter against the normalised_name field (case-insensitive). Handle St/Saint variation: 'St Dunstans' should match 'Saint Dunstans in the East', 'St.' should match 'Saint'. Handle Allhallows/All Hallows variation. Use partial matching as a fallback — if the raw place contains a parish name or vice versa, flag as a partial match for human review. Places outside the City of London (Wapping, Deptford, Limehouse, Shadwell, foreign ports) are expected to be UNMATCHED unless the deponent's hamlet implies a known parish (in which case use place-imputation.json's hamlet_to_parish lookup) — this is a feature, not a bug, as it distinguishes City-dwellers from others. The ambiguous 'Saint Mary Magdalen' (no qualifier) could be Bermondsey, Milk Street, or Old Fish Street — flag for human disambiguation. Coordinates are for downstream geospatial use, not for matching.",
+  "notes": "WORK IN PROGRESS. Coordinates are in DMS format from Wikipedia. The list includes City of London parishes, some Southwark parishes (Saint Olave Southwark, Saint Saviour Southwark, Saint Thomas Southwark, Saint George the Martyr Southwark, Saint Marie Overie), and Stepney (which covered Wapping, Limehouse, Ratcliffe, Shadwell, Poplar, Blackwall as hamlets). Not all parishes have complete coordinate data. 'Saint Mary Magdalen' without qualifier appears in the list — context determines whether this is Bermondsey or another dedication.",
+  "parishes": [
+    {
+      "normalised_name": "Allhallows Barking",
+      "coordinates": "51° 30′ 33.84″ N, 0° 4′ 45.84″ W",
+      "wikipedia": "All Hallows-by-the-Tower"
+    },
+    {
+      "normalised_name": "Allhallows Bread Street",
+      "coordinates": "51° 30′ 47.16″ N, 0° 5′ 42.36″ W",
+      "wikipedia": "All Hallows, Bread Street"
+    },
+    {
+      "normalised_name": "Allhallows Lombard Street",
+      "coordinates": "51° 30′ 43.92″ N, 0° 5′ 7.8″ W",
+      "wikipedia": "All Hallows Lombard Street"
+    },
+    {
+      "normalised_name": "Allhallows Staining",
+      "coordinates": "51° 30′ 41.68″ N, 0° 4′ 49.76″ W",
+      "wikipedia": "All Hallows Staining"
+    },
+    {
+      "normalised_name": "Allhallows the Great",
+      "coordinates": "51° 30′ 36″ N, 0° 5′ 24.72″ W",
+      "wikipedia": "All-Hallows-the-Great"
+    },
+    {
+      "normalised_name": "Allhallows the Less",
+      "coordinates": "51° 30′ 35.64″ N, 0° 5′ 21.48″ W",
+      "wikipedia": "All-Hallows-the-Less"
+    },
+    {
+      "normalised_name": "Allhallows the Wall",
+      "coordinates": "51° 30′ 59.77″ N, 0° 5′ 3.6″ W",
+      "wikipedia": "All Hallows-on-the-Wall"
+    },
+    {
+      "normalised_name": "Great Saint Helens",
+      "coordinates": null,
+      "wikipedia": null
+    },
+    {
+      "normalised_name": "Holy Trinity Minories",
+      "coordinates": "51° 30′ 41.4″ N, 0° 4′ 28.56″ W",
+      "wikipedia": "Church of Holy Trinity, Minories"
+    },
+    {
+      "normalised_name": "Liberty of Tower of London",
+      "coordinates": null,
+      "wikipedia": null
+    },
+    {
+      "normalised_name": "Little Saint Helens",
+      "coordinates": null,
+      "wikipedia": null
+    },
+    {
+      "normalised_name": "Saint Alban Wood Street",
+      "coordinates": "51° 30′ 59.69″ N, 0° 5′ 38.95″ W",
+      "wikipedia": "St Alban, Wood Street"
+    },
+    {
+      "normalised_name": "Saint Alphage London Wall",
+      "coordinates": "51° 31′ 3.57″ N, 0° 5′ 32.03″ W",
+      "wikipedia": "St Alphege London Wall"
+    },
+    {
+      "normalised_name": "Saint Andrew Holborn",
+      "coordinates": "51° 31′ 2.1″ N, 0° 6′ 24.14″ W",
+      "wikipedia": "St Andrew Holborn (church)"
+    },
+    {
+      "normalised_name": "Saint Andrew Hubbard",
+      "coordinates": "51° 30′ 36″ N, 0° 5′ 0″ W",
+      "wikipedia": "St Andrew Hubbard"
+    },
+    {
+      "normalised_name": "Saint Andrew Undershaft",
+      "coordinates": "51° 30′ 49.18″ N, 0° 4′ 52.72″ W",
+      "wikipedia": "St Andrew Undershaft"
+    },
+    {
+      "normalised_name": "Saint Andrew Wardrobe",
+      "coordinates": "51° 30′ 44.44″ N, 0° 6′ 4.89″ W",
+      "wikipedia": "St Andrew-by-the-Wardrobe"
+    },
+    {
+      "normalised_name": "Saint Ann Blackfriars",
+      "coordinates": null,
+      "wikipedia": "St Ann Blackfriars"
+    },
+    {
+      "normalised_name": "Saint Anns Aldersgate",
+      "coordinates": null,
+      "wikipedia": null
+    },
+    {
+      "normalised_name": "Saint Antholin Budge Row",
+      "coordinates": "51° 30′ 45″ N, 0° 5′ 31″ W",
+      "wikipedia": "St Antholin, Budge Row"
+    },
+    {
+      "normalised_name": "Saint Bartholomew by the Exchange",
+      "coordinates": "51° 30′ 49.54″ N, 0° 5′ 14.28″ W",
+      "wikipedia": "St Bartholomew-by-the-Exchange"
+    },
+    {
+      "normalised_name": "Saint Bartholomew the Great",
+      "coordinates": "51° 31′ 7.92″ N, 0° 5′ 58.77″ W",
+      "wikipedia": "St Bartholomew-the-Great"
+    },
+    {
+      "normalised_name": "Saint Bartholomew the Less",
+      "coordinates": "51° 31′ 4.52″ N, 0° 6′ 2.36″ W",
+      "wikipedia": "St Bartholomew-the-Less"
+    },
+    {
+      "normalised_name": "Saint Benet Fink",
+      "coordinates": "51° 30′ 50″ N, 0° 5′ 10″ W",
+      "wikipedia": "St Benet Fink"
+    },
+    {
+      "normalised_name": "Saint Benet Gracechurch",
+      "coordinates": "51° 30′ 42″ N, 0° 5′ 6″ W",
+      "wikipedia": "St Benet Gracechurch"
+    },
+    {
+      "normalised_name": "Saint Benet Pauls Wharf",
+      "coordinates": "51° 30′ 42.01″ N, 0° 5′ 57.38″ W",
+      "wikipedia": "St Benet's, Paul's Wharf"
+    },
+    {
+      "normalised_name": "Saint Benet Sherehog",
+      "coordinates": "51° 30′ 47.5″ N, 0° 5′ 29″ W",
+      "wikipedia": "St Benet Sherehog"
+    },
+    {
+      "normalised_name": "Saint Botolph Aldergate",
+      "coordinates": "51° 31′ 0″ N, 0° 6′ 0″ W",
+      "wikipedia": "St Botolph's Aldersgate"
+    },
+    {
+      "normalised_name": "Saint Botolph Algate",
+      "coordinates": "51° 30′ 50″ N, 0° 4′ 34″ W",
+      "wikipedia": "St Botolph's Aldgate"
+    },
+    {
+      "normalised_name": "Saint Botolph Billingsgate",
+      "coordinates": "51° 30′ 34.87″ N, 0° 5′ 5.03″ W",
+      "wikipedia": "St Botolph Billingsgate"
+    },
+    {
+      "normalised_name": "Saint Botolph without Bishopsgate",
+      "coordinates": "51° 31′ 0.15″ N, 0° 4′ 53.96″ W",
+      "wikipedia": "St Botolph-without-Bishopsgate"
+    },
+    {
+      "normalised_name": "Saint Bride Fleet Street",
+      "coordinates": "51° 30′ 50″ N, 0° 6′ 21″ W",
+      "wikipedia": "St Bride's Church"
+    },
+    {
+      "normalised_name": "Saint Brides",
+      "coordinates": null,
+      "wikipedia": null
+    },
+    {
+      "normalised_name": "Saint Catherine Coleman",
+      "coordinates": "51° 30′ 42.01″ N, 0° 4′ 43.72″ W",
+      "wikipedia": "St Katherine Coleman"
+    },
+    {
+      "normalised_name": "Saint Catherine Creechurch",
+      "coordinates": "51° 30′ 48.28″ N, 0° 4′ 44.88″ W",
+      "wikipedia": "St Katharine Cree"
+    },
+    {
+      "normalised_name": "Saint Catherines near the Tower",
+      "coordinates": "51° 30′ 48.28″ N, 0° 4′ 44.88″ W",
+      "wikipedia": "St Katharine's by the Tower"
+    },
+    {
+      "normalised_name": "Saint Christopher Le Stocks",
+      "coordinates": "51° 30′ 50.76″ N, 0° 5′ 18.96″ W",
+      "wikipedia": "St Christopher le Stocks"
+    },
+    {
+      "normalised_name": "Saint Clements Danes",
+      "coordinates": "51° 30′ 47.18″ N, 0° 6′ 50.03″ W",
+      "wikipedia": "St Clement Danes"
+    },
+    {
+      "normalised_name": "Saint Clements Eastcheap",
+      "coordinates": "51° 30′ 40.77″ N, 0° 5′ 12.81″ W",
+      "wikipedia": "St Clement's, Eastcheap"
+    },
+    {
+      "normalised_name": "Saint Dionis Backchurch",
+      "coordinates": "51° 30′ 43″ N, 0° 5′ 2″ W",
+      "wikipedia": "St Dionis Backchurch"
+    },
+    {
+      "normalised_name": "Saint Dunstans in the East",
+      "coordinates": "51° 30′ 34.82″ N, 0° 4′ 57.8″ W",
+      "wikipedia": "St Dunstan-in-the-East"
+    },
+    {
+      "normalised_name": "Saint Dunstans in the West",
+      "coordinates": "51° 30′ 51.3″ N, 0° 6′ 36.8″ W",
+      "wikipedia": "St Dunstan-in-the-West"
+    },
+    {
+      "normalised_name": "Saint Edmunds the King and Martyr in Lombard Street",
+      "coordinates": "51° 30′ 44.62″ N, 0° 5′ 10.68″ W",
+      "wikipedia": "St Edmund, King and Martyr"
+    },
+    {
+      "normalised_name": "Saint Ethelburga the Virgin Bishopsgate",
+      "coordinates": "51° 30′ 55.89″ N, 0° 4′ 55.63″ W",
+      "wikipedia": "St Ethelburga's Bishopsgate"
+    },
+    {
+      "normalised_name": "Saint Faith under Saint Pauls",
+      "coordinates": "51° 30′ 46″ N, 0° 5′ 46″ W",
+      "wikipedia": "St Faith under St Paul's"
+    },
+    {
+      "normalised_name": "Saint Gabriel Fenchurch Street",
+      "coordinates": "51° 30′ 39″ N, 0° 4′ 54″ W",
+      "wikipedia": "St Gabriel Fenchurch"
+    },
+    {
+      "normalised_name": "Saint George Botolph Lane",
+      "coordinates": "51° 30′ 38″ N, 0° 5′ 7″ W",
+      "wikipedia": "St George Botolph Lane"
+    },
+    {
+      "normalised_name": "Saint George the Martyr Southwark",
+      "coordinates": null,
+      "wikipedia": null
+    },
+    {
+      "normalised_name": "Saint Giles without Cripplegate",
+      "coordinates": "51° 31′ 7.38″ N, 0° 5′ 38.55″ W",
+      "wikipedia": "St Giles-without-Cripplegate"
+    },
+    {
+      "normalised_name": "Saint Gregory by Saint Pauls",
+      "coordinates": "51° 30′ 46″ N, 0° 5′ 46″ W",
+      "wikipedia": "St Gregory by St Paul's"
+    },
+    {
+      "normalised_name": "Saint Helens Bishopsgate",
+      "coordinates": "51° 30′ 53.28″ N, 0° 4′ 54.48″ W",
+      "wikipedia": "St Helen's Church, Bishopsgate"
+    },
+    {
+      "normalised_name": "Saint James Dukes Place",
+      "coordinates": "51° 30′ 49″ N, 0° 4′ 40″ W",
+      "wikipedia": "St James Duke's Place"
+    },
+    {
+      "normalised_name": "Saint James Garlickhythe",
+      "coordinates": "51° 30′ 39.99″ N, 0° 5′ 37.54″ W",
+      "wikipedia": "St James Garlickhythe"
+    },
+    {
+      "normalised_name": "Saint John the Baptist Walbrook",
+      "coordinates": "51° 30′ 36″ N, 0° 5′ 31″ W",
+      "wikipedia": "St John the Baptist upon Walbrook"
+    },
+    {
+      "normalised_name": "Saint John the Evangelist Friday Street",
+      "coordinates": "51° 30′ 43″ N, 0° 5′ 36″ W",
+      "wikipedia": "St John the Evangelist Friday Street"
+    },
+    {
+      "normalised_name": "Saint John Zachary",
+      "coordinates": "51° 30′ 58″ N, 0° 5′ 44″ W",
+      "wikipedia": "St John Zachary"
+    },
+    {
+      "normalised_name": "Saint Lawrence Jewry",
+      "coordinates": "51° 30′ 54.72″ N, 0° 5′ 33″ W",
+      "wikipedia": "St Lawrence Jewry"
+    },
+    {
+      "normalised_name": "Saint Lawrence Pountney",
+      "coordinates": "51° 30′ 38.16″ N, 0° 5′ 18.6″ W",
+      "wikipedia": "St. Laurence Pountney"
+    },
+    {
+      "normalised_name": "Saint Leonard Shoreditch",
+      "coordinates": null,
+      "wikipedia": null
+    },
+    {
+      "normalised_name": "Saint Magnus the Martyr",
+      "coordinates": "51° 30′ 33.41″ N, 0° 5′ 10.81″ W",
+      "wikipedia": "St Magnus-the-Martyr"
+    },
+    {
+      "normalised_name": "Saint Margaret Lothbury",
+      "coordinates": "51° 30′ 52.91″ N, 0° 5′ 19.92″ W",
+      "wikipedia": "St Margaret Lothbury"
+    },
+    {
+      "normalised_name": "Saint Margaret Moses",
+      "coordinates": null,
+      "wikipedia": "St Margaret Moses"
+    },
+    {
+      "normalised_name": "Saint Margaret New Fish Street",
+      "coordinates": "51° 30′ 36.47″ N, 0° 5′ 9.61″ W",
+      "wikipedia": "St Margaret, New Fish Street"
+    },
+    {
+      "normalised_name": "Saint Margaret Pattens",
+      "coordinates": "51° 30′ 38.75″ N, 0° 4′ 58.74″ W",
+      "wikipedia": "St Margaret Pattens"
+    },
+    {
+      "normalised_name": "Saint Marie Overie",
+      "coordinates": null,
+      "wikipedia": null
+    },
+    {
+      "normalised_name": "Saint Martin Le Grand",
+      "coordinates": "51° 30′ 59″ N, 0° 5′ 49″ W",
+      "wikipedia": "St Martin's Le Grand"
+    },
+    {
+      "normalised_name": "Saint Martin Ludgate",
+      "coordinates": "51° 30′ 50.55″ N, 0° 6′ 6.99″ W",
+      "wikipedia": "St Martin, Ludgate"
+    },
+    {
+      "normalised_name": "Saint Martin Orgar",
+      "coordinates": "51° 30′ 38.98″ N, 0° 5′ 15.1″ W",
+      "wikipedia": "St Martin Orgar"
+    },
+    {
+      "normalised_name": "Saint Martin Outwich",
+      "coordinates": "51° 30′ 51.5″ N, 0° 5′ 2.5″ W",
+      "wikipedia": "St Martin Outwich"
+    },
+    {
+      "normalised_name": "Saint Martin Vintry",
+      "coordinates": "51° 30′ 33″ N, 0° 5′ 31″ W",
+      "wikipedia": "St Martin Vintry"
+    },
+    {
+      "normalised_name": "Saint Mary Aldermanbury",
+      "coordinates": "51° 30′ 59.34″ N, 0° 5′ 35.06″ W",
+      "wikipedia": "St Mary Aldermanbury"
+    },
+    {
+      "normalised_name": "Saint Mary at Hill",
+      "coordinates": "51° 30′ 36.25″ N, 0° 5′ 1.46″ W",
+      "wikipedia": "St Mary-at-Hill"
+    },
+    {
+      "normalised_name": "Saint Mary Axe",
+      "coordinates": "51° 30′ 51.84″ N, 0° 4′ 51.6″ W",
+      "wikipedia": "St Mary Axe"
+    },
+    {
+      "normalised_name": "Saint Mary Bothaw",
+      "coordinates": "51° 30′ 36″ N, 0° 5′ 20″ W",
+      "wikipedia": "St Mary Bothaw"
+    },
+    {
+      "normalised_name": "Saint Mary Colechurch",
+      "coordinates": "51° 30′ 49″ N, 0° 5′ 28″ W",
+      "wikipedia": "St Mary Colechurch"
+    },
+    {
+      "normalised_name": "Saint Mary Le Bow",
+      "coordinates": "51° 30′ 50″ N, 0° 5′ 37″ W",
+      "wikipedia": "St Mary-le-Bow"
+    },
+    {
+      "normalised_name": "Saint Mary Magdalen",
+      "coordinates": null,
+      "wikipedia": null,
+      "notes": "Ambiguous without qualifier — could be Bermondsey, Milk Street, or Old Fish Street"
+    },
+    {
+      "normalised_name": "Saint Mary Magdalen Milk Street",
+      "coordinates": "51° 30′ 49″ N, 0° 5′ 35″ W",
+      "wikipedia": "St. Mary Magdalen, Milk Street"
+    },
+    {
+      "normalised_name": "Saint Mary Magdalen Old Fish Street",
+      "coordinates": "51° 30′ 45″ N, 0° 5′ 51″ W",
+      "wikipedia": "St Mary Magdalen Old Fish Street"
+    },
+    {
+      "normalised_name": "Saint Mary Matfelon alias Whitechapel",
+      "coordinates": "51° 30′ 58.68″ N, 0° 4′ 6.96″ W",
+      "wikipedia": "St Mary Matfelon"
+    },
+    {
+      "normalised_name": "Saint Mary Mounthaw",
+      "coordinates": "51° 30′ 37″ N, 0° 5′ 46″ W",
+      "wikipedia": "St Mary Mounthaw"
+    },
+    {
+      "normalised_name": "Saint Mary Woolchurch",
+      "coordinates": "51° 30′ 43″ N, 0° 5′ 20″ W",
+      "wikipedia": "St Mary Woolchurch Haw"
+    },
+    {
+      "normalised_name": "Saint Mary Woolnoth",
+      "coordinates": "51° 30′ 46.01″ N, 0° 5′ 17.19″ W",
+      "wikipedia": "Mary Woolnoth"
+    },
+    {
+      "normalised_name": "Saint Michael Bassishaw",
+      "coordinates": "51° 31′ 0.1″ N, 0° 5′ 30″ W",
+      "wikipedia": "St Michael Bassishaw"
+    },
+    {
+      "normalised_name": "Saint Michael Cornhill",
+      "coordinates": "51° 30′ 47.5″ N, 0° 5′ 7.68″ W",
+      "wikipedia": "St Michael, Cornhill"
+    },
+    {
+      "normalised_name": "Saint Michael Crooked Lane",
+      "coordinates": "51° 30′ 38.52″ N, 0° 5′ 14.21″ W",
+      "wikipedia": "St. Michael, Crooked Lane"
+    },
+    {
+      "normalised_name": "Saint Michael Wood Street",
+      "coordinates": "51° 30′ 56″ N, 0° 5′ 41.5″ W",
+      "wikipedia": "St Michael Wood Street"
+    },
+    {
+      "normalised_name": "Saint Mildred Bread Street",
+      "coordinates": "51° 30′ 44.28″ N, 0° 5′ 42.72″ W",
+      "wikipedia": "St Mildred, Bread Street"
+    },
+    {
+      "normalised_name": "Saint Nicholas Acons",
+      "coordinates": "51° 30′ 43.46″ N, 0° 5′ 13.68″ W",
+      "wikipedia": "St Nicholas Acons"
+    },
+    {
+      "normalised_name": "Saint Nicholas Cole Abbey",
+      "coordinates": "51° 30′ 43″ N, 0° 5′ 48″ W",
+      "wikipedia": "St Nicholas Cole Abbey"
+    },
+    {
+      "normalised_name": "Saint Olave Hart Street",
+      "coordinates": "51° 30′ 39.04″ N, 0° 4′ 46.88″ W",
+      "wikipedia": "St Olave Hart Street"
+    },
+    {
+      "normalised_name": "Saint Olave Old Jewry",
+      "coordinates": "51° 30′ 52.15″ N, 0° 5′ 28.7″ W",
+      "wikipedia": "St Olave Old Jewry"
+    },
+    {
+      "normalised_name": "Saint Olave Silver Street",
+      "coordinates": "51° 31′ 2.28″ N, 0° 5′ 43.08″ W",
+      "wikipedia": "St Olave Silver Street"
+    },
+    {
+      "normalised_name": "Saint Olave Southwark",
+      "coordinates": null,
+      "wikipedia": null
+    },
+    {
+      "normalised_name": "Saint Pancras Soper Lane",
+      "coordinates": "51° 30′ 47.5″ N, 0° 5′ 31″ W",
+      "wikipedia": "St Pancras, Soper Lane"
+    },
+    {
+      "normalised_name": "Saint Peter ad Vincula in the Tower",
+      "coordinates": "51° 30′ 31″ N, 0° 4′ 37″ W",
+      "wikipedia": "Church of St Peter ad Vincula"
+    },
+    {
+      "normalised_name": "Saint Peter le Poer",
+      "coordinates": "51° 30′ 54.36″ N, 0° 5′ 6″ W",
+      "wikipedia": "St Peter le Poer"
+    },
+    {
+      "normalised_name": "Saint Peter Pauls Wharf",
+      "coordinates": null,
+      "wikipedia": "St Peter, Paul's Wharf"
+    },
+    {
+      "normalised_name": "Saint Peter upon Cornhill",
+      "coordinates": "51° 30′ 47.7″ N, 0° 5′ 4.5″ W",
+      "wikipedia": "St Peter upon Cornhill"
+    },
+    {
+      "normalised_name": "Saint Saviour Southwark",
+      "coordinates": null,
+      "wikipedia": null
+    },
+    {
+      "normalised_name": "Saint Stephen Coleman Street",
+      "coordinates": "51° 30′ 55.8″ N, 0° 5′ 25.44″ W",
+      "wikipedia": "St. Stephen Coleman Street"
+    },
+    {
+      "normalised_name": "Saint Stephen Coleman Walbrook",
+      "coordinates": "51° 30′ 45.46″ N, 0° 5′ 23.71″ W",
+      "wikipedia": "St Stephen's, Walbrook"
+    },
+    {
+      "normalised_name": "Saint Stephen Sepulchre",
+      "coordinates": "51° 31′ 0.07″ N, 0° 6′ 8.47″ W",
+      "wikipedia": "St Sepulchre-without-Newgate"
+    },
+    {
+      "normalised_name": "Saint Swithin London Stone",
+      "coordinates": "51° 30′ 42″ N, 0° 5′ 22″ W",
+      "wikipedia": "St Swithin, London Stone"
+    },
+    {
+      "normalised_name": "Saint Thomas Southwark",
+      "coordinates": null,
+      "wikipedia": null
+    },
+    {
+      "normalised_name": "Saint Thomas the Apostle",
+      "coordinates": "51° 30′ 40″ N, 0° 5′ 36″ W",
+      "wikipedia": "St Thomas the Apostle (London)"
+    },
+    {
+      "normalised_name": "Saint Vedast Foster Lane",
+      "coordinates": "51° 30′ 53.56″ N, 0° 5′ 46.08″ W",
+      "wikipedia": "St Vedast Foster Lane"
+    },
+    {
+      "normalised_name": "Stepney",
+      "coordinates": null,
+      "wikipedia": "St Dunstan, Stepney",
+      "notes": "Large Middlesex parish covering the dockside hamlets of Wapping, Wapping Wall, Limehouse, Ratcliffe, Shadwell, Poplar, and Blackwall in the C17th. See place-imputation.json hamlet_to_parish for the mapping."
+    }
+  ]
+}

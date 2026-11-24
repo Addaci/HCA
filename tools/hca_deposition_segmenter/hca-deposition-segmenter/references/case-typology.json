@@ -1,0 +1,300 @@
+{
+  "description": "Controlled vocabulary for classifying High Court of Admiralty cases by primary type, derived from front-matter case descriptions alone (no body-text reading required). Designed as a reference file for the hca-deposition-segmenter skill, to be consumed during Phase 1 case-overview generation.",
+  "version": "1.0",
+  "date": "2026-04-26",
+  "authors": [
+    "Colin Greenstreet",
+    "Claude Opus 4.7"
+  ],
+  "intended_destination": ".claude/skills/hca-deposition-segmenter/references/case-typology.json",
+  "current_location": "WORKSTREAM-HCA/segmenter-runs/case-typology.json (pre-promotion)",
+  "sources": [
+    {
+      "source": "SOLM-2025 Database Ver.15.2 (02 December 2025), columns CX (Event triggering legal case in High Court of Admiralty) and CY (Main legal issue in case before High Court of Admiralty)",
+      "contribution": "Provided 7,993 non-blank CX entries (2,803 distinct values) and 122 non-blank CY entries (48 distinct values). The CX/CY split itself revealed an event-vs-legal-issue dimension, informing the design decision to make the vocabulary primarily event-oriented. The frequency distribution (47% of CX values are 'Seizure of...', ~700 are shipwreck-related, ~600 are collision-related, ~660 are cargo-damage-related) directly informed which categories to include and which to retire."
+    },
+    {
+      "source": "Run-3 Phase 1 cleaned output (HCA 13/71 ff.100r–149v, 25 April 2026)",
+      "contribution": "Provided the test bed of 34 cases against which the v1.0, v1.1, and v1.2 typology iterations were applied. Surfaced edge cases (e.g., Case 6 Camplaine v Brandline tagged ship-repair via Shipwright deponent without genuine repair signal; Case 24 Carey/Anne with two-dimensional freight + ownership signals) that drove vocabulary refinement."
+    },
+    {
+      "source": "Domain expertise of Colin Greenstreet (HCA corpus, est. 2017–18)",
+      "contribution": "Identified two categories that earlier iterations missed: cargo-damage cases (which tend to have multiple witnesses) and inter-ship disputes (collision/sinking, which Colin specified as a distinct historical phenomenon). Endorsed the parsimony principle ('do not create too many categories') and confirmed event-oriented framing as appropriate."
+    }
+  ],
+  "usage": "When tagging a case, concatenate the following text fields across all depositions in the case (case-insensitive): case_description, occupation_qualifier, front_matter_raw. Match against the signal_keywords for each category in the order specified in matching_order — earlier rules win on overlap. Assign the FIRST matching tag as the case's primary type. Cases with no matching signal receive the 'other' tag. Single-tag per case (do not assign multiple). The vocabulary is primarily event-oriented (case names typically describe the triggering event); legal-issue and procedural exceptions are explicitly noted in each category's 'type' field.",
+  "design_principles": {
+    "event_oriented": "Most case-name text describes the triggering event (a seizure, a shipwreck, a collision, cargo damage). The vocabulary reflects this. Legal-issue tags (insurance, wages, freight-dispute, internal-dispute) are exceptions reserved for cases where the case name foregrounds the legal characterisation rather than the underlying event.",
+    "single_tag": "For now, each case receives ONE primary tag. This is a deliberate simplification — many cases are genuinely two-dimensional (an event leading to a legal issue), but a single-tag system is easier to consume, easier to validate, and easier to extend. Two-dimensional tagging may be reconsidered in a future v2.0.",
+    "transparent_keyword_matching": "Tagging is rule-based, not AI-based. This makes the assignments reproducible, auditable, and easily extended by adding keywords. AI-based classification would be more accurate but less transparent — at odds with the Historian's Desktop principle of deliberate friction.",
+    "vocabulary_will_grow": "The 'other' bucket exists for cases that do not match any current vocabulary signal. Recurrent 'other' patterns across multiple runs should be surfaced for review and may justify new categories in future versions. The vocabulary is a living artefact, not a fixed taxonomy.",
+    "case_name_only": "Tagging operates on case-name and front-matter text alone — NOT on testimony body text. This is an explicit constraint, not a limitation: the typology is meant to provide a quick, cheap, deterministic classification. Body-text reading is the domain of the planned Phase 4 case-abstract step."
+  },
+  "matching_order": [
+    "crown-declaratory",
+    "insurance",
+    "prize",
+    "collision",
+    "ship-loss",
+    "cargo-damage",
+    "freight-dispute",
+    "wages",
+    "internal-dispute",
+    "other"
+  ],
+  "categories": [
+    {
+      "tag": "crown-declaratory",
+      "display_name": "Crown declaratory / procedural",
+      "type": "procedural",
+      "description": "Testimony about Crown orders, prize-goods sales by Order in Council, or other HCA-specific procedural matters where the deponent is testifying about formal Crown business rather than as a party to a dispute.",
+      "signal_keywords": [
+        "order of lord protector",
+        "order of the lord protector",
+        "whitehall",
+        "secretary to the worshipfull commisioners",
+        "secretary to the worshipful commisioners"
+      ],
+      "examples": [
+        "Run-3 Case 34: John Whittell, Secretary to the Commissioners for prize goods, testifying about the Lord Protector's order of 8 May 1655 authorising sale of seized Scandinavian ships."
+      ],
+      "notes": "Distinct from 'prize' (Lord Protector v shipp X — a forfeiture suit). This category is for testimony that documents Crown procedural acts, not for litigation triggered by Crown action. Keywords deliberately exclude the broader 'lord protector against' phrase to avoid false-matching prize cases."
+    },
+    {
+      "tag": "insurance",
+      "display_name": "Insurance / assurance claim",
+      "type": "legal-issue",
+      "description": "Bills of assurance or insurance claims promoted by a merchant, shipowner, or party with insurable interest, concerning loss in or to a specific vessel. Includes cases where the promoter sues their own underwriters for a claimed loss, and where a party disputes the validity or scope of an assurance policy.",
+      "signal_keywords": [
+        "insurance",
+        "ensurance",
+        "assurance",
+        "promoted by",
+        "touching loss in",
+        "touching a losse"
+      ],
+      "examples": [
+        "Run-3 Case 7: Insurance promoted by Henry Clarke of London Merchant; vessel shipp James of London (George Cobden Master).",
+        "Run-3 Cases 20 & 21: Parallel insurance promotions by Wilkins and Dighton on the shipp Scout of London.",
+        "Run-3 Cases 31 & 32: Salisbury and Bradley insurance cases on the Christopher of Portsmouth — matched via the 'touching loss in' inferential signal."
+      ],
+      "notes": "The 'touching loss in [vessel]' pattern is included as an inferential signal. This phrase appears in HCA insurance promotions even without an explicit 'insurance' / 'assurance' / 'ensurance' word, particularly in the standard formula 'On behalf of [X] touching loss in the [vessel]'. SOLM evidence: 'Assurance claim by...', 'Insurance dispute', 'Validity of assurance policy', 'Whether an assurance policy made without limitation to general words covers a loss in the East Indies'."
+    },
+    {
+      "tag": "prize",
+      "display_name": "Prize / vessel seizure",
+      "type": "event",
+      "description": "Wartime seizure of vessel or goods by a frigate, foreign forces, privateer, or under prize law. Includes customs seizure, prize-court arrest, and related capture events. The dominant case type in the HCA corpus by frequency.",
+      "signal_keywords": [
+        "frigot",
+        "frigate",
+        "seizure of",
+        "seized by",
+        "subjects of the king of",
+        "lord protector against the shipp",
+        "claymers",
+        "letters of marque",
+        "letters of reprisal",
+        "pillaging",
+        "captured by",
+        "carried to plymouth",
+        "carried to dover",
+        "carried to wexford",
+        "took the",
+        "man of war"
+      ],
+      "examples": [
+        "Run-3 Case 9: Claymers in re shipp Fortune (taken by Dartmouth frigot).",
+        "Run-3 Case 18: Lord Protector against the shipp Elizabeth of Plimouth — Crown forfeiture suit.",
+        "Run-3 Case 22: William Beck — shipp hopefull William seized by subjects of the King of Spaine."
+      ],
+      "notes": "SOLM evidence: 3,786 of 7,993 CX values match seizure/capture patterns (47%). This is the largest single category in the corpus. Note: 'Lord Protector against the shipp X' is a prize/forfeiture suit (private-party-vessel pattern) and tags as 'prize'; this is intentionally distinct from 'crown-declaratory' which captures procedural Crown business. Foreign privateers commonly named in CX include men-of-war from Dunkirk, Toulon, Spain, and the Barbary coast."
+    },
+    {
+      "tag": "collision",
+      "display_name": "Inter-ship collision",
+      "type": "event",
+      "description": "Two vessels colliding — one ship coming foul of another, driving from her mooring onto another, fouling, or one ship allegedly sinking another. Distinct from single-vessel ship-loss because liability usually attaches to one of the colliding vessels.",
+      "signal_keywords": [
+        "coming foul of",
+        "came foul of",
+        "fouling of",
+        "driving from her mooring",
+        "on the anchor of",
+        "ran foul of",
+        "collision of",
+        "alleged sinking of",
+        "bilging of the saint gregorie",
+        "bilging of the saint gregory"
+      ],
+      "examples": [
+        "(No examples in run-3 — vocabulary placeholder for future runs.)",
+        "SOLM evidence: 'Sinking of the Seaflower bound from London for Middleburg, while anchored, after coming foul with the Golden Angell'.",
+        "SOLM evidence: 'Driving from her mooring of the William and Richard by the Saint Gregory of Hoorn coming foul of her'.",
+        "SOLM evidence: 'Bilging of the Saint Gregorie of Hoorn on the anchor of the William and Richard in the River Thames' — the same incident from the other vessel's perspective."
+      ],
+      "notes": "SOLM evidence: ~600 CX matches (fouling 266, collision 96, coming foul 56, driving from mooring 31). Colin specifically identified this category as historically important. The 'bilging of the Saint Gregor[i]e' specific signals are included because that vessel name is repeatedly involved in collision cases in SOLM and the bilging is collision-induced (vs. solo bilging which goes to ship-loss)."
+    },
+    {
+      "tag": "ship-loss",
+      "display_name": "Single-vessel loss",
+      "type": "event",
+      "description": "Loss of a single vessel from natural causes: shipwreck (casting away), bilging, sinking from natural causes, foundering, running aground. Distinct from collision (two vessels) and from prize (seizure).",
+      "signal_keywords": [
+        "casting away of",
+        "cast away",
+        "wreck of",
+        "wrecked",
+        "running aground of",
+        "ran aground",
+        "foundering",
+        "foundered",
+        "bilging of the",
+        "sinking of the"
+      ],
+      "examples": [
+        "(No examples in run-3 — vocabulary placeholder for future runs.)",
+        "SOLM evidence: 'Casting away of the William and Anne near Bell Isle on the French coast' (45 deposition rows).",
+        "SOLM evidence: 'Casting away of the Hopewell of London on the Essex coast' (26 rows).",
+        "SOLM evidence: 'Wreck of the Saint James of Bordeaux on the rocks at ffletchers hole on the coast of Suffolk'."
+      ],
+      "notes": "SOLM evidence: ~700 CX matches (casting 531, bilging 184 [some go to collision], sinking 178 [some go to collision]). The 'bilging of the' and 'sinking of the' signals will sometimes match collision cases too — collision rules come first in matching_order so collision wins on overlap. The 'storm' leading word in CX (134 occurrences) often goes here too, as storms are the typical trigger for solo ship loss."
+    },
+    {
+      "tag": "cargo-damage",
+      "display_name": "Cargo damage / spoiling",
+      "type": "event",
+      "description": "Physical damage or spoiling of cargo carried — wet goods, perished goods, leaked goods, damaged packing. Distinct from freight-dispute (which is about non-payment, not physical damage).",
+      "signal_keywords": [
+        "spoiling of",
+        "spoiled",
+        "damage to lading",
+        "damage to baskets",
+        "damage to pack",
+        "damage to figs",
+        "damage to cloth",
+        "perishing of",
+        "perished",
+        "wet damage",
+        "leaked"
+      ],
+      "examples": [
+        "(No examples in run-3 — vocabulary placeholder for future runs.)",
+        "SOLM evidence: 'Damage to figs in the Peacocke en route from San Lucar to London' (22 rows).",
+        "SOLM evidence: 'Spoiling of the ship the John Bonadeventure when returning from Bruges in Flanders to London'.",
+        "SOLM evidence: 'Liability for damages to pack of cloth' (CY)."
+      ],
+      "notes": "SOLM evidence: ~660 CX matches (damage 219, spoiling 62, plus storm/weather references). Colin noted that cargo-damage cases tend to have multiple witnesses (consistent with the SOLM frequency distribution). Specific cargo types (figs, cloth, baskets, packs) are included as signals because they appear repeatedly in HCA cargo damage cases."
+    },
+    {
+      "tag": "freight-dispute",
+      "display_name": "Freight payment dispute",
+      "type": "legal-issue",
+      "description": "Refusal to pay freight; dispute over whole freight; freight money owed. Narrowly about the legal-issue of payment for carriage, NOT about physical damage to cargo (which is cargo-damage) or about ownership of cargo (which may be internal-dispute).",
+      "signal_keywords": [
+        "refusal to pay",
+        "refusal of merchants to pay",
+        "unpaid freight",
+        "freight money",
+        "dispute over freight",
+        "freighters",
+        "against the freighters"
+      ],
+      "examples": [
+        "Run-3 Case 13: Captaine Ellison against Pa[t]hfeild, Mortimer, Goodfellow et al — freighters of shipp Susan and Anne. Three crew members of Susan and Anne testifying about Ellison's claim against the cargo-shippers.",
+        "SOLM evidence: 'Refusal of merchants to pay their whole freight' (CY, 3 rows).",
+        "SOLM evidence: 'Unpaid freight' (CY)."
+      ],
+      "notes": "Narrowed in v1.2 from v1.1 (which conflated freight-payment with cargo-related disputes generally). The bare 'freighters' signal catches the common pattern '[Master] against the freighters of [vessel]', which in HCA context almost always means a freight-payment dispute. SOLM evidence is sparse in CX (only 2 matches with payment-keywords) but visible in CY ('Refusal of merchants to pay their whole freight', 'Unpaid freight'). The CX/CY asymmetry suggests freight-payment is more often recorded as a legal characterisation than as a triggering event."
+    },
+    {
+      "tag": "wages",
+      "display_name": "Crew wages dispute",
+      "type": "legal-issue",
+      "description": "Crew wage claims, refusal to pay wages, wages of deceased mariners, suits to recover wages. Includes wages owed to a master (master is also crew for wages purposes).",
+      "signal_keywords": [
+        "wages of",
+        "wage claim",
+        "wage dispute",
+        "suit for wages",
+        "refusal to pay wages",
+        "liability for mariners wages",
+        "petitioned council of state for wages",
+        "making over of wages"
+      ],
+      "examples": [
+        "(No examples in run-3.)",
+        "SOLM CY evidence: 'Suit for wages', 'Suit for wages by the company of the Dragon of London', 'Wage dispute', 'Wage claim on behalf of deceased mariners', 'Refusal to pay wages to members of the company of the Ambrose of London', 'Liability for mariners wages', 'Making over of wages to satisfy debts'."
+      ],
+      "notes": "SOLM evidence: ~60 CX matches and ~9 CY matches (wages-related). Less common than insurance or prize but distinctive. Wages is a clean legal-issue category because the case names and CY entries explicitly use the word. Note that 'wages' should NOT match 'making over of wages to satisfy debts' as an unrelated debt case — the 'making over of wages' signal is included to catch this specific HCA pattern of wage-assignment for debt repayment."
+    },
+    {
+      "tag": "internal-dispute",
+      "display_name": "Internal dispute (owners / master / factor)",
+      "type": "legal-issue",
+      "description": "Disputes between owners and master of a vessel, between principal and factor (commercial agent), or claims to ownership shares (parts) of vessels. Includes cases where owners sue their own master, masters sue owners, factor accounts are disputed, or fractional shares (1/8, 1/4 part etc.) are claimed.",
+      "signal_keywords": [
+        "owners of ship against",
+        "owners against",
+        "claim by owners",
+        "claim by owners to recover",
+        "claime of",
+        "parts in",
+        "1/8 part",
+        "1/4 part",
+        "1/2 part",
+        "third part",
+        "fourth part",
+        "disobedience of",
+        "accounts of factor",
+        "factor of"
+      ],
+      "examples": [
+        "Run-3 Case 24: Carey v Christopher executor — re shipp Ann; matched via '1/8 part of shipp Peter and James' (Mary Carey claiming both delivered goods AND a 1/8 ownership share).",
+        "Run-3 Case 28: Claime of William Bartelotti for his parts in the hare in the ffeild — matched via 'claime of' and 'parts in'.",
+        "SOLM CY evidence: 'Claim by owners of ship against ship's master' (most common CY entry, 12 rows).",
+        "SOLM CY evidence: 'Disobedience of factor at Alicante in sending parcel of pieces of eight on different ship to that ordered to do'.",
+        "SOLM CY evidence: 'Dispute over accounts of factor Robert Woodroffe on ship the William and Elsabeth'."
+      ],
+      "notes": "Renamed from v1.1's 'ownership' to broader 'internal-dispute' in v1.2, reflecting SOLM's CY pattern where 'Claim by owners of ship against ship's master' is the single most common legal-issue characterisation. Fractional-share signals ('1/8 part', etc.) catch ownership-share claims; 'factor' signals catch principal/agent disputes; 'claime of [name] for parts in [vessel]' catches Bartelotti-style ownership claims."
+    },
+    {
+      "tag": "other",
+      "display_name": "Other / unmatched",
+      "type": "catchall",
+      "description": "Cases that do not match any vocabulary signal. Honest about what the case-name text alone cannot tell us; many such cases would resolve to a specific type if body text were read.",
+      "signal_keywords": [],
+      "examples": [
+        "Run-3: 21 of 34 cases (62%) tagged 'other' — including merchant-vs-merchant disputes (Browning v Vanderpost), short-form-only case descriptions, and cases where the front matter names parties without describing the dispute."
+      ],
+      "notes": "A high 'other' rate is a feature, not a bug — it represents the structural limit of front-matter-only classification. Cases tagged 'other' should be reviewed periodically: recurrent patterns across multiple runs may justify new categories in future versions. Plausible v1.3 candidates emerging from run-3: commercial-merchant-debt, ship-repair (re-introduce if pattern recurs), inter-shipowner dispute."
+    }
+  ],
+  "known_limitations": [
+    "Single-tag per case loses information for two-dimensional cases (e.g., a collision leading to an internal-dispute, or cargo-damage leading to an insurance claim). The first-matching-rule policy chooses one tag deterministically; some cases would benefit from multi-tag.",
+    "The 'other' bucket is large in run-3 (62% of cases). This reflects honest classification limits at case-name level, not a vocabulary failure. Body-text reading (planned Phase 4) would resolve most.",
+    "Signal keywords are case-insensitive substring matches against concatenated text. They do not handle: negation ('not seized'), regex anchoring (matches inside other words), or semantic equivalence (synonyms not in the list).",
+    "Vocabulary has been validated against ONE volume (HCA 13/71) and ONE folio range (ff.100r-149v) so far. Per-run overrides may be needed when the vocabulary is applied to volumes from different periods (e.g., 1590s Latin volumes will likely need different prize signals).",
+    "Some signals over-match in narrow ways (e.g., 'spoiling of' may match 'spoiling of relations' in a non-cargo context). No false-positive guard is implemented; rely on rule order to prevent over-classification."
+  ],
+  "version_history": [
+    {
+      "version": "0.1 (provisional)",
+      "date": "2026-04-26",
+      "in_file_only": true,
+      "context": "v1.1 of the case overview used an initial 8-tag vocabulary derived from run-3 cases alone. Categories: insurance, prize, freight-dispute, wages, ship-repair, ownership, provisioning, crown-declaratory, other."
+    },
+    {
+      "version": "1.0",
+      "date": "2026-04-26",
+      "context": "First formalisation as a JSON reference file, after parsing SOLM database columns CX and CY for vocabulary candidates and incorporating Colin's identification of collision and cargo-damage as historically important categories. Retired ship-repair and provisioning (rare in SOLM, over-matched). Added ship-loss, collision, cargo-damage as event types. Renamed ownership to internal-dispute (broader scope). Refined prize and freight-dispute signals."
+    }
+  ],
+  "next_steps_when_promoted_to_skill": [
+    "Move file to .claude/skills/hca-deposition-segmenter/references/case-typology.json (no version in filename, per skill reference convention).",
+    "Update SKILL.md Section 11 (Reference Files) to cite case-typology.json.",
+    "Add a Phase 1.5 step to SKILL.md prescribing case-overview generation with typology tagging from this file.",
+    "Add this file to the prerequisite reading list in SKILL.md Section 3 (after parishes.json, before historic-counties.json).",
+    "Track vocabulary growth over time: each substantive update bumps the in-file version. Record changes in version_history."
+  ]
+}
