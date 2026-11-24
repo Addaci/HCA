@@ -1,0 +1,2610 @@
+{
+  "description": "Empirical imputation rules for English/Welsh/Scottish parishes, counties, and Continental provinces. Built by analysing 23,286 records of the SOLM-2025 database (columns LG/LH/LI/LJ — street/parish/locality/county-or-province). Rules are filtered to HIGH and MEDIUM confidence only. Canonical spellings preserved with observed SOLM variants listed for each entry.",
+  "version": "1.0",
+  "date": "2026-04-26",
+  "authors": [
+    "Colin Greenstreet",
+    "Claude Opus 4.7"
+  ],
+  "intended_destination": ".claude/skills/hca-deposition-segmenter/references/place-imputation.json",
+  "current_location": "WORKSTREAM-HCA/segmenter-runs/place-imputation.json (pre-promotion)",
+  "sources": [
+    {
+      "source": "SOLM-2025 Database Ver.15.2 (02 December 2025), columns LG (Street/Hamlet), LH (Parish/Precinct/Liberty), LI (Town/Borough/locality), LJ (County, Province or Region)",
+      "fill_rates": {
+        "LG_street_or_hamlet": "25.6% of 24,772 rows",
+        "LH_parish": "44.8%",
+        "LI_locality": "65.9%",
+        "LJ_county_or_province": "50.9%"
+      },
+      "contribution": "Provided the empirical co-occurrence patterns from which all rules below are derived. Confidence grades reflect observed agreement: HIGH requires either 100% agreement with n>=5, OR >=95% agreement with n>=3. MEDIUM requires >=80% agreement with n>=2. Lower-confidence patterns are excluded from this file."
+    },
+    {
+      "source": "Colin Greenstreet's Stage B review of run-3 (HCA 13/71 ff.100r-149v, 26 April 2026)",
+      "contribution": "Identified the categorisation of Holland as a province (not country) within the United Provinces, and named the relevant Continental provinces (Friesland, Holland, North Holland, Zeeland) for inclusion in the province_to_country layer."
+    },
+    {
+      "source": "Domain expertise of Colin Greenstreet on early modern Continental geography",
+      "contribution": "Confirmed United Provinces as the appropriate country for Holland/Zeeland/Friesland in this period; flagged that 'North Holland' is anachronistic for the C17th but appears in SOLM."
+    }
+  ],
+  "usage": "Apply imputation as a SEPARATE PASS after the segmenter's cleaned JSON is produced. Do NOT modify the cleaned JSON; produce a new enriched_<filename>.json with imputed_* fields added per the layered approach. For each deposition: (1) check place_components.locality against the hamlet_to_parish lookup — if matched, set imputed_parish; (2) take the imputed_parish (or attested parish if present) and look up parish_to_county to set imputed_county; (3) check the locality against locality_to_county_or_province for foreign places where parish does not apply; (4) take the result and look up province_to_country or county_to_country to set imputed_country; (5) preserve all attested values unchanged.",
+  "design_principles": {
+    "attested_vs_imputed": "Imputed values NEVER overwrite attested values. Attested values come from the deposition text; imputed values come from external knowledge (this lookup table). The two are stored in separate fields (`parish` vs `imputed_parish`, etc.).",
+    "multiple_confirmations_required": "HIGH confidence rules require multiple SOLM records agreeing. Single-confirmation patterns are excluded as too noisy. MEDIUM rules carry caveats and should be flagged in downstream consumers.",
+    "spelling_normalisation": "Canonical spellings are chosen as the most-frequent SOLM form. Observed variants are preserved in `variants_seen_in_solm` so that consumers can match against any spelling and resolve to the canonical.",
+    "outlier_flagging": "Where the dominant pattern has plausible alternatives with n>=2, those alternatives are listed in `alternative_values`. This is intentional: it makes ambiguity visible rather than hiding it.",
+    "vocabulary_will_grow": "The lookup is empirical — only places that appear in SOLM are present. As new volumes are processed, new places will be encountered. New rules can be added with explicit confidence grading."
+  },
+  "confidence_grades": {
+    "HIGH": "100% agreement with n>=5, OR >=95% agreement with n>=3",
+    "MEDIUM": ">=80% agreement with n>=2",
+    "(lower grades excluded)": "LOW (>=60% with n>=2) and SINGLE (n=1) confirmations are not included in this file. They may be useful as candidate rules in the future but are not safe for automated imputation."
+  },
+  "imputation_rules": {
+    "hamlet_to_parish": {
+      "Ratcliff": {
+        "value": "Stepney",
+        "confidence": "HIGH",
+        "n_confirmations_total": 400,
+        "variants_seen_in_solm": [
+          "Radcliffe",
+          "Ratclife",
+          "Rattcliffe"
+        ]
+      },
+      "Limehouse": {
+        "value": "Stepney",
+        "confidence": "HIGH",
+        "n_confirmations_total": 864
+      },
+      "Ratcliffe": {
+        "value": "Stepney",
+        "confidence": "HIGH",
+        "n_confirmations_total": 816
+      },
+      "Blackwall": {
+        "value": "Stepney",
+        "confidence": "HIGH",
+        "n_confirmations_total": 73
+      },
+      "Wapping Wall": {
+        "value": "Stepney",
+        "confidence": "HIGH",
+        "n_confirmations_total": 44
+      },
+      "Poplar": {
+        "value": "Stepney",
+        "confidence": "HIGH",
+        "n_confirmations_total": 83
+      },
+      "Ratcliffe near London [Ratcliffe prope London]": {
+        "value": "Stepney",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Shadwell": {
+        "value": "Stepney",
+        "confidence": "HIGH",
+        "n_confirmations_total": 370,
+        "alternative_values": {
+          "Saint Paul Shadwell": 5
+        }
+      },
+      "Poplar near Blackwall": {
+        "value": "Stepney",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Horseydowne": {
+        "value": "Saint Olaves Southwark",
+        "confidence": "HIGH",
+        "n_confirmations_total": 5
+      },
+      "Bucklesberry": {
+        "value": "Saint Benedict Sheerhogg",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Tower street": {
+        "value": "Saint Dunstans in the East",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Lime Street": {
+        "value": "Saint Dionis Backchurch",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Near Redrith": {
+        "value": "Saint Mary Magdalene Bermondsey",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Gracechurch street": {
+        "value": "All Hallows Lombardstreet",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Milend": {
+        "value": "Stepney",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "House in Tower Hill": {
+        "value": "Liberty of the Tower of London",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Shop at the Saint Catherine Wheele, Gacioustreet": {
+        "value": "Saint Benedicts Gracechurch",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Shop at the Halfe Moone, Gracioustreet": {
+        "value": "All Hallows Lombardstreet",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Buttolph Lane": {
+        "value": "Saint Botolphs without Billingsgate",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Mile End": {
+        "value": "Stepney",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Dickshore": {
+        "value": "Stepney",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Ironmonger Lane": {
+        "value": "Saint Martin Pomeroy",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Upper Shadwell": {
+        "value": "Stepney",
+        "confidence": "HIGH",
+        "n_confirmations_total": 9
+      },
+      "Seething Lane": {
+        "value": "All Hallows Barking",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Ratcliff Cross": {
+        "value": "Stepney",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Ratcliffe highway": {
+        "value": "Stepney",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Nightingale Lane": {
+        "value": "Algate",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Lower Shadwell": {
+        "value": "Stepney",
+        "confidence": "HIGH",
+        "n_confirmations_total": 5
+      },
+      "New Gravel Lane": {
+        "value": "Stepney",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Towerhill near the Tower of London": {
+        "value": "All Hallows Barking",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Saint Pauls Shadwell": {
+        "value": "Saint Pauls Shadwell",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 13,
+        "alternative_values": {
+          "Saint Paul Shadwell": 2
+        }
+      },
+      "Saint Paul Shadwell": {
+        "value": "Saint Paul Shadwell",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      }
+    },
+    "parish_to_county": {
+      "Stepney": {
+        "value": "Middlesex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3391,
+        "alternative_values": {
+          "Surrey": 7
+        }
+      },
+      "Lambeth": {
+        "value": "Surrey",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Saint Olaves in the Borough of Southwark": {
+        "value": "Surrey",
+        "confidence": "HIGH",
+        "n_confirmations_total": 19,
+        "variants_seen_in_solm": [
+          "Saint Olaves in the Burough of Southwark",
+          "Saint Olaves in the borough of Southwark"
+        ]
+      },
+      "Saint Olaves in Southwark": {
+        "value": "Surrey",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Parish of Penmaine": {
+        "value": "Glamorgan",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Saint Olaves Southwark": {
+        "value": "Surrey",
+        "confidence": "HIGH",
+        "n_confirmations_total": 276,
+        "alternative_values": {
+          "Southwark": 2,
+          "Middlesex": 2
+        }
+      },
+      "Saint Mary Magdalen Bermondsey": {
+        "value": "Surrey",
+        "confidence": "HIGH",
+        "n_confirmations_total": 108,
+        "variants_seen_in_solm": [
+          "Saint Mary Madalen Bermondsey",
+          "Saint Mary Magdaelen Bermondsey",
+          "Saint Mary Magdalen Nermondsey",
+          "Saint Mary Magdalene Bermondsey"
+        ]
+      },
+      "Saint Saviours Southwark": {
+        "value": "Surrey",
+        "confidence": "HIGH",
+        "n_confirmations_total": 66
+      },
+      "Saint Olave Southwark": {
+        "value": "Surrey",
+        "confidence": "HIGH",
+        "n_confirmations_total": 8
+      },
+      "Saint Mary Magdalen Southwark": {
+        "value": "Surrey",
+        "confidence": "HIGH",
+        "n_confirmations_total": 8
+      },
+      "Zerrickzee": {
+        "value": "Zeeland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Barking": {
+        "value": "Essex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Saint Mary Matsellon alias Whitechapel": {
+        "value": "Middlesex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 76,
+        "variants_seen_in_solm": [
+          "Saint Mary Matsellon Whitechapel"
+        ]
+      },
+      "Saint Giles in the Fields": {
+        "value": "Middlesex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Saint Martins in the Fields": {
+        "value": "Middlesex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 9
+      },
+      "Precinct of Saint Catherines near the Tower of London": {
+        "value": "Middlesex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 7
+      },
+      "Saint Georges Southwark": {
+        "value": "Surrey",
+        "confidence": "HIGH",
+        "n_confirmations_total": 5
+      },
+      "Saint Dunstans near the city of Canterbury": {
+        "value": "Kent",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Saint Bottolph Billingsgate": {
+        "value": "London",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Hackney": {
+        "value": "Middlesex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 5
+      },
+      "Saint Clements Danes": {
+        "value": "Middlesex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Whitechapel": {
+        "value": "Middlesex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 10
+      },
+      "Saint Catherines Creechurch": {
+        "value": "London",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Saint Thomas Southwark": {
+        "value": "Surrey",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Saint Andrew Holborn": {
+        "value": "Middlesex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Wapping": {
+        "value": "Middlesex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Saint Magdalen Bermondsey": {
+        "value": "Surrey",
+        "confidence": "HIGH",
+        "n_confirmations_total": 5
+      },
+      "Saint Mary Magdalen": {
+        "value": "Surrey",
+        "confidence": "HIGH",
+        "n_confirmations_total": 5
+      },
+      "Whitechappel": {
+        "value": "Middlesex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Parish of Saint Stephens": {
+        "value": "Bristol",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Saint Andrew Holborne": {
+        "value": "Middlesex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Saint Saviours Southwarl": {
+        "value": "Surrey",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Saint Salvatoris Southwark": {
+        "value": "Surrey",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Stepney []": {
+        "value": "Middlesex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Saint Saviours": {
+        "value": "Surrey",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "East Smithfield": {
+        "value": "London",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Saint Mary Overy Southwark": {
+        "value": "Surrey",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Saint George Southwark": {
+        "value": "Surrey",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Saint Toolies Southwark": {
+        "value": "Surrey",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Saint Maria Matsellon alias Whitechapel": {
+        "value": "Middlesex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Saint Pauls Shadwell": {
+        "value": "Middlesex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 16
+      },
+      "Saint Paul Shadwell": {
+        "value": "Middlesex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 12
+      },
+      "Parish of Redriff": {
+        "value": "Surrey",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Saint Mary Matsellon alias Whitechappel": {
+        "value": "Middlesex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      }
+    },
+    "locality_to_county_or_province": {
+      "Leigh": {
+        "value": "Essex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 56
+      },
+      "Falmouth": {
+        "value": "Cornwall",
+        "confidence": "HIGH",
+        "n_confirmations_total": 11
+      },
+      "[?Lanran]": {
+        "value": "Britanny",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Weymouth Melcombe Regis": {
+        "value": "Dorset",
+        "confidence": "HIGH",
+        "n_confirmations_total": 52
+      },
+      "Yarmouth": {
+        "value": "Norfolk",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 59,
+        "alternative_values": {
+          "Isle of Wight": 5
+        }
+      },
+      "Rye": {
+        "value": "Sussex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 20
+      },
+      "Exeter": {
+        "value": "Devon",
+        "confidence": "HIGH",
+        "n_confirmations_total": 47
+      },
+      "Euchusen": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 39,
+        "alternative_values": {
+          "North Holland": 2,
+          "Hooland": 2
+        }
+      },
+      "Southampton": {
+        "value": "Southampton",
+        "confidence": "HIGH",
+        "n_confirmations_total": 68
+      },
+      "Plymouth": {
+        "value": "Devon",
+        "confidence": "HIGH",
+        "n_confirmations_total": 188
+      },
+      "Milton": {
+        "value": "Kent",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 17
+      },
+      "Saint John de Luz": {
+        "value": "Biscay",
+        "confidence": "HIGH",
+        "n_confirmations_total": 8
+      },
+      "Stettin": {
+        "value": "Pomerania",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Barking": {
+        "value": "Essex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 42
+      },
+      "Southwark": {
+        "value": "Surrey",
+        "confidence": "HIGH",
+        "n_confirmations_total": 712,
+        "alternative_values": {
+          "Middlesex": 5,
+          "Southwark": 2,
+          "Surret": 2
+        }
+      },
+      "Dartmouth": {
+        "value": "Devon",
+        "confidence": "HIGH",
+        "n_confirmations_total": 115
+      },
+      "Deptford": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 154
+      },
+      "Newcastle": {
+        "value": "Northumbria",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 90,
+        "alternative_values": {
+          "Northumberland": 5
+        }
+      },
+      "Hull": {
+        "value": "Yorkshire",
+        "confidence": "HIGH",
+        "n_confirmations_total": 59
+      },
+      "Ipswich": {
+        "value": "Suffolk",
+        "confidence": "HIGH",
+        "n_confirmations_total": 241,
+        "alternative_values": {
+          "Essex": 2
+        }
+      },
+      "Barnstaple": {
+        "value": "Devon",
+        "confidence": "HIGH",
+        "n_confirmations_total": 32
+      },
+      "Swansea": {
+        "value": "Glamorgan",
+        "confidence": "HIGH",
+        "n_confirmations_total": 10
+      },
+      "Harwich": {
+        "value": "Essex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 86
+      },
+      "Middleburg": {
+        "value": "Zeeland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 49
+      },
+      "Camphere": {
+        "value": "Zeeland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 6
+      },
+      "Bristol": {
+        "value": "Bristol",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 175,
+        "alternative_values": {
+          "Somerset": 13
+        }
+      },
+      "Harlem": {
+        "value": "Holland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Amsterdam": {
+        "value": "Holland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 207
+      },
+      "Lyme Regis": {
+        "value": "Dorset",
+        "confidence": "HIGH",
+        "n_confirmations_total": 26
+      },
+      "Woodbridge": {
+        "value": "Suffolk",
+        "confidence": "HIGH",
+        "n_confirmations_total": 18
+      },
+      "Rotterdam": {
+        "value": "Holland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 80
+      },
+      "Delft": {
+        "value": "Holland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Vlissingen": {
+        "value": "Zeeland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 180
+      },
+      "Truro": {
+        "value": "Cornwall",
+        "confidence": "HIGH",
+        "n_confirmations_total": 6
+      },
+      "Totnes": {
+        "value": "Devon",
+        "confidence": "HIGH",
+        "n_confirmations_total": 13
+      },
+      "Paynton": {
+        "value": "Devon",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Aldeburgh": {
+        "value": "Suffolk",
+        "confidence": "HIGH",
+        "n_confirmations_total": 72
+      },
+      "Aldburgh": {
+        "value": "Suffolk",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Foy": {
+        "value": "Cornwall",
+        "confidence": "HIGH",
+        "n_confirmations_total": 17
+      },
+      "Poole": {
+        "value": "Dorset",
+        "confidence": "HIGH",
+        "n_confirmations_total": 50
+      },
+      "Rainham": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 8
+      },
+      "Raynam": {
+        "value": "Kent",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Padstowe": {
+        "value": "Cornwall",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Arundell": {
+        "value": "Sussex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Scarborough": {
+        "value": "Yorkshire",
+        "confidence": "HIGH",
+        "n_confirmations_total": 26
+      },
+      "Rouen": {
+        "value": "Normandy",
+        "confidence": "HIGH",
+        "n_confirmations_total": 13
+      },
+      "Menekindam": {
+        "value": "Holland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "[?Lusewere]": {
+        "value": "Devon",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Dunwich": {
+        "value": "Suffolk",
+        "confidence": "HIGH",
+        "n_confirmations_total": 6
+      },
+      "[?Miniod]": {
+        "value": "Somerset",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Norwich": {
+        "value": "Norfolk",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Bruges": {
+        "value": "Flanders",
+        "confidence": "HIGH",
+        "n_confirmations_total": 22
+      },
+      "Colchester": {
+        "value": "Essex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 59
+      },
+      "Abbeville": {
+        "value": "Picardy",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Strood": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 14
+      },
+      "Chatham": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 17
+      },
+      "Sandwich": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 38
+      },
+      "Lambeth": {
+        "value": "Surrey",
+        "confidence": "HIGH",
+        "n_confirmations_total": 18
+      },
+      "Barnstable": {
+        "value": "Devon",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Saint Mallo": {
+        "value": "Britanny",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Dordrecht": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Wells": {
+        "value": "Norfolk",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Honfleurs": {
+        "value": "Normandy",
+        "confidence": "HIGH",
+        "n_confirmations_total": 9
+      },
+      "Gravesend": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 30
+      },
+      "Chichester": {
+        "value": "Sussex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 5
+      },
+      "Memlicke": {
+        "value": "Holland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 5
+      },
+      "Dover": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 199
+      },
+      "Lynn": {
+        "value": "Norfolk",
+        "confidence": "HIGH",
+        "n_confirmations_total": 14
+      },
+      "Brixam": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Roscoff": {
+        "value": "Brittany",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 10
+      },
+      "Medenblick": {
+        "value": "Holland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Edam": {
+        "value": "Holland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 10
+      },
+      "Woolwich": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 20
+      },
+      "King's Lynn": {
+        "value": "Norfolk",
+        "confidence": "HIGH",
+        "n_confirmations_total": 7
+      },
+      "Blakeney": {
+        "value": "Norfolk",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Lowestoft": {
+        "value": "Suffolk",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Nantes": {
+        "value": "Britanny",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 6
+      },
+      "Margate": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 12
+      },
+      "Saint-Malo": {
+        "value": "Britanny",
+        "confidence": "HIGH",
+        "n_confirmations_total": 41
+      },
+      "Weymouth Melcome Regis": {
+        "value": "Dorset",
+        "confidence": "HIGH",
+        "n_confirmations_total": 13
+      },
+      "[?Balronesley]": {
+        "value": "Southampton",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Conquett": {
+        "value": "Britanny",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Northam": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Kingston upon Hull": {
+        "value": "Yorkshire",
+        "confidence": "HIGH",
+        "n_confirmations_total": 40
+      },
+      "York": {
+        "value": "Yorkshire",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 12
+      },
+      "Emden": {
+        "value": "East Friezland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Kingescastell": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "[?Comeingetynney]": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Henley": {
+        "value": "Oxfordshire",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Maidstone": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 11
+      },
+      "Bideford": {
+        "value": "Devon",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Penryn": {
+        "value": "Cornwall",
+        "confidence": "HIGH",
+        "n_confirmations_total": 7
+      },
+      "Winthorpe": {
+        "value": "Lincolnshire",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Newhaven": {
+        "value": "Sussex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 14
+      },
+      "Rochester": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 39
+      },
+      "Hoorn": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 40,
+        "alternative_values": {
+          "North Holland": 3
+        }
+      },
+      "Gillingham": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 11
+      },
+      "Greenwich": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 79
+      },
+      "Halstow": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Egmont": {
+        "value": "Holland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Lime": {
+        "value": "Dorset",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Dunkirk": {
+        "value": "Flanders",
+        "confidence": "HIGH",
+        "n_confirmations_total": 59
+      },
+      "Hackney": {
+        "value": "Middlesex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 11
+      },
+      "Bowe": {
+        "value": "Middlesex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 5
+      },
+      "Burnt Island": {
+        "value": "Burnt Island",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Dort": {
+        "value": "Holland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 7
+      },
+      "Saint Johns": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Antwerp": {
+        "value": "Brabant",
+        "confidence": "HIGH",
+        "n_confirmations_total": 18
+      },
+      "Southwold": {
+        "value": "Suffolk",
+        "confidence": "HIGH",
+        "n_confirmations_total": 10
+      },
+      "Serricksee": {
+        "value": "Zeeland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Kingswear": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Dorchester": {
+        "value": "Dorset",
+        "confidence": "HIGH",
+        "n_confirmations_total": 14
+      },
+      "Hulbridge": {
+        "value": "Essex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Saint Tuses": {
+        "value": "Essex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 6
+      },
+      "Middleburgh": {
+        "value": "Zeeland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Brancaster": {
+        "value": "Norfolk",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "North Yarmouth": {
+        "value": "Norfolk",
+        "confidence": "HIGH",
+        "n_confirmations_total": 19
+      },
+      "Benfleet": {
+        "value": "Essex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Burnham-on-Crouch": {
+        "value": "Essex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "South [= Southampton]": {
+        "value": "Southampton",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Charmouth": {
+        "value": "Dorset",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Ostersey": {
+        "value": "Frisia",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Chester": {
+        "value": "Cheshire",
+        "confidence": "HIGH",
+        "n_confirmations_total": 8
+      },
+      "Saint Osithes": {
+        "value": "Essex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Milton near Gravesend": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 7
+      },
+      "Bexley": {
+        "value": "Kent",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Liverpool": {
+        "value": "Lancashire",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 19,
+        "alternative_values": {
+          "Lancaster": 2
+        }
+      },
+      "Longston": {
+        "value": "Southampton",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "?Woldeswicke": {
+        "value": "Suffolk",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Upchurch": {
+        "value": "Kent",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Aveley": {
+        "value": "Essex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Erith": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Stambridge parva": {
+        "value": "Essex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Studland": {
+        "value": "Dorset",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Lymne": {
+        "value": "Norfolk",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Ghent": {
+        "value": "Flanders",
+        "confidence": "HIGH",
+        "n_confirmations_total": 5
+      },
+      "Orford": {
+        "value": "Suffolk",
+        "confidence": "HIGH",
+        "n_confirmations_total": 5
+      },
+      "[?Lyingelyte]": {
+        "value": "Glamorgan",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "St Nicholas": {
+        "value": "Glamorgan",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Tregney": {
+        "value": "Cornwall",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Horne": {
+        "value": "Holland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 5
+      },
+      "Peryn [=?Penryn, Cornwall]": {
+        "value": "Cornwall",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Hastings": {
+        "value": "Sussex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 7
+      },
+      "Arundel": {
+        "value": "Sussex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Islington": {
+        "value": "Middlesex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 11
+      },
+      "Chepstowe": {
+        "value": "Monmouth",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Faversham": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 31
+      },
+      "Caen": {
+        "value": "Normandy",
+        "confidence": "HIGH",
+        "n_confirmations_total": 6
+      },
+      "Maker": {
+        "value": "Cornwall",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Linn": {
+        "value": "Norfolk",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Rowlerighte Magna": {
+        "value": "Oxfordshire",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Bermondsey": {
+        "value": "Surrey",
+        "confidence": "HIGH",
+        "n_confirmations_total": 9
+      },
+      "Stratford Bowe": {
+        "value": "Middlesex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Great Yarmouth": {
+        "value": "Norfolk",
+        "confidence": "HIGH",
+        "n_confirmations_total": 25
+      },
+      "Salcombe": {
+        "value": "Devon",
+        "confidence": "HIGH",
+        "n_confirmations_total": 6
+      },
+      "Hammersmith": {
+        "value": "Middlesex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 5
+      },
+      "Kenton": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Bredaugh": {
+        "value": "Brabant",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "West Chester": {
+        "value": "Cheshire",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Bramton": {
+        "value": "Suffolk",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Datmouth": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "[?Prumren]": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Deptford Strand": {
+        "value": "Kent",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Topsham": {
+        "value": "Devon",
+        "confidence": "HIGH",
+        "n_confirmations_total": 22
+      },
+      "Sawcott": {
+        "value": "Essex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Quinborough": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 6
+      },
+      "Danzig": {
+        "value": "Prussia",
+        "confidence": "HIGH",
+        "n_confirmations_total": 6
+      },
+      "Weymouth": {
+        "value": "Dorset",
+        "confidence": "HIGH",
+        "n_confirmations_total": 52
+      },
+      "Padstow": {
+        "value": "Cornwall",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Saint-Mallo": {
+        "value": "Britanny",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Serdam": {
+        "value": "Holland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 8
+      },
+      "Exmouth": {
+        "value": "Devon",
+        "confidence": "HIGH",
+        "n_confirmations_total": 8
+      },
+      "[?Yower]": {
+        "value": "Friesia",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Brighthelmston": {
+        "value": "Sussex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Dysart": {
+        "value": "Fife",
+        "confidence": "HIGH",
+        "n_confirmations_total": 8
+      },
+      "Minehead": {
+        "value": "Somerset",
+        "confidence": "HIGH",
+        "n_confirmations_total": 14
+      },
+      "Poyntafethra": {
+        "value": "Galicia",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Schedam": {
+        "value": "Holland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 5
+      },
+      "Lee": {
+        "value": "Essex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 14
+      },
+      "Cowes": {
+        "value": "Isle of Wight",
+        "confidence": "HIGH",
+        "n_confirmations_total": 9
+      },
+      "Lyme": {
+        "value": "Dorset",
+        "confidence": "HIGH",
+        "n_confirmations_total": 27
+      },
+      "Skedam": {
+        "value": "Holland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 9
+      },
+      "Maldon": {
+        "value": "Essex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Bridling": {
+        "value": "Yorkshire",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Saint-Malo's": {
+        "value": "Britanny",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Apsham": {
+        "value": "Devon",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Aldborough": {
+        "value": "Suffolk",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Isle of Purbecke": {
+        "value": "Dorset",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Lempster": {
+        "value": "Herefordshire",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Marlow": {
+        "value": "Buckinghamshire",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Wivenhoe": {
+        "value": "Essex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 16
+      },
+      "Seaton": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Deale": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Shoreham": {
+        "value": "Sussex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 11
+      },
+      "Saint John de Luce": {
+        "value": "Biscay",
+        "confidence": "HIGH",
+        "n_confirmations_total": 6
+      },
+      "Halstowe": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Malden": {
+        "value": "Essex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Isle of Thanet": {
+        "value": "Kent",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Southwrk": {
+        "value": "Surrey",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Selby": {
+        "value": "Yorkshire",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Clapham": {
+        "value": "Surrey",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Yampton": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Medemblik": {
+        "value": "Holland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 11
+      },
+      "West Cowes": {
+        "value": "Isle of Wight",
+        "confidence": "HIGH",
+        "n_confirmations_total": 8
+      },
+      "Newington": {
+        "value": "Surrey",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Canterbury": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 7
+      },
+      "Zierikzee": {
+        "value": "Zeeland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 12
+      },
+      "Gosport near Portsmouth": {
+        "value": "Hampshire []",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Kings Lynn": {
+        "value": "Norfolk",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Treveere": {
+        "value": "Zeeland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Siburu, near Saint John de Luce": {
+        "value": "Biscay",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Millbrook": {
+        "value": "Cornwall",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Fulham": {
+        "value": "Middlesex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Lewisham": {
+        "value": "Kent",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Limpson": {
+        "value": "Devon",
+        "confidence": "HIGH",
+        "n_confirmations_total": 5
+      },
+      "Narton": {
+        "value": "Suffolk",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Milbrook": {
+        "value": "Cornwall",
+        "confidence": "HIGH",
+        "n_confirmations_total": 13
+      },
+      "Brill": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "[?fflaringe] near Skedam": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Thursoe": {
+        "value": "Caithness",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Alvore": {
+        "value": "Algarves",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Deal": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 24
+      },
+      "Arundle": {
+        "value": "Sussex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Freshwater": {
+        "value": "Isle of Wight",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Burton near Weymouth": {
+        "value": "Dorset",
+        "confidence": "HIGH",
+        "n_confirmations_total": 5
+      },
+      "Kensington": {
+        "value": "Middlesex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Battersea": {
+        "value": "Surrey",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Legenbye": {
+        "value": "Yorkshire",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Much Wakeringe": {
+        "value": "Essex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Lismore": {
+        "value": "Waterford",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Grimsby": {
+        "value": "Lincolnshire",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Whitby": {
+        "value": "Yorkshire",
+        "confidence": "HIGH",
+        "n_confirmations_total": 35
+      },
+      "East Bourne": {
+        "value": "Sussex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Piddinghoe": {
+        "value": "Sussex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Abbotsbury": {
+        "value": "Dorset",
+        "confidence": "HIGH",
+        "n_confirmations_total": 5
+      },
+      "Wyke Regis near Weymouth": {
+        "value": "Dorset",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Middleborough": {
+        "value": "Zeeland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 8
+      },
+      "Vytgeest": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Edmonton": {
+        "value": "Middlesex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Salehurst": {
+        "value": "Sussex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Tagorman": {
+        "value": "Wexford",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Lydd in Romsey Marsh": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Pornell": {
+        "value": "Dorset",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Burlington": {
+        "value": "Yorkshire",
+        "confidence": "HIGH",
+        "n_confirmations_total": 9
+      },
+      "East Cowes": {
+        "value": "Isle of Wight",
+        "confidence": "HIGH",
+        "n_confirmations_total": 8
+      },
+      "Isle of Purbeck": {
+        "value": "Dorset",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Medenblicke": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Sydlesham": {
+        "value": "Sussex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "[?Dorchester]": {
+        "value": "Dorset",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Stoke Newington": {
+        "value": "Middlesex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Reading": {
+        "value": "Berkshire",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Lynn Regis": {
+        "value": "Norfolk",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "East Greenwich": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 15
+      },
+      "Atry Saint Mary [= Otrey St Mary]": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Saint Osith": {
+        "value": "Essex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Trevane": {
+        "value": "Carnarven",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Saint Mallos": {
+        "value": "Britanny",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Camberwell": {
+        "value": "Surrey",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "[?Cardone]": {
+        "value": "Cumbria",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Stow park": {
+        "value": "Suffolk",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Novo Castro [Newcastle]": {
+        "value": "Northumbria",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 6
+      },
+      "Shotby": {
+        "value": "Suffolk",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Margett [Margate]": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 5
+      },
+      "West Alvington": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Cromer": {
+        "value": "Norfolk",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Walton": {
+        "value": "Suffolk",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Hastell": {
+        "value": "Suffolk",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Beer": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "[?Salloghd]": {
+        "value": "Tipperary",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Kingston": {
+        "value": "Surrey",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Brighthelmstone": {
+        "value": "Sussex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Bramforde  - IS THIS BRENTFORD": {
+        "value": "Middlesex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Battlebridge [=?Battelsbridge, Essex]": {
+        "value": "[?Essex]",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Burton": {
+        "value": "Dorset",
+        "confidence": "HIGH",
+        "n_confirmations_total": 7
+      },
+      "Quinsborough": {
+        "value": "Kent",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Langton": {
+        "value": "Isle of Purbecke",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Micheldeaver": {
+        "value": "Southampton",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Littleham near Topsham": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Ashcombe": {
+        "value": "Devon",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Bridlington": {
+        "value": "Yorkshire",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Thursoe [or ffersoe]": {
+        "value": "Caithness",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Darmouth": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Flyland near Amsterdam": {
+        "value": "Holland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "North Shields near Newcastle": {
+        "value": "Northumbria",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Steakentenent": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Epping": {
+        "value": "Essex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Borrowstounness": {
+        "value": "[?Lynnothere]",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Thurleston": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Kingsbridge": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Portland": {
+        "value": "Dorset",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Sandford": {
+        "value": "Devon",
+        "confidence": "HIGH",
+        "n_confirmations_total": 5
+      },
+      "[?Ingerstowe]": {
+        "value": "Essex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Milbrooke near Plymouth": {
+        "value": "Devon",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Greate Torrington": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Near Barnstaple": {
+        "value": "Devon",
+        "confidence": "HIGH",
+        "n_confirmations_total": 7
+      },
+      "Northam within the bar of Barnstaple": {
+        "value": "Devon",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Brixam near Dartmouth": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "York River": {
+        "value": "Virginia",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Newcastle up[on Tyne": {
+        "value": "Northumbria",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Northam near Barnstaple": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Langerford": {
+        "value": "Suffolk",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Biddiford": {
+        "value": "Devon",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Ostend": {
+        "value": "Flanders",
+        "confidence": "HIGH",
+        "n_confirmations_total": 28
+      },
+      "Wembrie": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Sarum": {
+        "value": "Wiltshire",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Abbotsberrye [= Abbotsbury]": {
+        "value": "Dorset",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Rayly [or Raly]": {
+        "value": "Essex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Liverpoole": {
+        "value": "Lancashire",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Trevire": {
+        "value": "Zeeland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Monickendam": {
+        "value": "Holland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Wivenhoe near Colchester": {
+        "value": "Essex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Leaverdensi": {
+        "value": "West Friesland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Eastwell": {
+        "value": "Kent",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Brighthampson": {
+        "value": "Sussex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 6
+      },
+      "Bodham": {
+        "value": "Norfolk",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Huysden": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "[?Malloe]": {
+        "value": "Cork",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Highgate": {
+        "value": "Middlesex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Bow": {
+        "value": "Middlesex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Saint Peters": {
+        "value": "Barbados",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Camphire": {
+        "value": "Zeeland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Lyn": {
+        "value": "Norfolk",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "East Ham": {
+        "value": "Essex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Painton": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Easton in Cleveland": {
+        "value": "Yorkshire",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Stroude": {
+        "value": "Kent",
+        "confidence": "HIGH",
+        "n_confirmations_total": 7
+      },
+      "Bradstowe": {
+        "value": "Isle of Thanet, Kent",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Witham": {
+        "value": "Essex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Sheilds": {
+        "value": "Bishoprick of Durham",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Boulogne": {
+        "value": "Picardy",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Saint John De Luce, Biscay": {
+        "value": "Biscay",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Ackersloten": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Twickenham": {
+        "value": "Middlesex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Alkmar": {
+        "value": "Holland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Brixworth": {
+        "value": "Northamptonshire",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Tervier": {
+        "value": "Zeeland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Enchusen": {
+        "value": "Holland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 6
+      },
+      "Marseilles": {
+        "value": "Provence",
+        "confidence": "HIGH",
+        "n_confirmations_total": 5
+      },
+      "Spanbrooke": {
+        "value": "North Holland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Skadam": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Wincanton": {
+        "value": "Somerset",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Schelling [Der Schelling]": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Hooghe Carspet": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "The Gracht": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Texel": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Pomeran": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Lisle": {
+        "value": "Flanders",
+        "confidence": "HIGH",
+        "n_confirmations_total": 7
+      },
+      "Fladern": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Saint Mary": {
+        "value": "Jersey",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Hamburg": {
+        "value": "Hamburg",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Linne": {
+        "value": "Norfolk",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Charlestown": {
+        "value": "New England",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Schagen": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Pumerand or Pumarent near Amsterdam": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Ackersloat": {
+        "value": "Holland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Newendam": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Burton near Bredport": {
+        "value": "Dorset",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Saint Ives": {
+        "value": "Cornwall",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Pilton": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Schelling-Wouwe near Amsterdam": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Burringham": {
+        "value": "Lincolnshire",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Favesham": {
+        "value": "Kent",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Saint Malo": {
+        "value": "Britanny",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Shipton": {
+        "value": "Dorset",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Dergoose": {
+        "value": "Zeeland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Birdport": {
+        "value": "Dorset",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Marton": {
+        "value": "Yorkshire",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Lisrad [=  poss. modern \"Lizard\"]": {
+        "value": "Cornwall",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Billerica": {
+        "value": "Essex",
+        "confidence": "HIGH",
+        "n_confirmations_total": 6
+      },
+      "Middlesburg": {
+        "value": "Zeeland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Sunnage [= modern \"Swanage\"]": {
+        "value": "Dorset",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Reconverance near Brest": {
+        "value": "Brittany",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Melon near Brest": {
+        "value": "Britanny",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Ile of Moulin near Brest": {
+        "value": "Britanny",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Cameret near Brest": {
+        "value": "Britanny",
+        "confidence": "HIGH",
+        "n_confirmations_total": 4
+      },
+      "Morlieu": {
+        "value": "Britanny",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Hulstenland": {
+        "value": "Germany",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Bright Hampson [= Brighton]": {
+        "value": "Sussex",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Schernmer Horne [near Amsterdam]": {
+        "value": "Holland",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "North Cray": {
+        "value": "Kent",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Strowde": {
+        "value": "Kent",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Acton near Ipswich": {
+        "value": "Suffolk",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Waborne near Clay": {
+        "value": "Norfolk",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Isle of Wight": {
+        "value": "Southampton",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Penzance": {
+        "value": "Cornwall",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Dieppe": {
+        "value": "Normandy",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Cartagena": {
+        "value": "Spanish West Indies",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Doram": {
+        "value": "Friesland",
+        "confidence": "HIGH",
+        "n_confirmations_total": 3
+      },
+      "Bilbao": {
+        "value": "Biscay",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Kenton near Exeter": {
+        "value": "Devon",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Kingston upon Thames": {
+        "value": "Surrey",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      },
+      "Surynam": {
+        "value": "Guiana",
+        "confidence": "MEDIUM",
+        "n_confirmations_total": 2
+      }
+    },
+    "province_to_country": {
+      "Holland": {
+        "value": "United Provinces",
+        "confidence": "HIGH",
+        "note": "Province of the United Provinces of the Netherlands, 1581–1795. North/South Holland split came in 1840."
+      },
+      "North Holland": {
+        "value": "United Provinces",
+        "confidence": "HIGH",
+        "note": "Anachronistic for C17th — North/South Holland split came in 1840 — but appears in SOLM as a recording convention. Treat as Holland."
+      },
+      "Zeeland": {
+        "value": "United Provinces",
+        "confidence": "HIGH",
+        "note": "Province of the United Provinces of the Netherlands."
+      },
+      "Friesland": {
+        "value": "United Provinces",
+        "confidence": "HIGH",
+        "note": "Province of the United Provinces of the Netherlands. SOLM spelling variants: Friezland, Friesia, West Friesland."
+      },
+      "Friezland": {
+        "value": "United Provinces",
+        "confidence": "HIGH",
+        "spelling_variant_of": "Friesland"
+      },
+      "Friesia": {
+        "value": "United Provinces",
+        "confidence": "HIGH",
+        "spelling_variant_of": "Friesland"
+      },
+      "West Friesland": {
+        "value": "United Provinces",
+        "confidence": "HIGH",
+        "note": "Region of the province of Holland (NW area), not a separate province. SOLM treats it as a region label."
+      },
+      "Utrecht": {
+        "value": "United Provinces",
+        "confidence": "HIGH",
+        "note": "Province of the United Provinces — not yet observed in SOLM but added for completeness."
+      },
+      "Gelderland": {
+        "value": "United Provinces",
+        "confidence": "HIGH",
+        "note": "Province of the United Provinces — not yet observed in SOLM but added for completeness."
+      },
+      "Overijssel": {
+        "value": "United Provinces",
+        "confidence": "HIGH",
+        "note": "Province of the United Provinces — not yet observed in SOLM but added for completeness."
+      },
+      "Groningen": {
+        "value": "United Provinces",
+        "confidence": "HIGH",
+        "note": "Province of the United Provinces — not yet observed in SOLM but added for completeness."
+      },
+      "Flanders": {
+        "value": "Spanish Netherlands",
+        "confidence": "HIGH",
+        "note": "Spanish Netherlands until 1714; under Habsburg Spanish rule during HCA 13/71 period (1655)."
+      },
+      "Brabant": {
+        "value": "Spanish Netherlands",
+        "confidence": "HIGH"
+      },
+      "Britanny": {
+        "value": "France",
+        "confidence": "HIGH",
+        "spelling_variant_of": "Brittany"
+      },
+      "Brittany": {
+        "value": "France",
+        "confidence": "HIGH"
+      },
+      "Normandy": {
+        "value": "France",
+        "confidence": "HIGH"
+      },
+      "Picardy": {
+        "value": "France",
+        "confidence": "HIGH"
+      },
+      "Provence": {
+        "value": "France",
+        "confidence": "HIGH"
+      },
+      "Wesffalia": {
+        "value": "Holy Roman Empire",
+        "confidence": "MEDIUM",
+        "spelling_variant_of": "Westphalia",
+        "note": "Region within the HRE. SOLM rarely populates with single-confirmation Lubeck mapping which is incorrect (Lubeck was a Free Hanseatic City)."
+      },
+      "Westphalia": {
+        "value": "Holy Roman Empire",
+        "confidence": "MEDIUM"
+      },
+      "Hamburg": {
+        "value": "Holy Roman Empire (Free Hanseatic City)",
+        "confidence": "HIGH",
+        "note": "Free Imperial City within the HRE; effectively self-governing."
+      },
+      "Biscay": {
+        "value": "Spain",
+        "confidence": "MEDIUM",
+        "note": "Bay of Biscay region; can refer to Basque coast (Spain) or Bay of Biscay (France)."
+      },
+      "Prussia": {
+        "value": "Holy Roman Empire",
+        "confidence": "MEDIUM",
+        "note": "Duchy of Prussia within the HRE during this period."
+      },
+      "Virginia": {
+        "value": "England (colony)",
+        "confidence": "HIGH",
+        "note": "English colony in North America."
+      }
+    },
+    "county_to_country": {
+      "_note": "For English/Welsh/Scottish counties, refer to the existing historic-counties.json reference file. Country attributions for those counties are authoritative there. This section does NOT duplicate that lookup."
+    }
+  },
+  "data_quality_notes_about_solm": [
+    "SOLM uses 'Northumbria' (n=90) far more often than 'Northumberland' (n=5) for the county. Both refer to the same English county; 'Northumbria' is SOLM's preferred form despite being historically anachronistic (Northumbria was a pre-Conquest kingdom, not a county). Treat as Northumberland.",
+    "SOLM uses 'Southampton' as both locality (the city) and county (the historical name for Hampshire). For LJ='Southampton', the meaning is 'County of Southampton' = Hampshire. Disambiguate by context.",
+    "SOLM has 'London' as an LJ value (n=10) for some entries. This is anomalous — London was never a county in the conventional sense (it was a city/Liberty/county-corporate). Treat as a special case rather than a county.",
+    "Several spelling variants of 'Ratcliffe' appear (Ratcliff, Radcliffe, Rattcliffe, Ratclife). All should canonicalise to Ratcliffe.",
+    "Several spelling variants of 'Magdalen' appear (Magdalene, Madalen, Magdaelen). All should canonicalise to Magdalen.",
+    "'Saint Mary Matsellon' is SOLM's spelling for 'Saint Mary Matfelon (alias Whitechapel)'. The 'tsell' for 'tfel' is a SOLM transcription variant.",
+    "SOLM occasionally records 'Surrey CHECK' or 'Stepney CHECK' indicating editor uncertainty about the value. These are excluded from imputation rules in this file but preserved as variants where relevant."
+  ],
+  "outliers_flagged": [
+    {
+      "case": "Lubeck → Wesffalia (n=1 in SOLM)",
+      "concern": "Lubeck was a Free Hanseatic City, not part of Westphalia. Single-confirmation mapping treated as outlier; correct attribution is Free Hanseatic City within HRE.",
+      "resolution": "Excluded from imputation; flagged here for awareness."
+    },
+    {
+      "case": "Stockdon (Stockton) → Bishoprick of Durham (n=1)",
+      "concern": "Single confirmation. Bishoprick of Durham is the historical name for County Durham. Likely correct but excluded from rules due to insufficient confirmations.",
+      "resolution": "Add to rules if multiple confirmations accumulate from future runs."
+    }
+  ],
+  "version_history": [
+    {
+      "version": "1.0",
+      "date": "2026-04-26",
+      "context": "First formalisation as a JSON reference file. Built from SOLM 23,286 place-records. Includes hamlet_to_parish (focused on Stepney/Southwark areas), parish_to_county (29+ HIGH-confidence parishes), locality_to_county_or_province (~200 HIGH-confidence localities incl. major foreign cities), and a hand-curated province_to_country layer informed by Colin's domain expertise."
+    }
+  ],
+  "next_steps_when_promoted_to_skill": [
+    "Move file to .claude/skills/hca-deposition-segmenter/references/place-imputation.json (no version in filename, per skill reference convention).",
+    "Update SKILL.md Section 3 (Prerequisites) and Section 11 (Reference Files) to cite place-imputation.json.",
+    "Add a Phase 1.6 step (after case-overview generation) prescribing imputation enrichment using this file. Output goes to a new enriched_<filename>.json.",
+    "Define enrichment output schema: imputed_parish, imputed_county, imputed_province, imputed_country fields in place_components, plus imputation_confidence and imputation_source fields per imputed value.",
+    "Track vocabulary growth: each substantive update bumps the in-file version. Record new rules in version_history with their basis (additional SOLM rows processed, manual curation, etc.)."
+  ]
+}

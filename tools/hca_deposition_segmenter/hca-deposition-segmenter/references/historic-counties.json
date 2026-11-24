@@ -1,0 +1,473 @@
+{
+  "description": "Controlled vocabulary of pre-1832 historic counties of England, Wales, and Scotland. Used by the HCA knowledge graph ingestor to infer country from county when creating place hierarchy edges. The segmenter extracts county from explicit textual cues; the ingestor uses this file to look up the country.",
+  "source": "Historic Counties Standard (pre-1832 boundaries). England: 39 counties. Wales: 12 counties (from Laws in Wales Acts, 1535 and 1543). Monmouthshire: 1 (sui generis — ambiguous English/Welsh status). Scotland: 34 counties (pre-1889; Ross-shire and Cromartyshire listed separately, as they were distinct counties in the early modern period before being merged into Ross and Cromarty).",
+  "last_updated": "2026-04-26",
+  "version": "1.1",
+  "version_history": [
+    {"version": "1.0", "date": "2026-04-23", "context": "Initial creation."},
+    {"version": "1.1", "date": "2026-04-26", "context": "Repaired truncated non_county_jurisdictions section. Added Guernsey, Sark, Alderney (Bailiwick of Guernsey) and Isle of Man. Verified counts against web sources for England (39), Wales (12), Scotland (34 pre-1889), Monmouthshire (1 sui generis)."}
+  ],
+  "usage": "Match the county extracted by the segmenter's place_components.county field against the normalised_name (case-insensitive). If matched, the country field provides the deterministic country value for the ingestor to use when creating within edges. The variants array lists spelling forms observed in HCA deposition front matter — this will grow as more volumes are processed. If a county string does not match any entry (including variants), flag for human review rather than guessing.",
+  "notes": "WORK IN PROGRESS. Spelling variants are drawn from HCA 13/71 only. As additional volumes are processed, new variants should be added. The list covers England, Wales, and Scotland. Irish counties are out of scope for now (Irish deponents may appear but are rare in the HCA 13 series). Channel Islands (Jersey, Guernsey, Sark, Alderney) and the Isle of Man are not counties but may appear in HCA depositions — they are listed separately at the end as non_county_jurisdictions.",
+  "counties": [
+    {
+      "normalised_name": "Bedfordshire",
+      "country": "England",
+      "variants": []
+    },
+    {
+      "normalised_name": "Berkshire",
+      "country": "England",
+      "variants": ["Barkshire", "Barkes"]
+    },
+    {
+      "normalised_name": "Buckinghamshire",
+      "country": "England",
+      "variants": ["Buckinghameshire"]
+    },
+    {
+      "normalised_name": "Cambridgeshire",
+      "country": "England",
+      "variants": ["Cambridgshire"]
+    },
+    {
+      "normalised_name": "Cheshire",
+      "country": "England",
+      "variants": ["Chester"]
+    },
+    {
+      "normalised_name": "Cornwall",
+      "country": "England",
+      "variants": ["Cornwaile", "Cornwale"]
+    },
+    {
+      "normalised_name": "Cumberland",
+      "country": "England",
+      "variants": []
+    },
+    {
+      "normalised_name": "Derbyshire",
+      "country": "England",
+      "variants": ["Darbishire", "Darbyshire"]
+    },
+    {
+      "normalised_name": "Devon",
+      "country": "England",
+      "variants": ["Devonshire", "Devoneshire"]
+    },
+    {
+      "normalised_name": "Dorset",
+      "country": "England",
+      "variants": ["Dorsetshire"]
+    },
+    {
+      "normalised_name": "Durham",
+      "country": "England",
+      "variants": ["Durisme"]
+    },
+    {
+      "normalised_name": "Essex",
+      "country": "England",
+      "variants": []
+    },
+    {
+      "normalised_name": "Gloucestershire",
+      "country": "England",
+      "variants": ["Glocestershire", "Glocestershire"]
+    },
+    {
+      "normalised_name": "Hampshire",
+      "country": "England",
+      "variants": ["Hantshire", "Southamptonshire"]
+    },
+    {
+      "normalised_name": "Herefordshire",
+      "country": "England",
+      "variants": ["Herfordshire"]
+    },
+    {
+      "normalised_name": "Hertfordshire",
+      "country": "England",
+      "variants": ["Hartfordshire"]
+    },
+    {
+      "normalised_name": "Huntingdonshire",
+      "country": "England",
+      "variants": []
+    },
+    {
+      "normalised_name": "Kent",
+      "country": "England",
+      "variants": ["kent"]
+    },
+    {
+      "normalised_name": "Lancashire",
+      "country": "England",
+      "variants": ["Lancastershire", "Lancastershire"]
+    },
+    {
+      "normalised_name": "Leicestershire",
+      "country": "England",
+      "variants": ["Leistershire"]
+    },
+    {
+      "normalised_name": "Lincolnshire",
+      "country": "England",
+      "variants": ["Lincolneshire"]
+    },
+    {
+      "normalised_name": "Middlesex",
+      "country": "England",
+      "variants": ["Midd", "Middx"]
+    },
+    {
+      "normalised_name": "Norfolk",
+      "country": "England",
+      "variants": ["Norfolke"]
+    },
+    {
+      "normalised_name": "Northamptonshire",
+      "country": "England",
+      "variants": ["Northamptoneshire"]
+    },
+    {
+      "normalised_name": "Northumberland",
+      "country": "England",
+      "variants": []
+    },
+    {
+      "normalised_name": "Nottinghamshire",
+      "country": "England",
+      "variants": ["Nottinghameshire"]
+    },
+    {
+      "normalised_name": "Oxfordshire",
+      "country": "England",
+      "variants": ["Oxonshire"]
+    },
+    {
+      "normalised_name": "Rutland",
+      "country": "England",
+      "variants": []
+    },
+    {
+      "normalised_name": "Shropshire",
+      "country": "England",
+      "variants": ["Salop", "Salopshire"]
+    },
+    {
+      "normalised_name": "Somerset",
+      "country": "England",
+      "variants": ["Somersetshire"]
+    },
+    {
+      "normalised_name": "Staffordshire",
+      "country": "England",
+      "variants": ["Staffordeshire"]
+    },
+    {
+      "normalised_name": "Suffolk",
+      "country": "England",
+      "variants": ["Suffolke"]
+    },
+    {
+      "normalised_name": "Surrey",
+      "country": "England",
+      "variants": ["Surry", "Surrie"]
+    },
+    {
+      "normalised_name": "Sussex",
+      "country": "England",
+      "variants": []
+    },
+    {
+      "normalised_name": "Warwickshire",
+      "country": "England",
+      "variants": ["Warwickeshire"]
+    },
+    {
+      "normalised_name": "Westmorland",
+      "country": "England",
+      "variants": ["Westmerland"]
+    },
+    {
+      "normalised_name": "Wiltshire",
+      "country": "England",
+      "variants": ["Wiltesheire"]
+    },
+    {
+      "normalised_name": "Worcestershire",
+      "country": "England",
+      "variants": ["Worstershire", "Worcetershire"]
+    },
+    {
+      "normalised_name": "Yorkshire",
+      "country": "England",
+      "variants": ["Yorkeshire"]
+    },
+    {
+      "normalised_name": "Anglesey",
+      "country": "Wales",
+      "variants": []
+    },
+    {
+      "normalised_name": "Brecknockshire",
+      "country": "Wales",
+      "variants": ["Breconshire"]
+    },
+    {
+      "normalised_name": "Caernarvonshire",
+      "country": "Wales",
+      "variants": ["Carnarvonshire"]
+    },
+    {
+      "normalised_name": "Cardiganshire",
+      "country": "Wales",
+      "variants": []
+    },
+    {
+      "normalised_name": "Carmarthenshire",
+      "country": "Wales",
+      "variants": []
+    },
+    {
+      "normalised_name": "Denbighshire",
+      "country": "Wales",
+      "variants": []
+    },
+    {
+      "normalised_name": "Flintshire",
+      "country": "Wales",
+      "variants": []
+    },
+    {
+      "normalised_name": "Glamorgan",
+      "country": "Wales",
+      "variants": ["Glamorganshire"]
+    },
+    {
+      "normalised_name": "Merionethshire",
+      "country": "Wales",
+      "variants": ["Merioneth"]
+    },
+    {
+      "normalised_name": "Montgomeryshire",
+      "country": "Wales",
+      "variants": []
+    },
+    {
+      "normalised_name": "Pembrokeshire",
+      "country": "Wales",
+      "variants": []
+    },
+    {
+      "normalised_name": "Radnorshire",
+      "country": "Wales",
+      "variants": []
+    },
+    {
+      "normalised_name": "Monmouthshire",
+      "country": "Monmouthshire",
+      "notes": "Sui generis. Monmouthshire's status was genuinely ambiguous in the early modern period — sometimes treated as English, sometimes Welsh, following the Laws in Wales Acts. Assigned its own country value rather than forcing it into either category.",
+      "variants": []
+    },
+    {
+      "normalised_name": "Aberdeenshire",
+      "country": "Scotland",
+      "variants": []
+    },
+    {
+      "normalised_name": "Angus",
+      "country": "Scotland",
+      "variants": ["Forfarshire"]
+    },
+    {
+      "normalised_name": "Argyll",
+      "country": "Scotland",
+      "variants": ["Argyllshire", "Argyle"]
+    },
+    {
+      "normalised_name": "Ayrshire",
+      "country": "Scotland",
+      "variants": []
+    },
+    {
+      "normalised_name": "Banffshire",
+      "country": "Scotland",
+      "variants": []
+    },
+    {
+      "normalised_name": "Berwickshire",
+      "country": "Scotland",
+      "variants": []
+    },
+    {
+      "normalised_name": "Bute",
+      "country": "Scotland",
+      "variants": ["Buteshire"]
+    },
+    {
+      "normalised_name": "Caithness",
+      "country": "Scotland",
+      "variants": ["Cathenesse"]
+    },
+    {
+      "normalised_name": "Clackmannanshire",
+      "country": "Scotland",
+      "variants": []
+    },
+    {
+      "normalised_name": "Cromartyshire",
+      "country": "Scotland",
+      "variants": []
+    },
+    {
+      "normalised_name": "Dumfriesshire",
+      "country": "Scotland",
+      "variants": ["Dumfries"]
+    },
+    {
+      "normalised_name": "Dunbartonshire",
+      "country": "Scotland",
+      "variants": ["Dumbartonshire"]
+    },
+    {
+      "normalised_name": "East Lothian",
+      "country": "Scotland",
+      "variants": ["Haddingtonshire"]
+    },
+    {
+      "normalised_name": "Fife",
+      "country": "Scotland",
+      "variants": ["Fifeshire"]
+    },
+    {
+      "normalised_name": "Inverness-shire",
+      "country": "Scotland",
+      "variants": ["Invernessshire"]
+    },
+    {
+      "normalised_name": "Kincardineshire",
+      "country": "Scotland",
+      "variants": ["The Mearns"]
+    },
+    {
+      "normalised_name": "Kinross-shire",
+      "country": "Scotland",
+      "variants": []
+    },
+    {
+      "normalised_name": "Kirkcudbrightshire",
+      "country": "Scotland",
+      "variants": []
+    },
+    {
+      "normalised_name": "Lanarkshire",
+      "country": "Scotland",
+      "variants": []
+    },
+    {
+      "normalised_name": "Midlothian",
+      "country": "Scotland",
+      "variants": ["Edinburghshire"]
+    },
+    {
+      "normalised_name": "Moray",
+      "country": "Scotland",
+      "variants": ["Elginshire"]
+    },
+    {
+      "normalised_name": "Nairnshire",
+      "country": "Scotland",
+      "variants": []
+    },
+    {
+      "normalised_name": "Orkney",
+      "country": "Scotland",
+      "variants": []
+    },
+    {
+      "normalised_name": "Peeblesshire",
+      "country": "Scotland",
+      "variants": ["Tweeddale"]
+    },
+    {
+      "normalised_name": "Perthshire",
+      "country": "Scotland",
+      "variants": []
+    },
+    {
+      "normalised_name": "Renfrewshire",
+      "country": "Scotland",
+      "variants": []
+    },
+    {
+      "normalised_name": "Ross-shire",
+      "country": "Scotland",
+      "variants": []
+    },
+    {
+      "normalised_name": "Roxburghshire",
+      "country": "Scotland",
+      "variants": []
+    },
+    {
+      "normalised_name": "Selkirkshire",
+      "country": "Scotland",
+      "variants": ["Ettrick Forest"]
+    },
+    {
+      "normalised_name": "Shetland",
+      "country": "Scotland",
+      "variants": ["Zetland"]
+    },
+    {
+      "normalised_name": "Stirlingshire",
+      "country": "Scotland",
+      "variants": []
+    },
+    {
+      "normalised_name": "Sutherland",
+      "country": "Scotland",
+      "variants": []
+    },
+    {
+      "normalised_name": "West Lothian",
+      "country": "Scotland",
+      "variants": ["Linlithgowshire"]
+    },
+    {
+      "normalised_name": "Wigtownshire",
+      "country": "Scotland",
+      "variants": []
+    }
+  ],
+  "non_county_jurisdictions": [
+    {
+      "normalised_name": "Jersey",
+      "country": "Channel Islands",
+      "notes": "Not a county. Crown Dependency. May appear in HCA depositions as a place of residence or port of origin."
+    },
+    {
+      "normalised_name": "Guernsey",
+      "country": "Channel Islands",
+      "notes": "Not a county. Crown Dependency. The Bailiwick of Guernsey comprises Guernsey, Alderney, and Sark, plus smaller islands (Herm, Jethou, Lihou, Brecqhou). May appear in HCA depositions as a place of residence or port of origin."
+    },
+    {
+      "normalised_name": "Sark",
+      "country": "Channel Islands",
+      "notes": "Not a county. Within the Bailiwick of Guernsey but with its own legislature (the Chief Pleas). Includes the nearby island of Brecqhou."
+    },
+    {
+      "normalised_name": "Alderney",
+      "country": "Channel Islands",
+      "notes": "Not a county. Within the Bailiwick of Guernsey but with its own legislature (the States of Alderney)."
+    },
+    {
+      "normalised_name": "Isle of Man",
+      "country": "Crown Dependency",
+      "notes": "Not a county. Crown Dependency, distinct from the Channel Islands. Has its own parliament (Tynwald) and legal system. May appear in HCA depositions; common Manx surnames include those beginning with 'Q' (Quayle, Quirk, etc.) or with the prefix 'Mac-' or 'C-'.",
+      "variants": ["Man", "Mann", "Isle Man"]
+    }
+  ]
+}
