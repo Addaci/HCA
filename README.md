@@ -14,6 +14,8 @@ MarineLives is a volunteer collaboration launched in 2012. Its transcriptions ar
 
 **Tools.** `tools/htr_eval/` holds `htr_eval.py` and its README, added on 16 November 2026. The script measures machine transcription against ground truth that the model was not trained on. It reports characters and words wrong per hundred, which letters are misread as which, and every wrong word. For each person, ship, place, date and quantity it says whether exact or fuzzy search would still find it. It needs Python 3 and nothing else. It was written for a pilot on HCA 13/65 ahead of the CRASH hackathon in Graz (30 November to 1 December 2026). Its output follows the format of the Hugging Face dataset [MarineLives/HCA-1358-HTR-Errors-In-Phrases](https://huggingface.co/datasets/MarineLives/HCA-1358-HTR-Errors-In-Phrases) (2024), so the two can be compared.
 
+`tools/hca_deposition_segmenter/` holds the hca-deposition-segmenter Claude skill, v1.4 (26 April 2026), and its README, added on 24 November 2026. It is a set of written instructions and reference lists for Claude, not a program: it splits a volume file from this repository into individual depositions and records deponent, date, case and place, with a check by the historian before anything is marked up. It was tested on HCA 13/71, ff.1r to 149v. Two of its reference files are derived from the SOLM-2025 database (Signs of Literacy in Manuscripts) as aggregate patterns, not records.
+
 ## Reading the text
 
 Spelling, capitalisation and abbreviation are the scribes' own, not errors to be corrected: in HCA 13/71, for example, about seven words in ten are in a spelling that is not the modern one. In the edited volumes some common abbreviations have been expanded ("videlicet", "the"); in the raw HCA 13/125 file they stand as written ("vizt", "ye"), with `[?]` after a doubtful word and `[illegible]` for an unread stretch.
@@ -53,3 +55,5 @@ Questions, corrections and requests for page images: on application to Colin Gre
 *README version 2.1, 16 November 2026: adds the Tools paragraph. Drafted by Claude in Claude Code for Colin Greenstreet.*
 
 *README version 2.2, 20 November 2026: adds the Licence section and the `LICENSE` file (CC BY 4.0; MIT for the code in `tools/`), how to cite MarineLives, and `CITATION.cff`, at Colin Greenstreet's instruction. Drafted by Claude in Claude Code.*
+
+*README version 2.3, 24 November 2026: adds the deposition segmenter to Tools, and its MIT licence file (Colin Greenstreet's choice). Drafted by Claude Opus 5.5 in Claude Code.*

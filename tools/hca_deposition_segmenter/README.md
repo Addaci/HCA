@@ -2,7 +2,7 @@
 
 A Claude skill that splits a volume of High Court of Admiralty depositions (HCA 13) into its individual depositions, and records who gave each one, when, in which case, and where the deponent lived.
 
-**Version:** 1.4, 26 April 2026 · **Status:** in production use, reviewed by the historian over three runs on HCA 13/71 (ff.1r to 149v) · **Author:** Colin Greenstreet, with Claude
+**Version:** 1.4, 26 April 2026 · **Status:** in production use, reviewed by the historian over three runs on HCA 13/71 (ff.1r to 149v) · **Author:** Colin Greenstreet, with Claude · **Licence:** MIT (see `LICENSE`)
 
 ## Contents
 
